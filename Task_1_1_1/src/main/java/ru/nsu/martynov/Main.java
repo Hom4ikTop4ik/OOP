@@ -6,7 +6,6 @@ public class Main {
 
     public static int[] heapSort(int[] arr, boolean reverse) {
         int n = arr.length;
-        printArray(arr);
         int[] brr = new int[n];
 
         // copy array
@@ -19,14 +18,12 @@ public class Main {
         for (int i = n-1; i >= 0; i--) {
             siftDown(brr, i, n, reverse);
         }
-        printArray(brr);
 
         for (int i = n - 1; i >= 0; i--) {
             swap(brr, 0, i, n);
             siftDown(brr, 0, i, reverse); // do sift with brr[0], brr[i] is last elem in heap.
         }
 
-        printArray(brr);
         return brr;
     }
 
@@ -40,12 +37,14 @@ public class Main {
             // min in UP (in last steps min in END)
             if (arr[i] < arr[parent]) {
                 swap(arr, parent, i, n);
+                siftUp(arr, parent, n, reverse);
             }
         }
         else {
             // max in UP
             if (arr[i] > arr[parent]) {
                 swap(arr, parent, i, n);
+                siftUp(arr, parent, n, reverse);
             }
         }
     }
@@ -73,6 +72,7 @@ public class Main {
             // min in UP
             if (arr[smallest] < arr[i]) {
                 swap(arr, i, smallest, n);
+                siftDown(arr, smallest, n, reverse);
             }
         }
         else {
@@ -90,6 +90,7 @@ public class Main {
             // max in UP
             if (arr[biggest] > arr[i]) {
                 swap(arr, i, biggest, n);
+                siftDown(arr, biggest, n, reverse);
             }
         }
     }

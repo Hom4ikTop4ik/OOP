@@ -53,18 +53,27 @@ class MainTest {
         testArrays[4] = new int[0]; // Empty array
         testArrays[5] = new int[]{5, 5, 5, 5, 5, 5, 5, 5, 5}; // All elems are same
         testArrays[6] = new int[]{100, 20, -5, 200, 0, 50}; // Negatives and positives values.
-        testArrays[7] = randomArray(1, -1000, 1000); // Random array of length 10
-        testArrays[8] = randomArray(10, -1000, 1000); // Random array of length 1000
-        testArrays[9] = randomArray(10*10, -1000, 1000); // Random array of length 1kk
+        testArrays[7] = randomArray(10, -1000, 1000); // Random array of length 10
+        testArrays[8] = randomArray(1000, -1000, 1000); // Random array of length 1000
+        testArrays[9] = randomArray(1000*1000, -1000, 1000); // Random array of length 1kk
 
         for (int i = 0; i < testArrays.length; i++) {
-            int[] tmp = Main.heapSort(testArrays[i], false);
-            Main.printArray(tmp);
+            int[] tmp = testArrays[i];
+
+            // System.out.print("Unsort Array: ");
+            // Main.printArray(tmp);
+
+            tmp = Main.heapSort(testArrays[i], false);
+            // System.out.print("Sorted Array: ");
+            // Main.printArray(tmp);
             assertTrue(arrayIsSort(tmp, false));
 
             tmp = Main.heapSort(testArrays[i], true);
-            Main.printArray(tmp);
+            // System.out.print("SorRev Array: ");
+            // Main.printArray(tmp);
             assertTrue(arrayIsSort(tmp, true));
+
+            // System.out.println("");
         }
     }
 }
