@@ -11,7 +11,7 @@ public class Main {
             brr[i] = arr[i];
         }
 
-        // Do sorted heap.
+        // Sort heap.
         for (int i = n-1; i >= 0; i--) {
             siftDown(brr, i, n, reverse);
         }
