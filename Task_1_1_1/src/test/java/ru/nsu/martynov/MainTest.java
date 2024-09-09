@@ -12,7 +12,8 @@ class MainTest {
         Random rand = new Random();
         int[] array = new int[size];
         for (int i = 0; i < size; i++) {
-            array[i] = rand.nextInt(to - from) + from; // random number in [from, to)
+            // Random number in [from, to)
+            array[i] = rand.nextInt(to - from) + from;
         }
         return array;
     }

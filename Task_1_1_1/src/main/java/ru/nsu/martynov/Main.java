@@ -1,27 +1,24 @@
 package ru.nsu.martynov;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
     public static int[] heapSort(int[] arr, boolean reverse) {
         int n = arr.length;
         int[] brr = new int[n];
 
-        // copy array
+        // Copy array
         for (int i = 0; i < n; i++) {
             brr[i] = arr[i];
         }
 
         // Do sorted heap.
-        // I can explain (n/2-1) in life (maybe draw binary tree).
         for (int i = n-1; i >= 0; i--) {
             siftDown(brr, i, n, reverse);
         }
 
         for (int i = n - 1; i >= 0; i--) {
             swap(brr, 0, i, n);
-            siftDown(brr, 0, i, reverse); // do sift with brr[0], brr[i] is last elem in heap.
+            siftDown(brr, 0, i, reverse);
         }
 
         return brr;
@@ -34,14 +31,14 @@ public class Main {
             return;
 
         if (reverse) {
-            // min in UP (in last steps min in END)
+            // Min in UP (in last steps min in END)
             if (arr[i] < arr[parent]) {
                 swap(arr, parent, i, n);
                 siftUp(arr, parent, n, reverse);
             }
         }
         else {
-            // max in UP
+            // Max in UP
             if (arr[i] > arr[parent]) {
                 swap(arr, parent, i, n);
                 siftUp(arr, parent, n, reverse);
@@ -60,16 +57,16 @@ public class Main {
         if (reverse) {
             int smallest = i;
 
-            // only if left in binary tree
+            // Only if left in binary tree
             if (left < n && arr[left] < arr[smallest]) {
                 smallest = left;
             }
-            // only if right in binary tree
+            // Only if right in binary tree
             if (right < n && arr[right] < arr[smallest]) {
                 smallest = right;
             }
 
-            // min in UP
+            // Min in UP
             if (arr[smallest] < arr[i]) {
                 swap(arr, i, smallest, n);
                 siftDown(arr, smallest, n, reverse);
@@ -78,16 +75,16 @@ public class Main {
         else {
             int biggest = i;
 
-            // only if left in binary tree
+            // Only if left in binary tree
             if (left < n && arr[left] > arr[biggest]) {
                 biggest = left;
             }
-            // only if right in binary tree
+            // Only if right in binary tree
             if (right < n && arr[right] > arr[biggest]) {
                 biggest = right;
             }
 
-            // max in UP
+            // Max in UP
             if (arr[biggest] > arr[i]) {
                 swap(arr, i, biggest, n);
                 siftDown(arr, biggest, n, reverse);
