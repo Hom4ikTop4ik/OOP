@@ -25,10 +25,11 @@ public class Main {
     }
 
     private static void siftUp(int[] arr, int i, int n, boolean reverse) {
-        int parent = (i-1)/2;
+        int parent = (i - 1) / 2;
 
-        if (parent < 0 || i >= n)
+        if (parent < 0 || i >= n) {
             return;
+        }
 
         if (reverse) {
             // Min in UP (in last steps min in END)
@@ -36,8 +37,7 @@ public class Main {
                 swap(arr, parent, i, n);
                 siftUp(arr, parent, n, reverse);
             }
-        }
-        else {
+        } else {
             // Max in UP
             if (arr[i] > arr[parent]) {
                 swap(arr, parent, i, n);
@@ -51,8 +51,8 @@ public class Main {
             return;
         }
 
-        int left = 2*i+1;
-        int right = 2*i+2;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
 
         if (reverse) {
             int smallest = i;
@@ -71,8 +71,7 @@ public class Main {
                 swap(arr, i, smallest, n);
                 siftDown(arr, smallest, n, reverse);
             }
-        }
-        else {
+        } else {
             int biggest = i;
 
             // Only if left in binary tree

@@ -1,10 +1,9 @@
 package ru.nsu.martynov;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Random;
+import org.junit.jupiter.api.Test;
 
 class MainTest {
     // Generate random array
@@ -28,8 +27,7 @@ class MainTest {
                     break;
                 }
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < arr.length - 1; i++) {
                 if (arr[i] > arr[i + 1]) {
                     sorted = false;
@@ -42,7 +40,7 @@ class MainTest {
     }
 
     @Test
-    void HeapSortTest() {
+    void heapSortTest() {
         // Create 10 test arrays.
         int[][] testArrays = new int[10][];
 
