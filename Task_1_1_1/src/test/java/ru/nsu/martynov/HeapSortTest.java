@@ -109,4 +109,18 @@ class HeapSortTest {
         arr[2] = 3;
         assertArrayEquals(arr, brr);
     }
+
+    @Test
+    void siftDownTest() {
+        int[] arr = new int[]{0, 1, 2, 3};
+        int[] brr = new int[]{0, 1, 2, 3};
+
+        Heapsort.siftDown(brr, 4, brr.length, true);
+        assertArrayEquals(arr, brr);
+        Heapsort.siftDown(brr, 0, brr.length, true);
+        assertArrayEquals(arr, brr);
+        Heapsort.siftDown(brr, -1, brr.length, false);
+        assertArrayEquals(arr, brr);
+        Heapsort.siftDown(brr, 0, 0, false);
+    }
 }

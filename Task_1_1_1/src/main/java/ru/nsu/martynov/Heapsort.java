@@ -41,8 +41,8 @@ public class Heapsort {
      * @param n — len of array.
      * @param reverse — boolean flag, true — need get reversed sorted array.
      */
-    private static void siftDown(int[] arr, int i, int n, boolean reverse) {
-        if (i < 0 || i >= n) {
+    public static void siftDown(int[] arr, int i, int n, boolean reverse) {
+        if (i < 0 || i >= n || n <= 0) {
             return;
         }
 
