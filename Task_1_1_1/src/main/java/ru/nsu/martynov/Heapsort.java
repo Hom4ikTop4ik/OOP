@@ -94,7 +94,7 @@ public class Heapsort {
      * @param j — second index;
      * @param n — len of array (just in case if out of range).
      */
-    private static void swap(int[] arr, int i, int j, int n) {
+    public static void swap(int[] arr, int i, int j, int n) {
         if (i < 0 || j < 0 || i >= n || j >= n) {
             return;
         }
@@ -112,8 +112,8 @@ public class Heapsort {
      * @param to — maximal number. [from, to)
      * @return array — length, numbers between from and to.
      */
-    private static int[] randomArray(int length, int from, int to) {
-        if (length < 0 || from > to) {
+    public static int[] randomArray(int length, int from, int to) {
+        if (length <= 0 || from >= to) {
             return null;
         }
 

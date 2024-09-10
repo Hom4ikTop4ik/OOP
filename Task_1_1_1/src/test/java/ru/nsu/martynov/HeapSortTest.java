@@ -1,22 +1,11 @@
 package ru.nsu.martynov;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 
-class HeapSortTest {
-    // Generate random array
-    private static int[] randomArray(int size, int from, int to) {
-        Random rand = new Random();
-        int[] array = new int[size];
-        for (int i = 0; i < size; i++) {
-            // Random number in [from, to)
-            array[i] = rand.nextInt(to - from) + from;
-        }
-        return array;
-    }
+import static org.junit.jupiter.api.Assertions.*;
 
+class HeapSortTest {
     private static boolean arrayIsSort(int[] arr, boolean reverse) {
         boolean sorted = true;
 
@@ -65,9 +54,9 @@ class HeapSortTest {
         testArrays[4] = new int[0]; // Empty array
         testArrays[5] = new int[]{5, 5, 5, 5, 5, 5, 5, 5, 5}; // All elems are same
         testArrays[6] = new int[]{100, 20, -5, 200, 0, 50}; // Negatives and positives values.
-        testArrays[7] = randomArray(10, -1000, 1000); // Random array of length 10
-        testArrays[8] = randomArray(1000, -1000, 1000); // Random array of length 1000
-        testArrays[9] = randomArray(1000*1000, -1000, 1000); // Random array of length 1kk
+        testArrays[7] = Heapsort.randomArray(10, -1000, 1000); // Random array of length 10
+        testArrays[8] = Heapsort.randomArray(1000, -1000, 1000); // Random array of length 1000
+        testArrays[9] = Heapsort.randomArray(1000*1000, -1000, 1000); // Random array of length 1kk
 
         for (int i = 0; i < testArrays.length; i++) {
             int[] tmp = Heapsort.heapSort(testArrays[i], false);
@@ -76,5 +65,48 @@ class HeapSortTest {
             tmp = Heapsort.heapSort(testArrays[i], true);
             assertTrue(arrayIsSort(tmp, true));
         }
+    }
+
+    @Test
+    void randomArrayTest() {
+        assertNotNull(Heapsort.randomArray(10, 0, 1));
+        assertNotNull(Heapsort.randomArray(256, -128, 127));
+
+        assertNull(Heapsort.randomArray(0, -10, 10));
+        assertNull(Heapsort.randomArray(-10, -10, 10));
+        assertNull(Heapsort.randomArray(-10, 10, -10));
+        assertNull(Heapsort.randomArray(10, 5, 5));
+        assertNull(Heapsort.randomArray(5, 0, 0));
+        assertNull(Heapsort.randomArray(0, 0, 0));
+    }
+
+    @Test
+    void swapTest() {
+        int[] arr = new int[]{0, 1, 2, 3};
+        int[] brr = new int[]{0, 1, 2, 3};
+
+        Heapsort.swap(brr, -1, 0, brr.length);
+        assertArrayEquals(arr, brr);
+        Heapsort.swap(brr, 0, -1, arr.length);
+        assertArrayEquals(arr, brr);
+
+        Heapsort.swap(brr, 0, brr.length, brr.length);
+        assertArrayEquals(arr, brr);
+        Heapsort.swap(brr,153218, 1, brr.length);
+        assertArrayEquals(arr, brr);
+
+        Heapsort.swap(brr, 0, 0, brr.length);
+        assertArrayEquals(arr, brr);
+        Heapsort.swap(brr, 2, 2, brr.length);
+        assertArrayEquals(arr, brr);
+
+        Heapsort.swap(brr, 0, 1, brr.length);
+        arr[0] = 1;
+        arr[1] = 0;
+        assertArrayEquals(arr, brr);
+        Heapsort.swap(brr, 3, 2, brr.length);
+        arr[3] = 2;
+        arr[2] = 3;
+        assertArrayEquals(arr, brr);
     }
 }
