@@ -39,6 +39,19 @@ class HeapSortTest {
         return sorted;
     }
 
+    private static void printArray(int[] arr) {
+        if (arr.length <= 0) {
+            return;
+        }
+
+        System.out.print("{");
+        for (int i = 0; i < arr.length - 1; i++) {
+            System.out.print(arr[i] + ", ");
+        }
+        System.out.print(arr[arr.length - 1]);
+        System.out.println("}.");
+    }
+
     @Test
     void heapSortTest() {
         // Create 10 test arrays.
