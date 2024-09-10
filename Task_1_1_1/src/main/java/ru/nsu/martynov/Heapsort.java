@@ -21,7 +21,7 @@ public class Heapsort {
         }
 
         // Sort heap.
-        for (int i = n-1; i >= 0; i--) {
+        for (int i = n - 1; i >= 0; i--) {
             siftDown(brr, i, n, reverse);
         }
 
@@ -139,7 +139,7 @@ public class Heapsort {
         int from = -1_000_000;
         int to = 1_000_000;
 
-        for (int i = 10; i <= maxIters; i+=koef) {
+        for (int i = 10; i <= maxIters; i += koef) {
             long timeSort = 0;
             long timeRev = 0;
 
@@ -165,8 +165,8 @@ public class Heapsort {
 
             // For eyes:
             System.out.println("Name | Total (ms) | ms per array");
-            System.out.printf( "Sort | %10d | %.3f%n", timeSort, (double)timeSort/iters);
-            System.out.printf( "Rev  | %10d | %.3f%n%n", timeRev, (double)timeRev/iters);
+            System.out.printf("Sort | %10d | %.3f%n", timeSort, (double) timeSort / iters);
+            System.out.printf("Rev  | %10d | %.3f%n%n", timeRev, (double) timeRev / iters);
 
             // For graphics in Excel:
             // System.out.printf( "%d / %d / %d / %d%n", i, timeSort, timeRev, iters);
