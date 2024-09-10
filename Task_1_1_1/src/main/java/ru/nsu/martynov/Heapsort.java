@@ -132,6 +132,8 @@ public class Heapsort {
      * @param args — are not using.
      */
     public static void main(String[] args) {
+        /*
+
         int koef = 1000;
         int maxIters = 100 * koef;
         int testKoef = 5;
@@ -171,5 +173,6 @@ public class Heapsort {
             // For graphics in Excel:
             // System.out.printf( "%d / %d / %d / %d%n", i, timeSort, timeRev, iters);
         }
+         */
     }
 }
