@@ -129,17 +129,17 @@ public class Heapsort {
      */
     public static void main(String[] args) {
         int koef = 1000;
-        int max_iters = 100*koef;
-        int test_koef = 5;
+        int maxIters = 100 * koef;
+        int testKoef = 5;
 
         int from = -1_000_000;
         int to = 1_000_000;
 
-        for (int i = 10; i <= max_iters; i+=koef) {
+        for (int i = 10; i <= maxIters; i+=koef) {
             long timeSort = 0;
             long timeRev = 0;
 
-            int iters = test_koef * max_iters / i;
+            int iters = testKoef * maxIters / i;
 
             System.out.printf("Len is %d. Iterations: %d.%n", i, iters);
 
