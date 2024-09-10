@@ -113,6 +113,10 @@ public class Heapsort {
      * @return array — length, numbers between from and to.
      */
     private static int[] randomArray(int length, int from, int to) {
+        if (length < 0 || from > to) {
+            return null;
+        }
+
         Random rand = new Random();
         int[] array = new int[length];
         for (int i = 0; i < length; i++) {
