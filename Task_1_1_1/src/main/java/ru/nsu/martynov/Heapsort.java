@@ -1,5 +1,7 @@
 package ru.nsu.martynov;
 
+import java.util.Random;
+
 public class Heapsort {
 
     /**
@@ -102,7 +104,26 @@ public class Heapsort {
         arr[j] = tmp;
     }
 
+    /**
+     * Generate random array.
+     *
+     * @param length — length of array.
+     * @param from — minimal number. [from, to)
+     * @param to — maximal number. [from, to)
+     * @return array — length, numbers between from and to.
+     */
+    // Generate random array
+    private static int[] randomArray(int length, int from, int to) {
+        Random rand = new Random();
+        int[] array = new int[length];
+        for (int i = 0; i < length; i++) {
+            // Random number in [from, to)
+            array[i] = rand.nextInt(to - from) + from;
+        }
+        return array;
+    }
+
     public static void main(String[] args) {
-        // System.out.printf("Hello and welcome!");
+
     }
 }
