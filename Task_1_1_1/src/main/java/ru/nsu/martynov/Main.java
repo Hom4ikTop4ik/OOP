@@ -24,28 +24,6 @@ public class Main {
         return brr;
     }
 
-    private static void siftUp(int[] arr, int i, int n, boolean reverse) {
-        int parent = (i - 1) / 2;
-
-        if (parent < 0 || i >= n) {
-            return;
-        }
-
-        if (reverse) {
-            // Min in UP (in last steps min in END)
-            if (arr[i] < arr[parent]) {
-                swap(arr, parent, i, n);
-                siftUp(arr, parent, n, reverse);
-            }
-        } else {
-            // Max in UP
-            if (arr[i] > arr[parent]) {
-                swap(arr, parent, i, n);
-                siftUp(arr, parent, n, reverse);
-            }
-        }
-    }
-
     private static void siftDown(int[] arr, int i, int n, boolean reverse) {
         if (i < 0 || i >= n) {
             return;
@@ -89,17 +67,6 @@ public class Main {
                 siftDown(arr, biggest, n, reverse);
             }
         }
-    }
-
-    public static void printArray(int[] arr) {
-        System.out.print("{");
-        for (int i = 0; i < arr.length - 1; i++) {
-            System.out.print(arr[i] + ", ");
-        }
-        if (arr.length > 0) {
-            System.out.print(arr[arr.length - 1]);
-        }
-        System.out.print("}.\n");
     }
 
     private static void swap(int[] arr, int i, int j, int n) {
