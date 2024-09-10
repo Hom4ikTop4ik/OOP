@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 
-class MainTest {
+class HeapSortTest {
     // Generate random array
     public static int[] randomArray(int size, int from, int to) {
         Random rand = new Random();
@@ -57,10 +57,10 @@ class MainTest {
         testArrays[9] = randomArray(1000*1000, -1000, 1000); // Random array of length 1kk
 
         for (int i = 0; i < testArrays.length; i++) {
-            int[] tmp = Main.heapSort(testArrays[i], false);
+            int[] tmp = Heapsort.heapSort(testArrays[i], false);
             assertTrue(arrayIsSort(tmp, false));
 
-            tmp = Main.heapSort(testArrays[i], true);
+            tmp = Heapsort.heapSort(testArrays[i], true);
             assertTrue(arrayIsSort(tmp, true));
         }
     }

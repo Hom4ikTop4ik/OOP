@@ -1,7 +1,14 @@
 package ru.nsu.martynov;
 
-public class Main {
+public class Heapsort {
 
+    /**
+     * Function for sorting int array. O(n * log n)
+     *
+     * @param arr — int array.
+     * @param reverse — boolean flag, true — need get reversed sorted array.
+     * @return sorted copy of input array.
+     */
     public static int[] heapSort(int[] arr, boolean reverse) {
         int n = arr.length;
         int[] brr = new int[n];
@@ -24,6 +31,14 @@ public class Main {
         return brr;
     }
 
+    /**
+     * Function aka "heapify". Swap to elems in binary tree if parent more/less than child.
+     *
+     * @param arr — heap's array;
+     * @param i — current index in array.
+     * @param n — len of array.
+     * @param reverse — boolean flag, true — need get reversed sorted array.
+     */
     private static void siftDown(int[] arr, int i, int n, boolean reverse) {
         if (i < 0 || i >= n) {
             return;
@@ -69,6 +84,14 @@ public class Main {
         }
     }
 
+    /**
+     * Function for swapping values in array by indexes i and j.
+     *
+     * @param arr — array;
+     * @param i — first index;
+     * @param j — second index;
+     * @param n — len of array (just in case if out of range).
+     */
     private static void swap(int[] arr, int i, int j, int n) {
         if (i < 0 || j < 0 || i >= n || j >= n) {
             return;
@@ -80,6 +103,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
+        // System.out.printf("Hello and welcome!");
     }
 }
