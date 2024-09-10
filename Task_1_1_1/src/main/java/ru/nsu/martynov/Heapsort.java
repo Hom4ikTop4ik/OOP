@@ -112,7 +112,6 @@ public class Heapsort {
      * @param to — maximal number. [from, to)
      * @return array — length, numbers between from and to.
      */
-    // Generate random array
     private static int[] randomArray(int length, int from, int to) {
         Random rand = new Random();
         int[] array = new int[length];
@@ -123,10 +122,15 @@ public class Heapsort {
         return array;
     }
 
+    /**
+     * Print tables with some spent-time info.
+     *
+     * @param args — are not using.
+     */
     public static void main(String[] args) {
-        int koef = 10000;
+        int koef = 1000;
         int max_iters = 100*koef;
-        int test_koef = 10;
+        int test_koef = 5;
 
         int from = -1_000_000;
         int to = 1_000_000;
@@ -137,7 +141,8 @@ public class Heapsort {
 
             int iters = test_koef * max_iters / i;
 
-//            System.out.printf("Len is 10^%d. Iterations: %d.%n", i, iters);
+            System.out.printf("Len is %d. Iterations: %d.%n", i, iters);
+
             for (int j = iters; j > 0; j--) {
                 int[] arr = randomArray(i, from, to);
 
@@ -153,10 +158,14 @@ public class Heapsort {
                 timeSort += (endTime - startTime);
                 timeRev += (endTimeRev - startTimeRev);
             }
-//            System.out.println("Name | Total (ms) | ms per array");
-//            System.out.printf( "Sort | %10d | %.3f%n", timeSort, (double)timeSort/iters);
-//            System.out.printf( "Rev  | %10d | %.3f%n%n", timeRev, (double)timeRev/iters);
-            System.out.printf( "%d / %d / %d / %d%n", i, timeSort, timeRev, iters);
+
+            // For eyes:
+            System.out.println("Name | Total (ms) | ms per array");
+            System.out.printf( "Sort | %10d | %.3f%n", timeSort, (double)timeSort/iters);
+            System.out.printf( "Rev  | %10d | %.3f%n%n", timeRev, (double)timeRev/iters);
+
+            // For graphics in Excel:
+            // System.out.printf( "%d / %d / %d / %d%n", i, timeSort, timeRev, iters);
         }
     }
 }
