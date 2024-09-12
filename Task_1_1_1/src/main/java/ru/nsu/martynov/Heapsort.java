@@ -7,7 +7,7 @@ public class Heapsort {
     /**
      * Function for sorting int array. O(n * log n)
      *
-     * @param arr — int array.
+     * @param arr     — int array.
      * @param reverse — boolean flag, true — need get reversed sorted array.
      * @return sorted copy of input array.
      */
@@ -16,6 +16,7 @@ public class Heapsort {
         int[] brr = new int[n];
 
         // Copy array
+        System.arraycopy(arr, 0, brr, 0, n);
         for (int i = 0; i < n; i++) {
             brr[i] = arr[i];
         }
@@ -36,9 +37,9 @@ public class Heapsort {
     /**
      * Function aka "heapify". Swap to elems in binary tree if parent more/less than child.
      *
-     * @param arr — heap's array;
-     * @param i — current index in array.
-     * @param n — len of array.
+     * @param arr     — heap's array;
+     * @param i       — current index in array.
+     * @param n       — len of array.
      * @param reverse — boolean flag, true — need get reversed sorted array.
      */
     public static void siftDown(int[] arr, int i, int n, boolean reverse) {
@@ -90,9 +91,9 @@ public class Heapsort {
      * Function for swapping values in array by indexes i and j.
      *
      * @param arr — array;
-     * @param i — first index;
-     * @param j — second index;
-     * @param n — len of array (just in case if out of range).
+     * @param i   — first index;
+     * @param j   — second index;
+     * @param n   — len of array (just in case if out of range).
      */
     public static void swap(int[] arr, int i, int j, int n) {
         if (i < 0 || j < 0 || i >= n || j >= n) {
@@ -108,8 +109,8 @@ public class Heapsort {
      * Generate random array.
      *
      * @param length — length of array.
-     * @param from — minimal number. [from, to)
-     * @param to — maximal number. [from, to)
+     * @param from   — minimal number. [from, to)
+     * @param to     — maximal number. [from, to)
      * @return array — length, numbers between from and to.
      */
     public static int[] randomArray(int length, int from, int to) {
