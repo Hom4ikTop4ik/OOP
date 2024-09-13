@@ -25,8 +25,8 @@ public class Deck {
     /**
      * Swaps two cards in this deck.
      *
-     * @param i — first index (0 <= i < n);
-     * @param j — second index (0 <= j < n);
+     * @param i — first index in [0, n);
+     * @param j — second index in [0, n);
      * @param n — len of List;
      */
     public void swap(int i, int j, int n) {

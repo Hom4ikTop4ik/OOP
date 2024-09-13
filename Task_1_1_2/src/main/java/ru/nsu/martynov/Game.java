@@ -37,6 +37,8 @@ public class Game {
 
     /**
      * Starts one of the rounds.
+     *
+     * @param test — boolean flag, false if real and true if testing.
      */
     public void round(boolean test) {
         if (roundCounter <= 1) {
@@ -157,6 +159,8 @@ public class Game {
 
     /**
      * Just start a game, at least one round.
+     *
+     * @param test — boolean flag, false if real and true if testing.
      */
     public void game(boolean test) {
         while (true) {
