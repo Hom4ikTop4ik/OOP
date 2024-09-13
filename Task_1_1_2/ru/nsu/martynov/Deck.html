@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -190,6 +190,15 @@ extends java.lang.Object</pre>
 <div class="block">Shuffles this deck.</div>
 </td>
 </tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#swap(int,int,int)">swap</a></span>&#8203;(int&nbsp;i,
+    int&nbsp;j,
+    int&nbsp;n)</code></th>
+<td class="colLast">
+<div class="block">Swaps two cards in this deck.</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -234,6 +243,24 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="swap(int,int,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>swap</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;swap&#8203;(int&nbsp;i,
+                 int&nbsp;j,
+                 int&nbsp;n)</pre>
+<div class="block">Swaps two cards in this deck.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>i</code> - — first index in [0, n);</dd>
+<dd><code>j</code> - — second index in [0, n);</dd>
+<dd><code>n</code> - — len of List;</dd>
+</dl>
+</li>
+</ul>
 <a id="shuffle()">
 <!--   -->
 </a>
