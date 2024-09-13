@@ -40,7 +40,7 @@ public class Game {
      *
      * @param test — boolean flag, false if real and true if testing.
      */
-    public void round(boolean test) {
+    public void round(boolean test, boolean testGame) {
         if (roundCounter <= 1) {
             System.out.println("Welcome to the Marty Nov Game!");
         } else {
@@ -49,7 +49,7 @@ public class Game {
         System.out.println("Round " + roundCounter);
 
         Card tmp;
-        if (!test) {
+        if (!testGame) {
             player = new Player();
             dealer = new Player();
 
@@ -167,9 +167,9 @@ public class Game {
      *
      * @param test — boolean flag, false if real and true if testing.
      */
-    public void game(boolean test) {
+    public void game(boolean test, boolean testGame) {
         while (true) {
-            round(test);
+            round(test, testGame);
 
             System.out.print("Input '1' to play again, '0' to stop: ");
             int input = 0;
@@ -203,6 +203,6 @@ public class Game {
      */
     public static void main(String[] args) {
         Game game = new Game();
-        game.game(false);
+        game.game(false, false);
     }
 }

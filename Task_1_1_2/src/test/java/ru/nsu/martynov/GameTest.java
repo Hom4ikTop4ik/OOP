@@ -33,13 +33,13 @@ class GameTest {
     @Test
     void roundTest() {
         Game game = new Game();
-        game.round(true);
+        game.round(true, false);
     }
 
     @Test
     void gameTest() {
         Game game = new Game();
-        game.game(true);
+        game.game(true, false);
     }
 
 
@@ -55,7 +55,7 @@ class GameTest {
         assertEquals(21, game.player.pointHand());
 
         // Проверка, что игрок выигрывает
-        game.round(true);
+        game.round(true, true);
         assertEquals(1, game.playerCounter); // Убедиться, что счет игрока увеличился
     }
 }
