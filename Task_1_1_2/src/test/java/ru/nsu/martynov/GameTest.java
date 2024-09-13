@@ -41,4 +41,21 @@ class GameTest {
         Game game = new Game();
         game.game(true);
     }
+
+
+    // EXTRA
+    @Test
+    void playerWinsWith21PointsTest() {
+        Game game = new Game();
+
+        // Симулируем ситуацию, когда игрок получил две карты с общим счетом 21
+        game.player.addCard(new Card(0, 0));
+        game.player.addCard(new Card(1, 12));
+
+        assertEquals(21, game.player.pointHand());
+
+        // Проверка, что игрок выигрывает
+        game.round(true);
+        assertEquals(1, game.playerCounter); // Убедиться, что счет игрока увеличился
+    }
 }
