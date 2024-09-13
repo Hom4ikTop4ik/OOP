@@ -62,7 +62,8 @@ public class Player {
             points += card.points(false);
         }
 
-        if (points > 21) { // over
+        // if over
+        if (points > 21) {
             points = 0;
             for (Card card : hand) {
                 points += card.points(true);

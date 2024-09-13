@@ -1,5 +1,6 @@
 package ru.nsu.martynov;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 //import static java.lang.System.*;
@@ -30,6 +31,28 @@ public class Game {
         roundCounter = 1;
     }
 
+    public void game() {
+        while (true) {
+            round();
+
+            System.out.print("Input '1' to play again, '0' to stop: ");
+            int input = 0;
+
+            while (true) {
+                try {
+                    input = sc.nextInt();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.print("Input '1' to play again, '0' to stop: ");
+                    sc.next();
+                }
+            }
+            if (input != 1) {
+                break;
+            }
+        }
+    }
+
     public void round() {
         if (roundCounter <= 1) {
             System.out.println("Welcome to the Marty Nov Game!");
@@ -41,7 +64,7 @@ public class Game {
         player = new Player();
         dealer = new Player();
 
-        if (deck.cards.size() < 52/2) {
+        if (deck.cards.size() < 52 / 2) {
             deck = new Deck();
             deck.shuffle();
         }
@@ -68,7 +91,17 @@ public class Game {
 
             System.out.print("Input '1' to take more cards, '0' to stop: ");
 
-            int input = sc.nextInt();
+            int input = 0;
+            while (true) {
+                try {
+                    input = sc.nextInt();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.print("Input '1' to take more cards, '0' to stop: ");
+                    sc.next();
+                }
+            }
+
             if (input != 1) {
                 break;
             } else {
@@ -87,6 +120,9 @@ public class Game {
         if (player.pointHand() > 21) {
             dealerCounter++;
             System.out.print("You lost! ");
+        } else if (player.pointHand() == 21) {
+            playerCounter++;
+            System.out.print("You won! ");
         } else if (player.pointHand() < 21) {
             System.out.println("\nDealer's turn:");
             System.out.println("----------");
@@ -103,40 +139,31 @@ public class Game {
                     System.out.print("Dealer open card: ");
                 }
                 tmp.print(over);
+                System.out.println();
 
                 player.printHand(false, true);
                 dealer.printHand(false, false);
 
                 first = false;
             }
-        } else if (player.pointHand() == 21 || dealer.pointHand() > 21 || (player.pointHand() > dealer.pointHand())) {
-            playerCounter++;
-            System.out.print("You won! ");
-        } else if (player.pointHand() == dealer.pointHand()) {
-            playerCounter++;
-            dealerCounter++;
-            System.out.print("Draw! ");
-        } else if (player.pointHand() < dealer.pointHand()) {
-            dealerCounter++;
-            System.out.print("You lost! ");
+
+            if (dealer.pointHand() > 21 || (player.pointHand() > dealer.pointHand())) {
+                playerCounter++;
+                System.out.print("You won! ");
+            } else if (player.pointHand() == dealer.pointHand()) {
+                playerCounter++;
+                dealerCounter++;
+                System.out.print("Draw! ");
+            } else if (player.pointHand() < dealer.pointHand()) {
+                dealerCounter++;
+                System.out.print("You lost! ");
+            }
         }
 
 
         System.out.println("Score you/dealer: " + playerCounter + "/" + dealerCounter);
 
         roundCounter++;
-    }
-
-    public void game() {
-        while (true) {
-            round();
-            System.out.print("Input '1' to play again, '0' to stop: ");
-            int input = sc.nextInt();
-
-            if (input != 1) {
-                break;
-            }
-        }
     }
 
     public static void main(String[] args) {

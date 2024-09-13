@@ -11,26 +11,27 @@ public class Deck {
         cards = new ArrayList<Card>();
 
         for (int i = 0; i < 52; i++) {
-            Card tmp = new Card(i/13, i%13);
+            Card tmp = new Card(i / 13, i % 13);
             cards.add(tmp);
         }
     }
 
-    private static void swap(List<Card> arr, int i, int j, int n) {
+    private void swap(int i, int j, int n) {
         if (i < 0 || j < 0 || i >= n || j >= n) {
             return;
         }
 
-        Card tmp = arr.get(i);
-        arr.set(i, arr.get(j));
-        arr.set(j, tmp);
+        Card tmp = this.cards.get(i);
+        this.cards.set(i, this.cards.get(j));
+        this.cards.set(j, tmp);
     }
 
     Random rand = new Random();
+
     public void shuffle() {
         for (int i = 0; i < 52; i++) {
             int index = rand.nextInt(cards.size() - i);
-            swap(cards, index, cards.size() - i, cards.size());
+            swap(index, cards.size() - i, cards.size());
         }
     }
 

@@ -27,12 +27,12 @@ public class Card {
         if (rank == 1) {
             if (over) {
                 return 1;
-            }
-            else {
+            } else {
                 return 11;
             }
         }
-        else if (2 <= rank && rank <= 10) {
+        // 2..10
+        else if ((2 <= rank) && (rank <= 10)) {
             return rank;
         }
         // Jack, Queen or King
