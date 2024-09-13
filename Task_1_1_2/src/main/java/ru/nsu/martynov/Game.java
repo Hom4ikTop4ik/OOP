@@ -80,14 +80,17 @@ public class Game {
 
             int input = 0;
 
-            if (!test) {
-
-                while (true) {
-                    try {
+            while (true) {
+                try {
+                    if (test) {
+                        input = 0;
+                    } else {
                         input = sc.nextInt();
-                        break;
-                    } catch (InputMismatchException e) {
-                        System.out.print("Input '1' to take more cards, '0' to stop: ");
+                    }
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.print("Input '1' to take more cards, '0' to stop: ");
+                    if (!test) {
                         sc.next();
                     }
                 }
@@ -150,8 +153,7 @@ public class Game {
                 System.out.print("You lost! ");
             }
         }
-
-
+        
         System.out.println("Score you/dealer: " + playerCounter + "/" + dealerCounter);
 
         roundCounter++;
@@ -169,13 +171,17 @@ public class Game {
             System.out.print("Input '1' to play again, '0' to stop: ");
             int input = 0;
 
-            if (!test) {
-                while (true) {
-                    try {
+            while (true) {
+                try {
+                    if (test) {
+                        input = 0;
+                    } else {
                         input = sc.nextInt();
-                        break;
-                    } catch (InputMismatchException e) {
-                        System.out.print("Input '1' to play again, '0' to stop: ");
+                    }
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.print("Input '1' to play again, '0' to stop: ");
+                    if (!test) {
                         sc.next();
                     }
                 }
