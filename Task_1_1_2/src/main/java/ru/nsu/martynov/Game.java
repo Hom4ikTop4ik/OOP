@@ -48,20 +48,23 @@ public class Game {
         }
         System.out.println("Round " + roundCounter);
 
-        player = new Player();
-        dealer = new Player();
+        Card tmp;
+        if (!test) {
+            player = new Player();
+            dealer = new Player();
 
-        if (deck.cards.size() < 52 / 2) {
-            deck = new Deck();
-            deck.shuffle();
+            if (deck.cards.size() < 52 / 2) {
+                deck = new Deck();
+                deck.shuffle();
+            }
+
+            tmp = deck.cards.remove(deck.cards.size() - 1);
+            player.addCard(tmp);
+            tmp = deck.cards.remove(deck.cards.size() - 1);
+            player.addCard(tmp);
+            tmp = deck.cards.remove(deck.cards.size() - 1);
+            dealer.addCard(tmp);
         }
-
-        Card tmp = deck.cards.remove(deck.cards.size() - 1);
-        player.addCard(tmp);
-        tmp = deck.cards.remove(deck.cards.size() - 1);
-        player.addCard(tmp);
-        tmp = deck.cards.remove(deck.cards.size() - 1);
-        dealer.addCard(tmp);
 
         System.out.println("Dealer dealt cards: ");
 

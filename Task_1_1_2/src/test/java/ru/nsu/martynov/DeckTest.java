@@ -34,11 +34,11 @@ class DeckTest {
 
             deck.swap(a, b, deck.cards.size());
 
-            Card fstNew = deck.cards.get(a);
             Card sndNew = deck.cards.get(b);
-
             assertEquals(fst.suit, sndNew.suit);
             assertEquals(fst.rank, sndNew.rank);
+
+            Card fstNew = deck.cards.get(a);
             assertEquals(snd.suit, fstNew.suit);
             assertEquals(snd.rank, fstNew.rank);
         }
