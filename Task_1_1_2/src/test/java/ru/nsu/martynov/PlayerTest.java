@@ -26,7 +26,7 @@ class PlayerTest {
 
             int size = p.hand.size();
             p.hand.add(card);
-            assertEquals(card, p.hand.getLast());
+            assertEquals(card, p.hand.get(p.hand.size() - 1));
             int size2 = p.hand.size();
             assertEquals(size2 - size, 1);
         }
