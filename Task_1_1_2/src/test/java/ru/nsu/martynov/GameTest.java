@@ -5,8 +5,7 @@ import java.io.InputStream;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
     private static void notRepeatInDeck(List<Card> cards) {
@@ -73,15 +72,15 @@ class GameTest {
         // 1 — играть снова;
         // 0 — не брать карт (с прежними картами 3 и 5);
         // 0 — "выйти из казино".
-        InputStream originalIn = System.in;  // Сохраняем оригинальный System.in
+        InputStream originalIn = System.in;  // Сохраняем оригинальный System.in.
 
         try {
-            // Подменяем System.in на ByteArrayInputStream с нашим вводом
+            // Подменяем System.in на ByteArrayInputStream с нашим вводом.
             ByteArrayInputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
             System.setIn(in);
 
 
-            // Создаём игру, которая будет использовать наш симулированный ввод
+            // Создаём игру, которая будет использовать наш симулированный ввод.
             Game game = new Game();
 
             // Имитируем ситуацию, где игрок получил две карты с общим счетом 8: Spider 3, Clubs 5.
@@ -104,36 +103,36 @@ class GameTest {
             assertEquals(3, game.roundCounter); // 2 раунда закончены — мог бы начаться третий.
             assertEquals(2, game.playerCounter);
         } finally {
-            // Восстанавливаем оригинальный ввод
+            // Восстанавливаем оригинальный ввод.
             System.setIn(originalIn);
         }
     }
 
     @Test
     void playerInputTest2() {
-        // Создаем строку, которая будет подана как ввод (например, 1 - взять карту, 0 - остановиться)
+        // Создаем строку, которая будет подана как ввод.
         String simulatedInput = "0\n1\n0\n0\n";
         // 0 — не брать карту;
         // 1 — играть снова;
         // 0 — не брать карт;
         // 0 — "выйти из казино".
-        InputStream originalIn = System.in;  // Сохраняем оригинальный System.in
+        InputStream originalIn = System.in;  // Сохраняем оригинальный System.in.
 
         try {
-            // Подменяем System.in на ByteArrayInputStream с нашим вводом
+            // Подменяем System.in на ByteArrayInputStream с нашим вводом.
             ByteArrayInputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
             System.setIn(in);
 
-            // Создаём игру, которая будет использовать наш симулированный ввод
+            // Создаём игру, которая будет использовать наш симулированный ввод.
             Game game = new Game();
 
             // Здесь игра будет работать с нашим вводом, абсолютно честно.
             game.game(false, false);
 
             assertEquals(3, game.roundCounter); // 2 раунда закончены — мог бы начаться третий.
-            assert(game.playerCounter + game.dealerCounter >= 2);
+            assertTrue(game.playerCounter + game.dealerCounter >= 2);
         } finally {
-            // Восстанавливаем оригинальный ввод
+            // Восстанавливаем оригинальный ввод.
             System.setIn(originalIn);
         }
     }
