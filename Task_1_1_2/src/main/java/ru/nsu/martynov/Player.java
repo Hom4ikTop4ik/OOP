@@ -57,7 +57,7 @@ public class Player {
                 }
             }
         } else {
-            hand.getFirst().print(over);
+            hand.get(0).print(over);
             System.out.print(", <closed card>");
         }
 

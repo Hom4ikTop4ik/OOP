@@ -79,11 +79,11 @@ public class Game {
             deck.shuffle();
         }
 
-        Card tmp = deck.cards.removeLast();
+        Card tmp = deck.cards.remove(deck.cards.size() - 1);
         player.addCard(tmp);
-        tmp = deck.cards.removeLast();
+        tmp = deck.cards.remove(deck.cards.size() - 1);
         player.addCard(tmp);
-        tmp = deck.cards.removeLast();
+        tmp = deck.cards.remove(deck.cards.size() - 1);
         dealer.addCard(tmp);
 
         System.out.println("Dealer dealt cards: ");
@@ -115,7 +115,7 @@ public class Game {
             if (input != 1) {
                 break;
             } else {
-                tmp = deck.cards.removeLast();
+                tmp = deck.cards.remove(deck.cards.size() - 1);
                 player.addCard(tmp);
                 System.out.print("You opened card: ");
                 int point = player.pointHand() + tmp.points(false);
@@ -139,7 +139,7 @@ public class Game {
 
             boolean first = true;
             while (first || dealer.pointHand() < 17) {
-                tmp = deck.cards.removeLast();
+                tmp = deck.cards.remove(deck.cards.size() - 1);
                 boolean over = ((player.pointHand() + tmp.points(false)) > 21);
                 dealer.addCard(tmp);
 
