@@ -1,0 +1,97 @@
+LOST: over 21 before Dealer
+
+Welcome to the Marty Nov Game!
+Round 1
+Dealer dealt cards: 
+	 Your cards: [Eight Clubs (8), Seven Hearts (7)] => 15
+	 Dealer cards: [Jack Spades (10), <closed card>]
+
+Your turn:
+----------
+Input '1' to take more cards, '0' to stop: 1
+You opened card: Jack Clubs (10)
+	 Your cards: [Eight Clubs (8), Seven Hearts (7), Jack Clubs (10)] => 25
+	 Dealer cards: [Jack Spades (10), <closed card>]
+You lost! Score you/dealer: 0/1
+Input '1' to play again, '0' to stop: 1
+
+
+
+WIN: 21 before Dealer
+
+Round 2
+Dealer dealt cards: 
+	 Your cards: [Ace Diamonds (11), Five Spades (5)] => 16
+	 Dealer cards: [Queen Diamonds (10), <closed card>]
+
+Your turn:
+----------
+Input '1' to take more cards, '0' to stop: 1
+You opened card: Five Diamonds (5)
+	 Your cards: [Ace Diamonds (11), Five Spades (5), Five Diamonds (5)] => 21
+	 Dealer cards: [Queen Diamonds (10), <closed card>]
+You won! Score you/dealer: 1/1
+Input '1' to play again, '0' to stop: 1
+
+
+
+DRAW:
+
+Input '1' to take more cards, '0' to stop: 1
+You opened card: Six Spades (6)
+	 Your cards: [Nine Clubs (9), Seven Clubs (7), Six Spades (6)] => 22
+	 Dealer cards: [Two Spades (2), <closed card>]
+You lost! Score you/dealer: 2/4
+Input '1' to play again, '0' to stop: 1
+
+
+Round 7
+Dealer dealt cards: 
+	 Your cards: [Four Clubs (4), Six Diamonds (6)] => 10
+	 Dealer cards: [Ten Diamonds (10), <closed card>]
+
+Your turn:
+----------
+Input '1' to take more cards, '0' to stop: 1
+You opened card: Ten Clubs (10)
+	 Your cards: [Four Clubs (4), Six Diamonds (6), Ten Clubs (10)] => 20
+	 Dealer cards: [Ten Diamonds (10), <closed card>]
+Input '1' to take more cards, '0' to stop: 0
+
+Dealer's turn:
+----------
+Dealer open closed card Jack Hearts (10)
+	 Your cards: [Four Clubs (4), Six Diamonds (6), Ten Clubs (10)] => 20
+	 Dealer cards: [Ten Diamonds (10), Jack Hearts (10)] => 20
+Draw! Score you/dealer: 3/5
+
+
+
+WIN: more than dealer
+
+Dealer's turn:
+----------
+Dealer open closed card Four Hearts (4)
+	 Your cards: [Ace Spades (1), Ace Hearts (1), Six Spades (6), Queen Hearts (10)] => 18
+	 Dealer cards: [Nine Clubs (9), Four Hearts (4)] => 13
+Dealer open card: Four Clubs (4)
+	 Your cards: [Ace Spades (1), Ace Hearts (1), Six Spades (6), Queen Hearts (10)] => 18
+	 Dealer cards: [Nine Clubs (9), Four Hearts (4), Four Clubs (4)] => 17
+You won! Score you/dealer: 2/3
+
+
+
+
+LOSE: dealer get more points
+
+Your turn:
+----------
+Input '1' to take more cards, '0' to stop: 0
+
+Dealer's turn:
+----------
+Dealer open closed card Eight Diamonds (8)
+	 Your cards: [Six Clubs (6), Jack Hearts (10)] => 16
+	 Dealer cards: [Ten Hearts (10), Eight Diamonds (8)] => 18
+You lost! Score you/dealer: 1/2
+Input '1' to play again, '0' to stop: 1
