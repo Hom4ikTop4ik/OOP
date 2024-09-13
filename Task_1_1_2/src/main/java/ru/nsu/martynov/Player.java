@@ -3,8 +3,6 @@ package ru.nsu.martynov;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.System.out;
-
 public class Player {
     List<Card> hand;
 
@@ -18,9 +16,9 @@ public class Player {
 
     public void printHand(boolean close, boolean people) {
         if (people) {
-            out.print("\t Your cards: ");
+            System.out.print("\t Your cards: ");
         } else {
-            out.print("\t Dealer cards: ");
+            System.out.print("\t Dealer cards: ");
         }
         System.out.print("[");
 

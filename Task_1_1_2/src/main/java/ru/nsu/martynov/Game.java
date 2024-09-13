@@ -3,8 +3,6 @@ package ru.nsu.martynov;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-//import static java.lang.System.*;
-
 public class Game {
     Player player;
     Player dealer;
