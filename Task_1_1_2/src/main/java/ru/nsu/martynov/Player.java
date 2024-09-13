@@ -3,6 +3,9 @@ package ru.nsu.martynov;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The player class.
+ */
 public class Player {
     List<Card> hand;
 

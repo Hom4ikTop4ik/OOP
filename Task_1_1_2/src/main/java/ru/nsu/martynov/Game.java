@@ -3,6 +3,9 @@ package ru.nsu.martynov;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * The main class.
+ */
 public class Game {
     Player player;
     Player dealer;
@@ -16,6 +19,9 @@ public class Game {
 
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Creates this game.
+     */
     public Game() {
         player = new Player();
         dealer = new Player();

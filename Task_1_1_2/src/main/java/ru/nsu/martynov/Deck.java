@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The deck class.
+ */
 public class Deck {
     List<Card> cards;
 

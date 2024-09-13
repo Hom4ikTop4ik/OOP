@@ -1,5 +1,8 @@
 package ru.nsu.martynov;
 
+/**
+ * The card class.
+ */
 public class Card {
     enum Suit {
         Spades, Clubs, Diamonds, Hearts
@@ -46,13 +49,9 @@ public class Card {
             } else {
                 return 11;
             }
-        }
-        // 2..10
-        else if ((2 <= rank) && (rank <= 10)) {
+        } else if ((2 <= rank) && (rank <= 10)) { // 2..10
             return rank;
-        }
-        // Jack, Queen or King
-        else {
+        } else { // Jack, Queen or King
             return 10;
         }
     }
