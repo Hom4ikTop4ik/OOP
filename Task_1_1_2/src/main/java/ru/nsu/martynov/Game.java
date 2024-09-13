@@ -171,7 +171,7 @@ public class Game {
     }
 
     /**
-     * Start the game;
+     * Start the game.
      *
      * @param args — unused.
      */

@@ -20,7 +20,7 @@ public class Deck {
     }
 
     /**
-     * Swaps two cards in this deck;
+     * Swaps two cards in this deck.
      *
      * @param i — first index (0 <= i < n);
      * @param j — second index (0 <= j < n);

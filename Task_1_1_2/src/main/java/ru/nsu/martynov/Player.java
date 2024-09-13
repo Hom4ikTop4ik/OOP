@@ -14,7 +14,7 @@ public class Player {
     }
 
     /**
-     * Add card to player/dealer hand;
+     * Add card to player/dealer hand.
      *
      * @param card — which card to add to the hand.
      */
@@ -23,7 +23,7 @@ public class Player {
     }
 
     /**
-     * Print out all your cards or one/all the dealer's cards;
+     * Print out all your cards or one/all the dealer's cards.
      *
      * @param close — show only the first card;
      * @param people — player => true, dealer => false.
@@ -68,7 +68,7 @@ public class Player {
     }
 
     /**
-     * Counts and returns the amount of points on the cards of this player;
+     * Counts and returns the amount of points on the cards of this player.
      *
      * @return the amount of points on the cards of this player.
      */
