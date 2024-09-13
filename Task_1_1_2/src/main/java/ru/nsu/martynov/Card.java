@@ -35,7 +35,7 @@ public class Card {
     /**
      * Returns the points of this card.
      *
-     * @param over — true => Ace (1), false => Ace (11).
+     * @param over — true = Ace (1), false = Ace (11).
      * @return the card points.
      */
     public int points(boolean over) {
@@ -59,7 +59,7 @@ public class Card {
     /**
      * Print the rank of this card, its suit and the number of points.
      *
-     * @param over — true => Ace (1), false => Ace (11).
+     * @param over — true = Ace (1), false = Ace (11).
      */
     public void print(boolean over) {
         System.out.print(this.rank + " " + this.suit + " (" + this.points(over) + ")");

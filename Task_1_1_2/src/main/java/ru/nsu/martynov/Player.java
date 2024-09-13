@@ -29,7 +29,7 @@ public class Player {
      * Print out all your cards or one/all the dealer's cards.
      *
      * @param close — show only the first card;
-     * @param people — player => true, dealer => false.
+     * @param people — player = true, dealer = false.
      */
     public void printHand(boolean close, boolean people) {
         if (people) {
