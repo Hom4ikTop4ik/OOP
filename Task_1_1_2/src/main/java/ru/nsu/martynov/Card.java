@@ -20,6 +20,7 @@ public class Card {
     /**
      * Init card with suit (Spades — 0, Clubs — 1, Diamonds — 2, Hearts — 3)
      * and rank (From 0 to 12: Ace, Two, Three, Four, ..., Nine, Ten, Jack, Queen, King);
+     *
      * @param suit — card's suit from enum Suit;
      * @param rank — card's rank from enum Rank.
      */
@@ -57,6 +58,7 @@ public class Card {
 
     /**
      * Print the rank of this card, its suit and the number of points;
+     *
      * @param over — true => Ace (1), false => Ace (11).
      */
     public void print(boolean over) {

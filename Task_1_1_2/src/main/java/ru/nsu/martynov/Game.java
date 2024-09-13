@@ -172,6 +172,7 @@ public class Game {
 
     /**
      * Start the game;
+     *
      * @param args — unused.
      */
     public static void main(String[] args) {
