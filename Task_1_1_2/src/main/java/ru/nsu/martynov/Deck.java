@@ -51,20 +51,20 @@ public class Deck {
         }
     }
 
-    /**
-     * Prints the remaining deck.
-     */
-    public void printDeck() {
-        System.out.print("[");
-
-        for (int i = 0; i < cards.size(); i++) {
-            cards.get(i).print(false);
-
-            if (i < cards.size() - 1) {
-                System.out.print(", ");
-            }
-        }
-
-        System.out.println("]");
-    }
+//    /**
+//     * Prints the remaining deck.
+//     */
+//    public void printDeck() {
+//        System.out.print("[");
+//
+//        for (int i = 0; i < cards.size(); i++) {
+//            cards.get(i).print(false);
+//
+//            if (i < cards.size() - 1) {
+//                System.out.print(", ");
+//            }
+//        }
+//
+//        System.out.println("]");
+//    }
 }

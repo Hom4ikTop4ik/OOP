@@ -153,7 +153,7 @@ public class Game {
                 System.out.print("You lost! ");
             }
         }
-        
+
         System.out.println("Score you/dealer: " + playerCounter + "/" + dealerCounter);
 
         roundCounter++;
