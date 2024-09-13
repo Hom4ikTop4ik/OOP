@@ -29,7 +29,7 @@ public class Deck {
      * @param j — second index (0 <= j < n);
      * @param n — len of List;
      */
-    private void swap(int i, int j, int n) {
+    public void swap(int i, int j, int n) {
         if (i < 0 || j < 0 || i >= n || j >= n) {
             return;
         }

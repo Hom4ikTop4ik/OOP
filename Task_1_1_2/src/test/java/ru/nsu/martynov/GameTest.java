@@ -30,4 +30,15 @@ class GameTest {
         assertEquals(game.roundCounter, 1);
     }
 
+    @Test
+    void roundTest() {
+        Game game = new Game();
+        game.round(true);
+    }
+
+    @Test
+    void gameTest() {
+        Game game = new Game();
+        game.game(true);
+    }
 }

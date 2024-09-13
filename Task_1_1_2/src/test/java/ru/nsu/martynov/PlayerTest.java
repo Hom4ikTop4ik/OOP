@@ -33,6 +33,43 @@ class PlayerTest {
     }
 
     @Test
+    void printHandTest() {
+        Player p = new Player();
+        p.printHand(false, false);
+        p.printHand(false, true);
+        p.printHand(true, false);
+        p.printHand(true, true);
+
+        // Add Spades Ace
+        p.addCard(new Card(0, 0));
+        p.printHand(false, false);
+        p.printHand(false, true);
+        p.printHand(true, false);
+        p.printHand(true, true);
+
+        // Add Clubs Ace
+        p.addCard(new Card(1, 0));
+        p.printHand(false, false);
+        p.printHand(false, true);
+        p.printHand(true, false);
+        p.printHand(true, true);
+
+        // Add Clubs Two
+        p.addCard(new Card(1, 1));
+        p.printHand(false, false);
+        p.printHand(false, true);
+        p.printHand(true, false);
+        p.printHand(true, true);
+
+        // Add Diamonds Three
+        p.addCard(new Card(2, 2));
+        p.printHand(false, false);
+        p.printHand(false, true);
+        p.printHand(true, false);
+        p.printHand(true, true);
+    }
+
+    @Test
     void pointHandTest() {
         // For each suit
         for (int i = 0; i < 4; i++) {

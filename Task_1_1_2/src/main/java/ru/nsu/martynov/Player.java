@@ -32,41 +32,45 @@ public class Player {
      * @param people — player = true, dealer = false.
      */
     public void printHand(boolean close, boolean people) {
-        if (people) {
-            System.out.print("\t Your cards: ");
+        if (hand.size() <= 0) {
+            System.out.println("No cards in hand");
         } else {
-            System.out.print("\t Dealer cards: ");
-        }
-        System.out.print("[");
-
-        boolean over = false;
-        int points = 0;
-        for (Card card : hand) {
-            points += card.points(false);
-        }
-        if (points > 21) {
-            over = true;
-        }
-
-        if (!close) {
-            for (int i = 0; i < hand.size(); i++) {
-                hand.get(i).print(over);
-
-                if (i < hand.size() - 1) {
-                    System.out.print(", ");
-                }
+            if (people) {
+                System.out.print("\t Your cards: ");
+            } else {
+                System.out.print("\t Dealer cards: ");
             }
-        } else {
-            hand.get(0).print(over);
-            System.out.print(", <closed card>");
-        }
+            System.out.print("[");
 
-        System.out.print("]");
+            boolean over = false;
+            int points = 0;
+            for (Card card : hand) {
+                points += card.points(false);
+            }
+            if (points > 21) {
+                over = true;
+            }
 
-        if (!close) {
-            System.out.println(" => " + this.pointHand());
-        } else {
-            System.out.println();
+            if (!close) {
+                for (int i = 0; i < hand.size(); i++) {
+                    hand.get(i).print(over);
+
+                    if (i < hand.size() - 1) {
+                        System.out.print(", ");
+                    }
+                }
+            } else if (hand.size() != 0) {
+                hand.get(0).print(over);
+                System.out.print(", <closed card>");
+            }
+
+            System.out.print("]");
+
+            if (!close) {
+                System.out.println(" => " + this.pointHand());
+            } else {
+                System.out.println();
+            }
         }
     }
 

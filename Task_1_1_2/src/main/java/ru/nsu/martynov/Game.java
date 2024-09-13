@@ -36,34 +36,9 @@ public class Game {
     }
 
     /**
-     * Just start a game, at least one round.
-     */
-    public void game() {
-        while (true) {
-            round();
-
-            System.out.print("Input '1' to play again, '0' to stop: ");
-            int input = 0;
-
-            while (true) {
-                try {
-                    input = sc.nextInt();
-                    break;
-                } catch (InputMismatchException e) {
-                    System.out.print("Input '1' to play again, '0' to stop: ");
-                    sc.next();
-                }
-            }
-            if (input != 1) {
-                break;
-            }
-        }
-    }
-
-    /**
      * Starts one of the rounds.
      */
-    public void round() {
+    public void round(boolean test) {
         if (roundCounter <= 1) {
             System.out.println("Welcome to the Marty Nov Game!");
         } else {
@@ -102,13 +77,17 @@ public class Game {
             System.out.print("Input '1' to take more cards, '0' to stop: ");
 
             int input = 0;
-            while (true) {
-                try {
-                    input = sc.nextInt();
-                    break;
-                } catch (InputMismatchException e) {
-                    System.out.print("Input '1' to take more cards, '0' to stop: ");
-                    sc.next();
+
+            if (!test) {
+
+                while (true) {
+                    try {
+                        input = sc.nextInt();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.print("Input '1' to take more cards, '0' to stop: ");
+                        sc.next();
+                    }
                 }
             }
 
@@ -177,12 +156,40 @@ public class Game {
     }
 
     /**
+     * Just start a game, at least one round.
+     */
+    public void game(boolean test) {
+        while (true) {
+            round(test);
+
+            System.out.print("Input '1' to play again, '0' to stop: ");
+            int input = 0;
+
+            if (!test) {
+                while (true) {
+                    try {
+                        input = sc.nextInt();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.print("Input '1' to play again, '0' to stop: ");
+                        sc.next();
+                    }
+                }
+            }
+
+            if (input != 1) {
+                break;
+            }
+        }
+    }
+
+    /**
      * Start the game.
      *
      * @param args — unused.
      */
     public static void main(String[] args) {
         Game game = new Game();
-        game.game();
+        game.game(false);
     }
 }
