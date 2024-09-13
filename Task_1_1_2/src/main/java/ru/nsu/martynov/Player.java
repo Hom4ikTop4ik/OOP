@@ -6,14 +6,26 @@ import java.util.List;
 public class Player {
     List<Card> hand;
 
+    /**
+     * Init player and create player's empty hand.
+     */
     public Player() {
         hand = new ArrayList<Card>();
     }
 
+    /**
+     * Add card to player/dealer hand;
+     * @param card — which card to add to the hand.
+     */
     public void addCard(Card card) {
         hand.add(card);
     }
 
+    /**
+     * Print out all your cards or one/all the dealer's cards;
+     * @param close — show only the first card;
+     * @param people — player => true, dealer => false.
+     */
     public void printHand(boolean close, boolean people) {
         if (people) {
             System.out.print("\t Your cards: ");
@@ -53,6 +65,10 @@ public class Player {
         }
     }
 
+    /**
+     * Counts and returns the amount of points on the cards of this player;
+     * @return the amount of points on the cards of this player.
+     */
     public int pointHand() {
         int points = 0;
 

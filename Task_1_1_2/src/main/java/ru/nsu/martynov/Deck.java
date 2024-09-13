@@ -7,6 +7,9 @@ import java.util.Random;
 public class Deck {
     List<Card> cards;
 
+    /**
+     * Creates a sorted deck of cards.
+     */
     public Deck() {
         cards = new ArrayList<Card>();
 
@@ -16,6 +19,12 @@ public class Deck {
         }
     }
 
+    /**
+     * Swaps two cards in this deck;
+     * @param i — first index (0 <= i < n);
+     * @param j — second index (0 <= j < n);
+     * @param n — len of List;
+     */
     private void swap(int i, int j, int n) {
         if (i < 0 || j < 0 || i >= n || j >= n) {
             return;
@@ -28,6 +37,9 @@ public class Deck {
 
     Random rand = new Random();
 
+    /**
+     * Shuffles this deck.
+     */
     public void shuffle() {
         for (int i = 0; i < 52; i++) {
             int index = rand.nextInt(cards.size() - i);
@@ -35,7 +47,10 @@ public class Deck {
         }
     }
 
-    public void printHand() {
+    /**
+     * Prints the remaining deck.
+     */
+    public void printDeck() {
         System.out.print("[");
 
         for (int i = 0; i < cards.size(); i++) {

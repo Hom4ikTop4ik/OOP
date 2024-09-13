@@ -29,6 +29,9 @@ public class Game {
         roundCounter = 1;
     }
 
+    /**
+     * Just start a game, at least one round.
+     */
     public void game() {
         while (true) {
             round();
@@ -51,6 +54,9 @@ public class Game {
         }
     }
 
+    /**
+     * Starts one of the rounds.
+     */
     public void round() {
         if (roundCounter <= 1) {
             System.out.println("Welcome to the Marty Nov Game!");
@@ -164,6 +170,10 @@ public class Game {
         roundCounter++;
     }
 
+    /**
+     * Start the game;
+     * @param args — unused.
+     */
     public static void main(String[] args) {
         Game game = new Game();
         game.game();
