@@ -38,12 +38,13 @@ class PlayerTest {
         for (int i = 0; i < 4; i++) {
             Player player = new Player();
             Card card = new Card(i, 0);
-
+            Card cardAce = card;
             // Add Ace
-            player.hand.add(card);
+            player.hand.add(cardAce);
             assertEquals(player.pointHand(), 11);
             for (int j = 1; j < 10; j++) {
                 // Add 2..10
+                card = new Card(i, j);
                 player.hand.add(card);
                 assertEquals(player.pointHand(), 11 + (j + 1));
                 // Remove 2..10
@@ -51,16 +52,18 @@ class PlayerTest {
             }
             for (int j = 10; j < 13; j++) {
                 // Add Jack, Queen or King
+                card = new Card(i, j);
                 player.hand.add(card);
                 assertEquals(player.pointHand(), 11 + 10);
                 // Remove Jack, Queen or King
                 player.hand.remove(card);
             }
             // Remove Ace
-            player.hand.remove(card);
+            player.hand.remove(cardAce);
 
             for (int j = 1; j < 10; j++) {
                 // Add 2..10
+                card = new Card(i, j);
                 player.hand.add(card);
                 assertEquals(player.pointHand(), j + 1);
                 // Remove 2..10
@@ -69,6 +72,7 @@ class PlayerTest {
 
             for (int j = 10; j < 13; j++) {
                 // Add Jack, Queen or King
+                card = new Card(i, j);
                 player.hand.add(card);
                 assertEquals(player.pointHand(), 10);
                 // Remove Jack, Queen or King
@@ -76,17 +80,16 @@ class PlayerTest {
             }
         }
 
-        Deck deck = new Deck();
         Player player = new Player();
         int points = 0;
         boolean over = false;
 
         for (int i = 0; i < 52; i++) {
-            Card tmp = deck.cards.removeLast();
+            Card tmp = new Card(i / 13, i % 13);
             player.hand.add(tmp);
 
             points += tmp.points(over);
-            if (points > 21) {
+            if (!over && points > 21) {
                 over = true;
                 points -= 10; // subtract one Ace
             }
