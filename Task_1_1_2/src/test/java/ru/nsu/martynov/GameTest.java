@@ -136,4 +136,36 @@ class GameTest {
             System.setIn(originalIn);
         }
     }
+
+    @Test
+    void playerBadInputTest() {
+        // Создаем строку, которая будет подана как ввод.
+        String simulatedInput = "0\nm\nabcd\n1\n0xyz\n0\n0\n";
+        // 0 — не брать карту;
+        // m — reinput;
+        // abcd — reinput;
+        // 1 — играть снова;
+        // 0xyz — reinput;
+        // 0 — не брать карт;
+        // 0 — "выйти из казино".
+        InputStream originalIn = System.in;  // Сохраняем оригинальный System.in.
+
+        try {
+            // Подменяем System.in на ByteArrayInputStream с нашим вводом.
+            ByteArrayInputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
+            System.setIn(in);
+
+            // Создаём игру, которая будет использовать наш симулированный ввод.
+            Game game = new Game();
+
+            // Здесь игра будет работать с нашим вводом, абсолютно честно.
+            game.game(false, false);
+
+            assertEquals(3, game.roundCounter); // 2 раунда закончены — мог бы начаться третий.
+            assertTrue(game.playerCounter + game.dealerCounter >= 2);
+        } finally {
+            // Восстанавливаем оригинальный ввод.
+            System.setIn(originalIn);
+        }
+    }
 }
