@@ -3,6 +3,8 @@ package ru.nsu.martynov;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Scanner;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,6 +34,49 @@ class GameTest {
     }
 
     @Test
+    void dealCardTest() {
+        Player player = new Player();
+        Deck deck = new Deck();
+        Game game = new Game();
+
+        Card tmp = game.dealCard(player, deck);
+        assertNotNull(tmp);
+        // remove card from deck — not find.
+        assertEquals(-1, deck.cards.indexOf(tmp));
+        Card tmp2 = game.dealCard(player, deck);
+        assertNotNull(tmp2);
+        assertEquals(-1, deck.cards.indexOf(tmp2));
+        assertNotEquals(tmp, tmp2);
+
+        // get empty deck
+        for (int i = deck.cards.size(); i > 0 ; i--) {
+            deck.cards.remove(0);
+        }
+        assertNull(game.dealCard(player, deck));
+    }
+
+    @Test
+    void myScanIntTest() {
+        String simulatedInput = "sdhglsdfiglsd\nI DON WANT\nOkay...\n123\n";
+        InputStream originalIn = System.in;
+
+        int input = 0;
+        Game game = new Game();
+
+        try {
+            // Подменяем System.in на ByteArrayInputStream с нашим вводом.
+            ByteArrayInputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
+            System.setIn(in);
+            Scanner sc = new Scanner(System.in);
+            input = game.myScanInt("Again: ", sc);
+//            assertEquals(input, 123);
+        } finally {
+            // Восстанавливаем оригинальный ввод.
+            System.setIn(originalIn);
+        }
+    }
+
+    @Test
     void roundTest() {
         Game game = new Game();
         game.round(true, false);
@@ -42,7 +87,6 @@ class GameTest {
         Game game = new Game();
         game.game(true, false);
     }
-
 
     // EXTRA
     @Test

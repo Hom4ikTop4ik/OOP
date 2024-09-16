@@ -36,6 +36,47 @@ public class Game {
     }
 
     /**
+     * Deal two cards to player and one to dealer.
+     *
+     * @param player — Player, for example player or dealer.
+     * @param deck — Deck.
+     * @return Card, last from deck.
+     */
+    public Card dealCard(Player player, Deck deck) {
+        Card tmp;
+        try {
+            tmp = deck.cards.remove(deck.cards.size() - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Deck is empty (or some another error).");
+            return null;
+        }
+        player.addCard(tmp);
+        return tmp;
+    }
+
+    /**
+     * Считывает число "до последнего", при ошибкаж выводя текст, например, с просьбой ввести опять.
+     *
+     * @param text — если не получилось считать целочисленное число, вывести текст text
+     * @return Вернуть отсканированное число.
+     */
+    public int myScanInt(String text, Scanner sc) {
+        int input;
+
+        while (true) {
+            try {
+                input = sc.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.print(text);
+                sc.next();
+            }
+        }
+
+        return input;
+    }
+
+    /**
      * Starts one of the rounds.
      *
      * @param test — boolean flag, false if real and true if testing.
@@ -48,7 +89,6 @@ public class Game {
         }
         System.out.println("Round " + roundCounter);
 
-        Card tmp;
         if (!simulateGame) {
             player = new Player();
             dealer = new Player();
@@ -58,12 +98,9 @@ public class Game {
                 deck.shuffle();
             }
 
-            tmp = deck.cards.remove(deck.cards.size() - 1);
-            player.addCard(tmp);
-            tmp = deck.cards.remove(deck.cards.size() - 1);
-            player.addCard(tmp);
-            tmp = deck.cards.remove(deck.cards.size() - 1);
-            dealer.addCard(tmp);
+            dealCard(player, deck);
+            dealCard(player, deck);
+            dealCard(dealer, deck);
         }
 
         System.out.println("Dealer dealt cards: ");
@@ -81,29 +118,17 @@ public class Game {
 
             System.out.print("Input '1' to take more cards, '0' to stop: ");
 
-            int input = 0;
-
-            while (true) {
-                try {
-                    if (test) {
-                        input = 0;
-                    } else {
-                        input = sc.nextInt();
-                    }
-                    break;
-                } catch (InputMismatchException e) {
-                    System.out.print("Input '1' to take more cards, '0' to stop: ");
-                    if (!test) {
-                        sc.next();
-                    }
-                }
+            int input;
+            if (test) {
+                input = 0;
+            } else {
+                input = myScanInt("Input '1' to take more cards, '0' to stop: ", sc);
             }
 
             if (input != 1) {
                 break;
             } else {
-                tmp = deck.cards.remove(deck.cards.size() - 1);
-                player.addCard(tmp);
+                Card tmp = dealCard(player, deck);
                 System.out.print("You opened card: ");
                 int point = player.pointHand() + tmp.points(false);
                 tmp.print(point > 21);
@@ -126,15 +151,15 @@ public class Game {
 
             boolean first = true;
             while (first || dealer.pointHand() < 17) {
-                tmp = deck.cards.remove(deck.cards.size() - 1);
+                Card tmp = dealCard(dealer, deck);
                 boolean over = ((player.pointHand() + tmp.points(false)) > 21);
-                dealer.addCard(tmp);
 
                 if (first) {
                     System.out.print("Dealer open closed card ");
                 } else {
                     System.out.print("Dealer open card: ");
                 }
+
                 tmp.print(over);
                 System.out.println();
 
@@ -172,22 +197,12 @@ public class Game {
             round(test, simulateGame);
 
             System.out.print("Input '1' to play again, '0' to stop: ");
-            int input = 0;
+            int input;
 
-            while (true) {
-                try {
-                    if (test) {
-                        input = 0;
-                    } else {
-                        input = sc.nextInt();
-                    }
-                    break;
-                } catch (InputMismatchException e) {
-                    System.out.print("Input '1' to play again, '0' to stop: ");
-                    if (!test) {
-                        sc.next();
-                    }
-                }
+            if (test) {
+                input = 0;
+            } else {
+                input = myScanInt("Input '1' to take more cards, '0' to stop: ", sc);
             }
 
             if (input != 1) {
