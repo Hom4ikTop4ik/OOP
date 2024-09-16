@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":9,"i2":10};
+var data = {"i0":10,"i1":10,"i2":9,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -177,6 +177,14 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="Card.html" title="class in ru.nsu.martynov">Card</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dealCard(ru.nsu.martynov.Player,ru.nsu.martynov.Deck)">dealCard</a></span>&#8203;(<a href="Player.html" title="class in ru.nsu.martynov">Player</a>&nbsp;player,
+        <a href="Deck.html" title="class in ru.nsu.martynov">Deck</a>&nbsp;deck)</code></th>
+<td class="colLast">
+<div class="block">Deal two cards to player and one to dealer.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#game(boolean,boolean)">game</a></span>&#8203;(boolean&nbsp;test,
     boolean&nbsp;simulateGame)</code></th>
@@ -184,14 +192,22 @@ extends java.lang.Object</pre>
 <div class="block">Just start a game, at least one round.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#main(java.lang.String%5B%5D)">main</a></span>&#8203;(java.lang.String[]&nbsp;args)</code></th>
 <td class="colLast">
 <div class="block">Start the game.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#myScanInt(java.lang.String,java.util.Scanner)">myScanInt</a></span>&#8203;(java.lang.String&nbsp;text,
+         java.util.Scanner&nbsp;sc)</code></th>
+<td class="colLast">
+<div class="block">Считывает число "до последнего", при ошибкаж выводя текст, например, с просьбой ввести опять.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#round(boolean,boolean)">round</a></span>&#8203;(boolean&nbsp;test,
      boolean&nbsp;simulateGame)</code></th>
@@ -243,6 +259,41 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="dealCard(ru.nsu.martynov.Player,ru.nsu.martynov.Deck)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dealCard</h4>
+<pre class="methodSignature">public&nbsp;<a href="Card.html" title="class in ru.nsu.martynov">Card</a>&nbsp;dealCard&#8203;(<a href="Player.html" title="class in ru.nsu.martynov">Player</a>&nbsp;player,
+                     <a href="Deck.html" title="class in ru.nsu.martynov">Deck</a>&nbsp;deck)</pre>
+<div class="block">Deal two cards to player and one to dealer.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>player</code> - — Player, for example player or dealer.</dd>
+<dd><code>deck</code> - — Deck.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Card, last from deck.</dd>
+</dl>
+</li>
+</ul>
+<a id="myScanInt(java.lang.String,java.util.Scanner)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>myScanInt</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;myScanInt&#8203;(java.lang.String&nbsp;text,
+                     java.util.Scanner&nbsp;sc)</pre>
+<div class="block">Считывает число "до последнего", при ошибкаж выводя текст, например, с просьбой ввести опять.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>text</code> - — если не получилось считать целочисленное число, вывести текст text</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Вернуть отсканированное число.</dd>
+</dl>
+</li>
+</ul>
 <a id="round(boolean,boolean)">
 <!--   -->
 </a>
