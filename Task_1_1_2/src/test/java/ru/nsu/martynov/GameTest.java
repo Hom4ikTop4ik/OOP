@@ -56,7 +56,7 @@ class GameTest {
 
     @Test
     void myScanIntTest() {
-        String simulatedInput = "sdhglsdfiglsd\nI DON WANT\nOkay...\n123\n15\naboba\nhaha7\nda\n-5\n";
+        String simulatedInput = "sdhglsd\nI DON WANT\nOkay...\n123\n15\naboba\nhaha7\nda\n-5\n";
         InputStream originalIn = System.in;
 
         int input = 0;
