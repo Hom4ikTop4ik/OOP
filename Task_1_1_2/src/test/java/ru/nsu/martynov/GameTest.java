@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +48,7 @@ class GameTest {
         assertNotEquals(tmp, tmp2);
 
         // get empty deck
-        for (int i = deck.cards.size(); i > 0 ; i--) {
+        for (int i = deck.cards.size(); i > 0; i--) {
             deck.cards.remove(0);
         }
         assertNull(game.dealCard(player, deck));
@@ -57,7 +56,7 @@ class GameTest {
 
     @Test
     void myScanIntTest() {
-        String simulatedInput = "sdhglsdfiglsd\nI DON WANT\nOkay...\n123\n";
+        String simulatedInput = "sdhglsdfiglsd\nI DON WANT\nOkay...\n123\n15\naboba\nhaha7\nda\n-5\n";
         InputStream originalIn = System.in;
 
         int input = 0;
@@ -67,9 +66,15 @@ class GameTest {
             // Подменяем System.in на ByteArrayInputStream с нашим вводом.
             ByteArrayInputStream in = new ByteArrayInputStream(simulatedInput.getBytes());
             System.setIn(in);
+
             Scanner sc = new Scanner(System.in);
+
             input = game.myScanInt("Again: ", sc);
-//            assertEquals(input, 123);
+            assertEquals(input, 123);
+            input = game.myScanInt("Again: ", sc);
+            assertEquals(input, 15);
+            input = game.myScanInt("Again: ", sc);
+            assertEquals(input, -5);
         } finally {
             // Восстанавливаем оригинальный ввод.
             System.setIn(originalIn);
