@@ -223,13 +223,16 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>Card</h4>
 <pre>public&nbsp;Card&#8203;(int&nbsp;suit,
-            int&nbsp;rank)</pre>
+            int&nbsp;rank)
+     throws java.lang.IllegalArgumentException</pre>
 <div class="block">Init card with suit (Spades — 0, Clubs — 1, Diamonds — 2, Hearts — 3)
  and rank (From 0 to 12: Ace, Two, Three, Four, ..., Nine, Ten, Jack, Queen, King).</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>suit</code> - — card's suit from enum Suit;</dd>
 <dd><code>rank</code> - — card's rank from enum Rank.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if suit or rank is wrong</dd>
 </dl>
 </li>
 </ul>
