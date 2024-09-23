@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HeapSortTest {
-    private static boolean arrayIsSort(int[] arr, boolean reverse) {
+    private static boolean arrayIsSorted(int[] arr, boolean reverse) {
         boolean sorted = true;
 
         if (reverse) {
@@ -56,14 +56,14 @@ class HeapSortTest {
         testArrays[6] = new int[]{100, 20, -5, 200, 0, 50}; // Negatives and positives values.
         testArrays[7] = Heapsort.randomArray(10, -1000, 1000); // Random array of length 10
         testArrays[8] = Heapsort.randomArray(1000, -1000, 1000); // Random array of length 1000
-        testArrays[9] = Heapsort.randomArray(1000*1000, -1000, 1000); // Random array of length 1kk
+        testArrays[9] = Heapsort.randomArray(1000 * 1000, -1000, 1000); // Random array of length 1kk
 
         for (int i = 0; i < testArrays.length; i++) {
             int[] tmp = Heapsort.heapSort(testArrays[i], false);
-            assertTrue(arrayIsSort(tmp, false));
+            assertTrue(arrayIsSorted(tmp, false));
 
             tmp = Heapsort.heapSort(testArrays[i], true);
-            assertTrue(arrayIsSort(tmp, true));
+            assertTrue(arrayIsSorted(tmp, true));
         }
     }
 
