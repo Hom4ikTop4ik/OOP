@@ -26,10 +26,23 @@ public class Card {
      *
      * @param suit — card's suit from enum Suit;
      * @param rank — card's rank from enum Rank.
+     * @throws IllegalArgumentException if suit or rank is wrong
      */
-    public Card(int suit, int rank) {
-        this.suit = Suit.values()[suit % 4];
-        this.rank = Rank.values()[rank % 13];
+    public Card(int suit, int rank) throws IllegalArgumentException {
+        this.suit = Suit.values()[0];
+        this.rank = Rank.values()[0];
+
+        if (0 <= suit && suit < 4) {
+            this.suit = Suit.values()[suit];
+        } else {
+            throw new IllegalArgumentException("Invalid suit value");
+        }
+
+        if (0 <= rank && rank < 13) {
+            this.rank = Rank.values()[rank];
+        } else {
+            throw new IllegalArgumentException("Invalid rank value");
+        }
     }
 
     /**
