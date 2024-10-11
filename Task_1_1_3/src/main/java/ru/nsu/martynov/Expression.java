@@ -206,13 +206,17 @@ public abstract class Expression {
             }
         }
 
-        return switch (op) {
-            case '+' -> new Pair(new Add(e1, e2), skip);
-            case '-' -> new Pair(new Sub(e1, e2), skip);
-            case '*' -> new Pair(new Mul(e1, e2), skip);
-            case '/' -> new Pair(new Div(e1, e2), skip);
-            default -> throw new IllegalArgumentException("Should be operator, but it isn't");
-        };
+        if (op == '+') {
+            return new Pair(new Add(e1, e2), skip);
+        } else if (op == '-') {
+            return new Pair(new Sub(e1, e2), skip);
+        } else if (op == '*') {
+            return new Pair(new Mul(e1, e2), skip);
+        } else if (op == '/') {
+            return new Pair(new Div(e1, e2), skip);
+        } else {
+            throw new IllegalArgumentException("Should be operator, but it isn't");
+        }
     }
 
     public static Expression parseString(String expString) {
