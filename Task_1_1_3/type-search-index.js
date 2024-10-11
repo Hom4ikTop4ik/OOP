@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"ru.nsu.martynov","l":"Add"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.martynov","l":"Div"},{"p":"ru.nsu.martynov","l":"Expression"},{"p":"ru.nsu.martynov","l":"Mul"},{"p":"ru.nsu.martynov","l":"Number"},{"p":"ru.nsu.martynov","l":"Expression.Pair"},{"p":"ru.nsu.martynov","l":"Sub"},{"p":"ru.nsu.martynov","l":"Variable"}]
