@@ -92,7 +92,8 @@ public abstract class Expression {
             try {
                 double num = Double.parseDouble(tmpPair[1]);
                 map.put(tmpPair[0], num);
-            } catch (NumberFormatException ignored) {
+            } catch (NumberFormatException e) {
+                System.err.println("Number format exception: " + tmpPair[1]);
             }
         }
 

@@ -13,7 +13,8 @@ public class Variable extends Expression {
     public Variable(String variable) {
         for (Character c : variable.toCharArray()) {
             if (!Character.isAlphabetic(c)) {
-                throw new IllegalArgumentException("'" + variable + "' is not valid name — use letters");
+                String print = "'" + variable + "' is not valid name — use letters";
+                throw new IllegalArgumentException(print);
             }
         }
 
