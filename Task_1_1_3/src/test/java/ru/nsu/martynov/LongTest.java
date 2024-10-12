@@ -1,13 +1,11 @@
 package ru.nsu.martynov;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LongTest {
     private ByteArrayOutputStream outputStream;
@@ -71,7 +69,9 @@ class LongTest {
                                 new Number(2))),
                 new Number(3.5));
         exp.derivative("x").print();
-        assertEquals("((0.0 + (((((0.0 * 3.0) + (5.0 * 0.0)) * 2.0) - ((5.0 * 3.0) * 0.0)) / (2.0 * 2.0))) - 0.0)", outputStream.toString());
+        String print = "((0.0 + (((((0.0 * 3.0) + (5.0 * 0.0)) * 2.0) " +
+                        "- ((5.0 * 3.0) * 0.0)) / (2.0 * 2.0))) - 0.0)";
+        assertEquals(print, outputStream.toString());
     }
 
     @Test

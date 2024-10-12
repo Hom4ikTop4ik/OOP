@@ -1,12 +1,11 @@
 package ru.nsu.martynov;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VariableTest {
     private ByteArrayOutputStream outputStream;
@@ -58,7 +57,8 @@ class VariableTest {
             System.out.print(e.getMessage());
         }
 
-        assertEquals("'xyz+-*/!@#$%^&*()' is not valid name — use letters", outputStream.toString());
+        String print = "'xyz+-*/!@#$%^&*()' is not valid name — use letters";
+        assertEquals(print, outputStream.toString());
     }
 
     @Test

@@ -1,6 +1,5 @@
 package ru.nsu.martynov;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Variable extends Expression {
