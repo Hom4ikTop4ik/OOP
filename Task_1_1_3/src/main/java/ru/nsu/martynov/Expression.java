@@ -21,9 +21,6 @@ public abstract class Expression {
      * @param x — variable for derivative
      * @return new derived expression.
      */
-    // (uv)' = u'v+ uv'
-    // ((uv)t)' = ((u'v+ uv')t) + uvt' = u'vt + uv't + uvt'
-    // (uvta)' = ((u'vt + uv't + uvt')a)' = (u'vt + uv't + uvt')a + (u'vt + uv't + uvt')a' = u'vta + uv'ta + uvt'a + uvta'
     abstract Expression derivative(String x);
 
     /**

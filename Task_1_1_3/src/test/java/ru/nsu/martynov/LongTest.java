@@ -69,8 +69,8 @@ class LongTest {
                                 new Number(2))),
                 new Number(3.5));
         exp.derivative("x").print();
-        String print = "((0.0 + (((((0.0 * 3.0) + (5.0 * 0.0)) * 2.0) " +
-                        "- ((5.0 * 3.0) * 0.0)) / (2.0 * 2.0))) - 0.0)";
+        String print = "((0.0 + (((((0.0 * 3.0) + (5.0 * 0.0)) * 2.0) "
+                        + "- ((5.0 * 3.0) * 0.0)) / (2.0 * 2.0))) - 0.0)";
         assertEquals(print, outputStream.toString());
     }
 
