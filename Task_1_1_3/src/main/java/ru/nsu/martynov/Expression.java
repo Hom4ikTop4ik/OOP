@@ -1,10 +1,10 @@
 package ru.nsu.martynov;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static java.lang.Character.isAlphabetic;
 import static java.lang.Character.isDigit;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Interface for expressions.
