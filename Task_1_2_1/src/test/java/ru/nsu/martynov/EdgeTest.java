@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
 
 class EdgeTest {
-
     @Test
     void testToString() {
         Edge edge = new Edge(1, 1, 1);

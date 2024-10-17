@@ -18,7 +18,8 @@ class HelperTest {
     @Test
     void checkIndexesFromNegativeTest() {
         int[][] matrix = new int[3][3];
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () ->
                 Helper.checkIndexes(-1, 2, matrix)
         );
         assertEquals("From index меньше нуля", exception.getMessage());
@@ -27,7 +28,8 @@ class HelperTest {
     @Test
     void checkIndexesToNegativeTest() {
         int[][] matrix = new int[3][3];
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () ->
                 Helper.checkIndexes(1, -1, matrix)
         );
         assertEquals("To index меньше нуля", exception.getMessage());
@@ -36,7 +38,8 @@ class HelperTest {
     @Test
     void checkIndexesFromTooLargeTest() {
         int[][] matrix = new int[3][3];
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () ->
                 Helper.checkIndexes(3, 1, matrix)
         );
         assertEquals("From index слишком большой для текущего графа", exception.getMessage());
@@ -45,7 +48,8 @@ class HelperTest {
     @Test
     void checkIndexesToTooLargeTest() {
         int[][] matrix = new int[3][3];
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () ->
                 Helper.checkIndexes(1, 3, matrix)
         );
         assertEquals("To index слишком большой для текущего графа", exception.getMessage());
@@ -59,7 +63,8 @@ class HelperTest {
 
     @Test
     void checkIndexesNegFromNegativeTest() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () ->
                 Helper.checkIndexesNeg(-1, 1)
         );
         assertEquals("From index меньше нуля", exception.getMessage());
@@ -67,7 +72,8 @@ class HelperTest {
 
     @Test
     void checkIndexesNegToNegativeTest() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () ->
                 Helper.checkIndexesNeg(1, -1)
         );
         assertEquals("To index меньше нуля", exception.getMessage());
@@ -83,7 +89,8 @@ class HelperTest {
     @Test
     void checkIndexNegativeTest() {
         int[][] matrix = new int[3][3];
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () ->
                 Helper.checkIndex(-1, matrix)
         );
         assertEquals("Index меньше нуля", exception.getMessage());
@@ -92,7 +99,8 @@ class HelperTest {
     @Test
     void checkIndexTooLargeTest() {
         int[][] matrix = new int[3][3];
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () ->
                 Helper.checkIndex(3, matrix)
         );
         assertEquals("Index слишком большой для текущего графа", exception.getMessage());

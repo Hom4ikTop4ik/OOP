@@ -117,7 +117,8 @@ class AdjacencyTest {
         } catch (Exception e) {
             flag = true;
         }
-        assertTrue(flag, "Removing a vertex with negative index should throw an exception.");
+        assertTrue(flag,
+                "Removing a vertex with negative index should throw an exception.");
 
         flag = false;
         try {
@@ -125,12 +126,15 @@ class AdjacencyTest {
         } catch (Exception e) {
             flag = true;
         }
-        assertTrue(flag, "Removing a non-existing vertex should throw an exception.");
+        assertTrue(flag,
+                "Removing a non-existing vertex should throw an exception.");
 
         adj.remVert(1); // left [0]
         out = adj.matrix();
-        assertEquals(--cnt, out.length, "Matrix should have 1 row after removing vertex 1.");
-        assertEquals(cnt, out[0].length, "Matrix should have 1 column after removing vertex 1.");
+        assertEquals(--cnt, out.length,
+                "Matrix should have 1 row after removing vertex 1.");
+        assertEquals(cnt, out[0].length,
+                "Matrix should have 1 column after removing vertex 1.");
 
         adj.remVert(0);
         out = adj.matrix();
