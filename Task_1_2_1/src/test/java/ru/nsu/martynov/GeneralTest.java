@@ -1,5 +1,6 @@
 package ru.nsu.martynov;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -64,5 +65,38 @@ class GeneralTest {
             assertTrue(genInc.genEquals(genList));
             assertTrue(genList.genEquals(genAdj));
         }
+    }
+
+    @Test
+    void test2() {
+        ListGraph listGraph = new ListGraph();
+        Adjacency adj = new Adjacency();
+        Incidence inc = new Incidence();
+
+        int num = 5;
+        // Add vertices to the adjacency and incidence graphs
+        for (int i = 0; i < num; i++) {
+            adj.addVert();
+            inc.addVert();
+        }
+
+        adj.addEdge(0, 0);
+        inc.addEdge(1, 3);
+        listGraph.addEdge(0, 1);
+        listGraph.addEdge(0, 0);
+
+        General genAdj = new General();
+        genAdj.fromAdjacencyMatrix(adj.matrix());
+        General genInc = new General();
+        genInc.fromIncidenceMatrix(inc.matrix());
+        General genList = new General();
+        genList.fromList(listGraph.list());
+
+        assertFalse(genAdj.genEquals(genInc));
+        assertFalse(genAdj.genEquals(genList));
+        assertFalse(genInc.genEquals(genList));
+        assertFalse(genInc.genEquals(genAdj));
+        assertFalse(genList.genEquals(genAdj));
+        assertFalse(genList.genEquals(genInc));
     }
 }

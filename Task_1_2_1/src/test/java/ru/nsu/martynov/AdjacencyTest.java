@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 
@@ -288,5 +289,64 @@ class AdjacencyTest {
         System.setOut(oldOut);
         assertEquals(output, outputStream.toString(),
                 "Graph read from file should match the expected output.");
+    }
+
+    @Test
+    void readFileTestNotEnough() {
+        String fileName = "readFileAdjNotEnough.txt";
+
+        Adjacency adj = new Adjacency();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            adj.readFile(fileName);
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+
+        System.setOut(oldOut);
+        String output = "File is bad — not enough numbers in table";
+        assertEquals(output, outputStream.toString());
+    }
+
+    @Test
+    void readFileTestNotExist() {
+        String fileName = "readFileAdjNotExist.txt";
+
+        Adjacency adj = new Adjacency();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        adj.readFile(fileName);
+
+        System.setOut(oldOut);
+        String output = "Error reading file " + fileName;
+        assertEquals(output, outputStream.toString());
+    }
+
+    @Test
+    void readFileTestNoSize() {
+        String fileName = "readFileAdjNoSize.txt";
+
+        Adjacency adj = new Adjacency();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            adj.readFile(fileName);
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+
+        System.setOut(oldOut);
+        String output = "File is bad — there isn't table size (count of vertices)";
+        assertEquals(output, outputStream.toString());
     }
 }

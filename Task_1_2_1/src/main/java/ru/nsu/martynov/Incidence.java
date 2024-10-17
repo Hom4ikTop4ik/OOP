@@ -217,15 +217,13 @@ public class Incidence implements Graph {
             int edgeIndex = -1;
             for (int j = 0; j < this.matrix[0].length; j++) {
                 boolean flag = true;
-                if ((this.matrix[from][j]) != 0 && (this.matrix[from][j] % 2 == 0)) {
-                    for (int i = 0; i < this.matrix.length; i++) {
-                        if (i == from) {
-                            continue;
-                        }
-                        if (this.matrix[i][j] != 0) {
-                            flag = false;
-                            break;
-                        }
+                for (int i = 0; i < this.matrix.length; i++) {
+                    if (i == from) {
+                        continue;
+                    }
+                    if (this.matrix[i][j] != 0) {
+                        flag = false;
+                        break;
                     }
                 }
                 // Если весь столбец занулён, кроме ячейки from == to.
@@ -239,10 +237,20 @@ public class Incidence implements Graph {
             if (edgeIndex == -1) {
                 return 0;
             } else {
-                if (this.matrix[from][edgeIndex] < 2) {
-                    int cnt = this.matrix[from][edgeIndex] / 2;
-                    this.matrix[from][edgeIndex] = 0;
-                    return cnt;
+                int cnt = this.matrix[from][edgeIndex];
+                if (cnt <= 2) {
+                    int[][] newMatrix = new int[this.matrix.length][this.matrix[0].length - 1];
+                    for (int i = 0; i < this.matrix.length; i++) {
+                        for (int j = 0, jj = 0; j < this.matrix[0].length; j++) {
+                            if (j == edgeIndex) {
+                                continue;
+                            }
+                            newMatrix[i][jj] = matrix[i][j];
+                            jj++;
+                        }
+                    }
+                    matrix = newMatrix;
+                    return cnt == 2 ? 1 : 0;
                 } else {
                     this.matrix[from][edgeIndex] -= 2;
                     return 1;
@@ -259,10 +267,21 @@ public class Incidence implements Graph {
             if (edgeIndex == -1) {
                 return 0;
             } else {
-                if (this.matrix[from][edgeIndex] <= 0) {
-                    this.matrix[from][edgeIndex] = 0;
-                    this.matrix[to][edgeIndex] = 0;
-                    return 0;
+                int cnt = this.matrix[from][edgeIndex];
+                if (cnt <= 1) {
+                    int[][] newMatrix = new int[this.matrix.length][this.matrix[0].length - 1];
+                    for (int i = 0; i < this.matrix.length; i++) {
+                        for (int j = 0, jj = 0; j < this.matrix[0].length; j++) {
+                            if (j == edgeIndex) {
+                                continue;
+                            }
+                            newMatrix[i][jj] = matrix[i][j];
+                            jj++;
+                        }
+                    }
+                    matrix = newMatrix;
+
+                    return cnt == 1 ? 1 : 0;
                 } else {
                     matrix[from][edgeIndex]--;
                     matrix[to][edgeIndex]++;
@@ -288,7 +307,7 @@ public class Incidence implements Graph {
         for (int i = 0; i < this.matrix.length; i++) {
             if (i == index) {
                 for (int j = 0; j < this.matrix[0].length; j++) {
-                    if (this.matrix[i][j] == 2) {
+                    if (this.matrix[i][j] > 0) {
                         neighbours[cnt++] = i; // сама себе сосед
                         break;
                     }

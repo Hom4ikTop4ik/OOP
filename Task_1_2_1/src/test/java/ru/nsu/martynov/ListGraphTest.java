@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -92,11 +93,17 @@ class ListGraphTest {
     @Test
     void remEdgeTest() {
         ListGraph listGraph = new ListGraph();
+        listGraph.addEdge(0, 0);
         listGraph.addEdge(0, 1);
+        listGraph.addEdge(0, 1);
+        assertEquals(1, listGraph.remEdge(0, 1),
+                "Removing an existing edge should return 1.");
         assertEquals(1, listGraph.remEdge(0, 1),
                 "Removing an existing edge should return 1.");
         assertEquals(0, listGraph.remEdge(0, 1),
                 "Removing a non-existing edge should return 0.");
+        assertEquals(1, listGraph.remEdge(0, 0),
+                "Removing an existing edge should return 1.");
         assertTrue(listGraph.list().isEmpty(),
                 "List of edges should be empty after removal.");
     }
@@ -186,5 +193,65 @@ class ListGraphTest {
         System.setOut(oldOut);
 
         assertEquals(expectedOutput, outputStream.toString());
+    }
+
+    /**
+     * Tests reading a graph from not existing file.
+     */
+    @Test
+    void readFileTestNotExist() {
+        String fileName = "readFileListNotExist.txt";
+        ListGraph listGraph = new ListGraph();
+
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        listGraph.readFile(fileName);
+        String output = "Error reading file " + fileName;
+        assertEquals(output, outputStream.toString());
+    }
+
+    /**
+     * Tests reading a graph from small file (not enough numbers).
+     */
+    @Test
+    void readFileTestNotEnough() {
+        String fileName = "readFileListNotEnough.txt";
+        ListGraph listGraph = new ListGraph();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            listGraph.readFile(fileName);
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+        String output = "File is bad — not enough numbers in table";
+        assertEquals(output, outputStream.toString());
+    }
+
+    /**
+     * Tests reading a graph from small file (there is not size of table).
+     */
+    @Test
+    void readFileTestNoSize() {
+        String fileName = "readFileListNoSize.txt";
+        ListGraph listGraph = new ListGraph();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            listGraph.readFile(fileName);
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+        String output = "File is bad — there isn't table size (count of vertices)";
+        assertEquals(output, outputStream.toString());
     }
 }

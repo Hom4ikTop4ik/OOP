@@ -184,7 +184,7 @@ public class Adjacency implements Graph {
             matrix = newMatrix;
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Error reading file " + fileName);
+            System.out.print("Error reading file " + fileName);
         }
     }
 }

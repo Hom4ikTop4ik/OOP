@@ -179,13 +179,18 @@ class IncidenceTest {
         assertEquals(1, inc.remEdge(0, 0),
                 "Removing edge (0,0) should return 1.");
         out = inc.matrix();
-        assertEquals(0, out[0][0],
-                "Matrix value at (0,0) should be 0 after removing edge (0,0).");
-        assertEquals(1, out[0][1],
-                "Matrix value at (0,1) should remain 1.");
+        assertEquals(1, out[0][0],
+                "Edge (0,1) is exist (1 because from 0 vert)");
+        assertEquals(-1, out[1][0],
+                "Edge (0,1) is exist (-1 because to 1 vert)");
 
         assertEquals(0, inc.remEdge(0, 0),
                 "Removing non-existing edge (0,0) should return 0.");
+
+        assertEquals(1, inc.remEdge(0, 1),
+                "Removing edge (0,1) should return 1.");
+        assertEquals(0, inc.remEdge(0, 1),
+                "Removing non-existing edge (0,1) should return 0.");
     }
 
     /**
