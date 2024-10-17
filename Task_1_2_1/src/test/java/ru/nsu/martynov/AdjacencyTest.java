@@ -237,4 +237,40 @@ class AdjacencyTest {
         // 0 2
         out = adj.matrix();
         assertEquals(0, out[0][0],
-                "Matrix value at (0,0) should remain
+                "Matrix value at (0,0) should remain 0.");
+        assertEquals(2, out[0][1],
+                "Matrix value at (0,1) should remain 2.");
+        assertEquals(0, out[1][0],
+                "Matrix value at (1,0) should remain 0.");
+        assertEquals(2, out[1][1],
+                "Matrix value at (1,1) should be 2 after removing one edge.");
+    }
+
+    /**
+     * Tests the printing of the adjacency matrix.
+     * This test captures the output of the print method and verifies
+     * if the output matches the expected string format of the adjacency matrix.
+     */
+    @Test
+    void printTest() {
+        Adjacency adj = new Adjacency();
+        adj.addVert();
+        adj.addEdge(0, 0);
+        adj.addVert();
+        adj.addEdge(0, 1);
+        adj.addEdge(0, 1);
+        adj.addEdge(1, 1);
+        adj.addEdge(1, 1);
+        adj.addEdge(1, 1);
+        String expected = "1 2\n0 3\n";
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        adj.printGraph();
+
+        System.setOut(originalOut);
+        assertEquals(expected, outContent.toString(),
+                "Printed adjacency matrix does not match expected output.");
+    }
+}
