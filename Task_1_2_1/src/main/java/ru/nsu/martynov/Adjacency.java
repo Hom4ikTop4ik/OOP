@@ -3,7 +3,6 @@ package ru.nsu.martynov;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -43,9 +42,9 @@ public class Adjacency implements Graph {
      * Prints the adjacency matrix to the console.
      */
     private void printMatrix() {
-        for (int[] row : matrix) {
-            for (int value : row) {
-                System.out.print(value + " ");
+        for (int[] integers : matrix) {
+            for (Integer integer : integers) {
+                System.out.print(integer + " ");
             }
             System.out.println();
         }
@@ -58,11 +57,12 @@ public class Adjacency implements Graph {
     public void addVert() {
         int[][] newMatrix = new int[this.matrix.length + 1][this.matrix.length + 1];
 
-        // Copy the old matrix into the new one
+        // Копируем старую матрицу в новую
         for (int i = 0; i < this.matrix.length; i++) {
             System.arraycopy(matrix[i], 0, newMatrix[i], 0, this.matrix.length);
         }
 
+        // Заменяем старую матрицу на новую
         matrix = newMatrix;
     }
 
@@ -76,16 +76,21 @@ public class Adjacency implements Graph {
 
         int[][] newMatrix = new int[this.matrix.length - 1][this.matrix.length - 1];
 
-        // Copy data, skipping the vertex to be removed
+        // Копируем данные, пропуская удаляемую вершину
         for (int i = 0, ii = 0; i < this.matrix.length; i++) {
-            if (i == index) continue;
+            if (i == index) {
+                continue;
+            }
             for (int j = 0, jj = 0; j < this.matrix.length; j++) {
-                if (j == index) continue;
+                if (j == index) {
+                    continue;
+                }
                 newMatrix[ii][jj++] = matrix[i][j];
             }
             ii++;
         }
 
+        // Заменяем старую матрицу на новую
         matrix = newMatrix;
     }
 
@@ -98,6 +103,7 @@ public class Adjacency implements Graph {
     @Override
     public void addEdge(int from, int to) {
         Helper.checkIndexes(from, to, this.matrix);
+
         this.matrix[from][to]++;
     }
 
@@ -135,7 +141,8 @@ public class Adjacency implements Graph {
                 neighbours[cnt++] = i;
             }
         }
-        return Arrays.copyOf(neighbours, cnt);
+        neighbours = Arrays.copyOf(neighbours, cnt);
+        return neighbours;
     }
 
     /**
@@ -156,12 +163,12 @@ public class Adjacency implements Graph {
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
-
+            int vertCount = 0;
             if (!scanner.hasNextInt()) {
                 throw new IllegalArgumentException(
                         "File is bad — there isn't table size (count of vertices)");
             }
-            int vertCount = scanner.nextInt();
+            vertCount = scanner.nextInt();
             int[][] newMatrix = new int[vertCount][vertCount];
 
             for (int i = 0; i < vertCount; i++) {
@@ -170,7 +177,8 @@ public class Adjacency implements Graph {
                         throw new IllegalArgumentException(
                                 "File is bad — not enough numbers in table");
                     }
-                    newMatrix[i][j] = scanner.nextInt();
+                    int tmp = scanner.nextInt();
+                    newMatrix[i][j] = tmp;
                 }
             }
             matrix = newMatrix;

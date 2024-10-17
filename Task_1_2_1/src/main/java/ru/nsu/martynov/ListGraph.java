@@ -42,7 +42,7 @@ public class ListGraph implements Graph {
      * so this method doesn't affect the internal structure.
      */
     public void addVert() {
-        // No explicit vertex handling
+        // nothing
     }
 
     /**
@@ -73,15 +73,15 @@ public class ListGraph implements Graph {
     public void addEdge(int from, int to) {
         Helper.checkIndexesNeg(from, to);
 
-        // Check if the edge already exists
+        // Проверяем, есть ли уже ребро (from -> to)
         for (Edge edge : edges) {
             if (edge.from == from && edge.to == to) {
-                edge.count++;  // Increment edge count
+                edge.count++;  // Увеличиваем количество рёбер
                 return;
             }
         }
 
-        // Add new edge if it doesn't exist
+        // Если ребра нет, добавляем новое
         edges.add(new Edge(from, to, 1));
     }
 
@@ -146,7 +146,7 @@ public class ListGraph implements Graph {
             }
         }
 
-        // Convert Set to array
+        // Преобразование Set в массив
         int[] neighboursArray = new int[neighboursSet.size()];
         int i = 0;
         for (Integer neighbour : neighboursSet) {
@@ -164,6 +164,7 @@ public class ListGraph implements Graph {
             System.out.println(edge);
         }
     }
+
 
     /**
      * Prints the entire graph by printing all its edges.

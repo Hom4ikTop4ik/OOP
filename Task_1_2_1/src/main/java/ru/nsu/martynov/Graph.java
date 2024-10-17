@@ -6,7 +6,6 @@ package ru.nsu.martynov;
  * neighbors, printing the graph structure, and reading graph data from a file.
  */
 public interface Graph {
-
     /**
      * Adds a new vertex to the graph.
      */

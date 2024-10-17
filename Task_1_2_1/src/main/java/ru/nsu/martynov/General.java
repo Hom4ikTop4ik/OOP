@@ -9,7 +9,7 @@ import java.util.Set;
  * (adjacency matrix, incidence matrix) into this format and for comparing graphs.
  */
 public class General {
-    private Set<Edge> edges;  // Set of edges in the format (from, to, count)
+    private Set<Edge> edges;  // Множество рёбер в формате (from, to, count)
 
     /**
      * Constructs an empty General graph.
@@ -47,9 +47,11 @@ public class General {
         }
         int edgesCount = incidenceMatrix[0].length;
 
+        // По рёбрам
         for (int e = 0; e < edgesCount; e++) {
             int from = -1;
             int to = -1;
+            // Поиск вершин from и to
             for (int v = 0; v < vertices; v++) {
                 if (incidenceMatrix[v][e] > 0) {
                     from = v;
@@ -59,6 +61,7 @@ public class General {
             }
             if (from >= 0) {
                 int count = incidenceMatrix[from][e];
+                // Если ребро в себя
                 if (to == -1) {
                     to = from;
                     count /= 2;
@@ -87,6 +90,18 @@ public class General {
      * @return true if the two graphs are equal, false otherwise
      */
     public boolean genEquals(General other) {
+        // Я хочу понять: почему закомментированное не работает.
+        //   for (Edge edge : this.edges) {
+        //     if (!other.edges.contains(edge)) {
+        //         return false;
+        //     }
+        // }
+        // for (Edge edgeOther : other.edges) {
+        //     if (!this.edges.contains(edgeOther)) {
+        //         return false;
+        //     }
+        // }
+
         for (Edge edge : this.edges) {
             boolean found = false;
             for (Edge otherEdge : other.edges) {
