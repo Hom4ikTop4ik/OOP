@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class HelperTest {
 
     /**
-     * Tests the {@code Helper.checkIndexes()} method for valid index pairs within the matrix bounds.
+     * Tests the Helper.checkIndexes() method for valid index pairs within the matrix bounds.
      * This method should not throw any exceptions for valid index inputs.
      */
     @Test
@@ -21,8 +21,8 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndexes()} method when the "from" index is negative.
-     * The method should throw an {@code IllegalArgumentException} with the correct error message.
+     * Tests the Helper.checkIndexes() method when the "from" index is negative.
+     * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
     void checkIndexesFromNegativeTest() {
@@ -35,8 +35,8 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndexes()} method when the "to" index is negative.
-     * The method should throw an {@code IllegalArgumentException} with the correct error message.
+     * Tests the Helper.checkIndexes() method when the "to" index is negative.
+     * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
     void checkIndexesToNegativeTest() {
@@ -49,8 +49,8 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndexes()} method when the "from" index exceeds the matrix bounds.
-     * The method should throw an {@code IllegalArgumentException} with the correct error message.
+     * Tests the Helper.checkIndexes() method when the "from" index exceeds the matrix bounds.
+     * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
     void checkIndexesFromTooLargeTest() {
@@ -63,8 +63,8 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndexes()} method when the "to" index exceeds the matrix bounds.
-     * The method should throw an {@code IllegalArgumentException} with the correct error message.
+     * Tests the Helper.checkIndexes() method when the "to" index exceeds the matrix bounds.
+     * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
     void checkIndexesToTooLargeTest() {
@@ -77,7 +77,7 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndexesNeg()} method for valid index pairs.
+     * Tests the Helper.checkIndexesNeg() method for valid index pairs.
      * This method should not throw any exceptions for valid inputs.
      */
     @Test
@@ -87,8 +87,8 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndexesNeg()} method when the "from" index is negative.
-     * The method should throw an {@code IllegalArgumentException} with the correct error message.
+     * Tests the Helper.checkIndexesNeg() method when the "from" index is negative.
+     * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
     void checkIndexesNegFromNegativeTest() {
@@ -100,8 +100,8 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndexesNeg()} method when the "to" index is negative.
-     * The method should throw an {@code IllegalArgumentException} with the correct error message.
+     * Tests the Helper.checkIndexesNeg() method when the "to" index is negative.
+     * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
     void checkIndexesNegToNegativeTest() {
@@ -113,7 +113,7 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndex()} method for valid single indexes within the matrix bounds.
+     * Tests the Helper.checkIndex() method for valid single indexes within the matrix bounds.
      * This method should not throw any exceptions for valid index inputs.
      */
     @Test
@@ -124,8 +124,8 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndex()} method when the index is negative.
-     * The method should throw an {@code IllegalArgumentException} with the correct error message.
+     * Tests the Helper.checkIndex() method when the index is negative.
+     * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
     void checkIndexNegativeTest() {
@@ -138,8 +138,8 @@ class HelperTest {
     }
 
     /**
-     * Tests the {@code Helper.checkIndex()} method when the index exceeds the matrix bounds.
-     * The method should throw an {@code IllegalArgumentException} with the correct error message.
+     * Tests the Helper.checkIndex() method when the index exceeds the matrix bounds.
+     * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
     void checkIndexTooLargeTest() {

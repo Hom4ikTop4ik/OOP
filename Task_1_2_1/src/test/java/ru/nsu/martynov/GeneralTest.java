@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 class GeneralTest {
 
     /**
-     * Tests the consistency of graph representations by comparing adjacency, incidence, and list representations.
-     * This test checks that after adding edges to all three graph types, their generated representations are equal.
+     * Tests the consistency of graph representations by comparing
+     *   adjacency, incidence, and list representations.
+     * This test checks that after adding edges to all three graph types,
+     *   their generated representations are equal.
      * It also verifies that the representations remain consistent when vertices are removed.
      */
     @Test
@@ -58,7 +60,6 @@ class GeneralTest {
             General genList = new General();
             genList.fromList(listGraph.list());
 
-            // Assert that all graph representations are still equivalent after vertex removal
             assertTrue(genAdj.genEquals(genInc));
             assertTrue(genInc.genEquals(genList));
             assertTrue(genList.genEquals(genAdj));

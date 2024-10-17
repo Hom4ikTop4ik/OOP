@@ -24,7 +24,8 @@ class EdgeTest {
      * This test checks if the equals method works correctly by comparing
      * different Edge instances with various attributes, including:
      * - A comparison of an Edge with itself (should be equal).
-     * - Comparisons of Edge instances with the same and different attributes (should be equal or not equal as appropriate).
+     * - Comparisons of Edge instances with the same and different attributes
+     *     (should be equal or not equal as appropriate).
      * - Comparisons with an integer and null (should not be equal).
      */
     @Test

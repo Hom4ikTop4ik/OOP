@@ -86,7 +86,8 @@ class IncidenceTest {
     }
 
     /**
-     * Tests the addVert() method to ensure that the matrix is updated correctly when vertices are added.
+     * Tests the addVert() method to ensure that
+     * the matrix is updated correctly when vertices are added.
      */
     @Test
     void addVertTest() {
@@ -113,7 +114,8 @@ class IncidenceTest {
     }
 
     /**
-     * Tests the remVert() method to ensure that vertices and their associated edges are removed correctly.
+     * Tests the remVert() method to ensure that
+     * vertices and their associated edges are removed correctly.
      */
     @Test
     void remVertTest() {
@@ -238,7 +240,8 @@ class IncidenceTest {
     }
 
     /**
-     * Tests reading a graph from a file and ensuring the matrix representation matches expectations.
+     * Tests reading a graph from a file and
+     * ensuring the matrix representation matches expectations.
      */
     @Test
     void readFileTest() {
@@ -282,7 +285,8 @@ class IncidenceTest {
         }
         String output = "Error reading file readFileIncBadNotExist.txt";
         System.setOut(oldOut);
-        assertEquals(output, outputStream.toString(), "Bad file. There is should be exception.");
+        assertEquals(output, outputStream.toString(),
+                "Bad file. There is should be exception.");
     }
 
     @Test
@@ -302,7 +306,8 @@ class IncidenceTest {
         }
         String output = "File is bad — there isn't table size (count of vertices)";
         System.setOut(oldOut);
-        assertEquals(output, outputStream.toString(), "Bad file. There is should be exception.");
+        assertEquals(output, outputStream.toString(),
+                "Bad file. There is should be exception.");
     }
 
     @Test
@@ -322,7 +327,8 @@ class IncidenceTest {
         }
         String output = "File is bad — there isn't table size (count of edges)";
         System.setOut(oldOut);
-        assertEquals(output, outputStream.toString(), "Bad file. There is should be exception.");
+        assertEquals(output, outputStream.toString(),
+                "Bad file. There is should be exception.");
     }
 
     @Test
@@ -342,7 +348,8 @@ class IncidenceTest {
         }
         String output = "File is bad — not enough numbers in table";
         System.setOut(oldOut);
-        assertEquals(output, outputStream.toString(), "Bad file. There is should be exception.");
+        assertEquals(output, outputStream.toString(),
+                "Bad file. There is should be exception.");
     }
 
 }
