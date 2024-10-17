@@ -1,8 +1,8 @@
 package ru.nsu.martynov;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class GeneralTest {
 
@@ -31,24 +31,11 @@ class GeneralTest {
                 General genList = new General();
                 genList.fromList(listGraph.list());
 
-                // System.out.println(genAdj.genEquals(genInc));
-                // System.out.println(genInc.genEquals(genList));
-                // System.out.println(genList.genEquals(genAdj));
-                // System.out.println();
-
                 assertTrue(genAdj.genEquals(genInc));
                 assertTrue(genInc.genEquals(genList));
                 assertTrue(genList.genEquals(genAdj));
             }
         }
-
-//        System.out.println("================");
-//        listGraph.printGraph();
-//        System.out.println();
-//        adj.printGraph();
-//        System.out.println();
-//        inc.printGraph();
-//        System.out.println("================");
 
         for (int i = 4; i >= 0; i--) {
             listGraph.remVert(i);
@@ -61,11 +48,6 @@ class GeneralTest {
             genInc.fromIncidenceMatrix(inc.matrix());
             General genList = new General();
             genList.fromList(listGraph.list());
-
-            // System.out.println(genAdj.genEquals(genInc));
-            // System.out.println(genInc.genEquals(genList));
-            // System.out.println(genList.genEquals(genAdj));
-            // System.out.println();
 
             assertTrue(genAdj.genEquals(genInc));
             assertTrue(genInc.genEquals(genList));

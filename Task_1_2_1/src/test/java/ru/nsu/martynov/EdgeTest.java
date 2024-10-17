@@ -1,16 +1,15 @@
 package ru.nsu.martynov;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import org.junit.jupiter.api.Test;
 
 class EdgeTest {
 
     @Test
     void testToString() {
-        Edge edge = new Edge(1,1,1);
+        Edge edge = new Edge(1, 1, 1);
         String output = "Edge{from=1, to=1, count=1}";
         assertEquals(output, edge.toString());
     }
