@@ -2,9 +2,9 @@ package ru.nsu.martynov;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -119,10 +119,6 @@ class ListGraphTest {
 
     @Test
     void printGraphTest() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream oldOut = System.out;
-        System.setOut(new PrintStream(outputStream));
-
         ListGraph listGraph = new ListGraph();
 
         int num = 5;
@@ -132,6 +128,11 @@ class ListGraphTest {
                 listGraph.addEdge(3, 7);
             }
         }
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
         listGraph.printGraph();
 
         String output = "Edge{from=3, to=7, count=10}" + System.lineSeparator();
@@ -143,12 +144,13 @@ class ListGraphTest {
     void readFileTest() {
         String fileName = "readFileList.txt";
 
+        ListGraph listGraph = new ListGraph();
+        listGraph.readFile(fileName);
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream oldOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        ListGraph listGraph = new ListGraph();
-        listGraph.readFile(fileName);
         listGraph.printGraph();
         String output = "Edge{from=3, to=1, count=9}" + System.lineSeparator();
         System.setOut(oldOut);
