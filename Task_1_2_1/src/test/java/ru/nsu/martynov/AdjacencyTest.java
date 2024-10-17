@@ -36,8 +36,11 @@ class AdjacencyTest {
                 "Matrix value at (0,0) should be 1 after adding edge (0,0).");
 
         adj.addVert();
-        adj.addEdge(0, 1); adj.addEdge(0, 1);
-        adj.addEdge(1, 1); adj.addEdge(1, 1); adj.addEdge(1, 1);
+        adj.addEdge(0, 1);
+        adj.addEdge(0, 1);
+        adj.addEdge(1, 1);
+        adj.addEdge(1, 1);
+        adj.addEdge(1, 1);
         int[][] out2 = adj.matrix();
         // 1 2
         // 0 3
@@ -156,8 +159,11 @@ class AdjacencyTest {
         // 1
 
         adj.addVert();
-        adj.addEdge(0, 1); adj.addEdge(0, 1);
-        adj.addEdge(1, 1); adj.addEdge(1, 1); adj.addEdge(1, 1);
+        adj.addEdge(0, 1);
+        adj.addEdge(0, 1);
+        adj.addEdge(1, 1);
+        adj.addEdge(1, 1);
+        adj.addEdge(1, 1);
         // 1 2
         // 0 3
 
@@ -213,7 +219,8 @@ class AdjacencyTest {
         adj.addVert();
         adj.addVert();
         adj.addVert();
-        adj.addEdge(0, 0); adj.addEdge(0, 0);
+        adj.addEdge(0, 0);
+        adj.addEdge(0, 0);
         adj.addEdge(1, 0);
         adj.addEdge(0, 2);
         adj.addEdge(2, 1);
@@ -233,11 +240,6 @@ class AdjacencyTest {
 
     @Test
     void printGraphTest() {
-        PrintStream oldOut = System.out;
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-
         Adjacency adj = new Adjacency();
 
         for (int i = 0; i < 5; i++) {
@@ -248,6 +250,11 @@ class AdjacencyTest {
                 adj.addEdge(i, adj.getVertCount() - 1 - i);
             }
         }
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
         adj.printGraph();
 
         String output = "0 0 0 0 3 " + System.lineSeparator()
@@ -263,13 +270,14 @@ class AdjacencyTest {
     @Test
     void readFileTest() {
         String fileName = "readFileAdj.txt";
-        PrintStream oldOut = System.out;
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
 
         Adjacency adj = new Adjacency();
         adj.readFile(fileName);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
         adj.printGraph();
         String output = "1 0 0 9 2 " + System.lineSeparator()
                 + "5 7 3 0 8 " + System.lineSeparator()
