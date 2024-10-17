@@ -102,6 +102,8 @@ class ListGraphTest {
                 "Removing an existing edge should return 1.");
         assertEquals(0, listGraph.remEdge(0, 1),
                 "Removing a non-existing edge should return 0.");
+        assertEquals(0, listGraph.remEdge(1, 0),
+                "Removing a non-existing edge should return 0.");
         assertEquals(1, listGraph.remEdge(0, 0),
                 "Removing an existing edge should return 1.");
         assertTrue(listGraph.list().isEmpty(),

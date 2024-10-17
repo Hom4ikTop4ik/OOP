@@ -237,8 +237,7 @@ public class Incidence implements Graph {
             if (edgeIndex == -1) {
                 return 0;
             } else {
-                int cnt = this.matrix[from][edgeIndex];
-                if (cnt <= 2) {
+                if (this.matrix[from][edgeIndex] == 2) {
                     int[][] newMatrix = new int[this.matrix.length][this.matrix[0].length - 1];
                     for (int i = 0; i < this.matrix.length; i++) {
                         for (int j = 0, jj = 0; j < this.matrix[0].length; j++) {
@@ -250,7 +249,7 @@ public class Incidence implements Graph {
                         }
                     }
                     matrix = newMatrix;
-                    return cnt == 2 ? 1 : 0;
+                    return 1;
                 } else {
                     this.matrix[from][edgeIndex] -= 2;
                     return 1;
@@ -267,8 +266,7 @@ public class Incidence implements Graph {
             if (edgeIndex == -1) {
                 return 0;
             } else {
-                int cnt = this.matrix[from][edgeIndex];
-                if (cnt <= 1) {
+                if (this.matrix[from][edgeIndex] == 1) {
                     int[][] newMatrix = new int[this.matrix.length][this.matrix[0].length - 1];
                     for (int i = 0; i < this.matrix.length; i++) {
                         for (int j = 0, jj = 0; j < this.matrix[0].length; j++) {
@@ -280,8 +278,7 @@ public class Incidence implements Graph {
                         }
                     }
                     matrix = newMatrix;
-
-                    return cnt == 1 ? 1 : 0;
+                    return 1;
                 } else {
                     matrix[from][edgeIndex]--;
                     matrix[to][edgeIndex]++;

@@ -170,20 +170,22 @@ class IncidenceTest {
 
         inc.addVert();
         inc.addEdge(0, 0);
+        inc.addEdge(0, 0);
 
         inc.addVert();
         inc.addEdge(0, 1);
-        inc.addEdge(1, 1);
+        inc.addVert();
+        inc.addEdge(1, 2);
+        inc.addEdge(1, 2);
+        inc.addEdge(1, 2);
         int[][] out = inc.matrix();
 
         assertEquals(1, inc.remEdge(0, 0),
                 "Removing edge (0,0) should return 1.");
         out = inc.matrix();
-        assertEquals(1, out[0][0],
-                "Edge (0,1) is exist (1 because from 0 vert)");
-        assertEquals(-1, out[1][0],
-                "Edge (0,1) is exist (-1 because to 1 vert)");
 
+        assertEquals(1, inc.remEdge(0, 0),
+                "Removing edge (0,0) should return 1.");
         assertEquals(0, inc.remEdge(0, 0),
                 "Removing non-existing edge (0,0) should return 0.");
 
@@ -191,6 +193,16 @@ class IncidenceTest {
                 "Removing edge (0,1) should return 1.");
         assertEquals(0, inc.remEdge(0, 1),
                 "Removing non-existing edge (0,1) should return 0.");
+
+
+        assertEquals(1, inc.remEdge(1, 2),
+                "Removing edge (0,0) should return 1.");
+        assertEquals(1, inc.remEdge(1, 2),
+                "Removing edge (0,0) should return 1.");
+        assertEquals(1, inc.remEdge(1, 2),
+                "Removing edge (0,0) should return 1.");
+        assertEquals(0, inc.remEdge(1, 2),
+                "Removing non-existing edge (1,1) should return 0.");
     }
 
     /**

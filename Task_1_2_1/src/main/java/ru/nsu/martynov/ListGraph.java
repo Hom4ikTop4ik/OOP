@@ -99,11 +99,9 @@ public class ListGraph implements Graph {
                 if (edge.count > 1) {
                     edge.count--;
                     return 1;
-                } else if (edge.count == 1) {
+                } else { // 1 edge
                     edges.remove(edge);
                     return 1;
-                } else {
-                    return 0;
                 }
             }
         }
