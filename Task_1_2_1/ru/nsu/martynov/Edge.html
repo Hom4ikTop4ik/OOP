@@ -132,6 +132,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Edge</span>
 extends java.lang.Object</pre>
+<div class="block">The Edge class represents an edge in a graph, storing information about
+ the start vertex (from), end vertex (to), and the count (weight or multiplicity) of the edge.</div>
 </li>
 </ul>
 </div>
@@ -155,7 +157,9 @@ extends java.lang.Object</pre>
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int,int,int)">Edge</a></span>&#8203;(int&nbsp;from,
     int&nbsp;to,
     int&nbsp;count)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs an Edge with specified start vertex, end vertex, and count.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -178,12 +182,16 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;obj)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Checks if this edge is equal to another object.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns a string representation of the edge.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -218,6 +226,13 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;Edge&#8203;(int&nbsp;from,
             int&nbsp;to,
             int&nbsp;count)</pre>
+<div class="block">Constructs an Edge with specified start vertex, end vertex, and count.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the starting vertex of the edge</dd>
+<dd><code>to</code> - the ending vertex of the edge</dd>
+<dd><code>count</code> - the count (weight or multiplicity) of the edge</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -237,9 +252,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>toString</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<div class="block">Returns a string representation of the edge.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a string describing the edge with its start, end, and count values</dd>
 </dl>
 </li>
 </ul>
@@ -250,9 +268,15 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>equals</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;obj)</pre>
+<div class="block">Checks if this edge is equal to another object.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>obj</code> - the object to compare with</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the specified object is an Edge with the same start vertex,
+         end vertex, and count, otherwise false</dd>
 </dl>
 </li>
 </ul>

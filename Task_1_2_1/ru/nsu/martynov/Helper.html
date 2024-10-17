@@ -88,13 +88,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -132,45 +132,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Helper</span>
 extends java.lang.Object</pre>
+<div class="block">The Helper class provides utility methods for validating indices in graph operations
+ and defines some constant prime numbers for general use.</div>
 </li>
 </ul>
 </div>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#FIRST_PRIME">FIRST_PRIME</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#SECOND_PRIME">SECOND_PRIME</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#THIRD_PRIME">THIRD_PRIME</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section>
 <ul class="blockList">
@@ -210,20 +179,26 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkIndex(int,int%5B%5D%5B%5D)">checkIndex</a></span>&#8203;(int&nbsp;index,
           int[][]&nbsp;matrix)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Validates that a single index is within the bounds of the matrix.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkIndexes(int,int,int%5B%5D%5B%5D)">checkIndexes</a></span>&#8203;(int&nbsp;from,
             int&nbsp;to,
             int[][]&nbsp;matrix)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Validates that both 'from' and 'to' indices are within bounds of the matrix.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkIndexesNeg(int,int)">checkIndexesNeg</a></span>&#8203;(int&nbsp;from,
                int&nbsp;to)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Validates that both 'from' and 'to' indices are non-negative.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -242,55 +217,6 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="FIRST_PRIME">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>FIRST_PRIME</h4>
-<pre>public static final&nbsp;int FIRST_PRIME</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../constant-values.html#ru.nsu.martynov.Helper.FIRST_PRIME">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a id="SECOND_PRIME">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>SECOND_PRIME</h4>
-<pre>public static final&nbsp;int SECOND_PRIME</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../constant-values.html#ru.nsu.martynov.Helper.SECOND_PRIME">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a id="THIRD_PRIME">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>THIRD_PRIME</h4>
-<pre>public static final&nbsp;int THIRD_PRIME</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../constant-values.html#ru.nsu.martynov.Helper.THIRD_PRIME">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section>
 <ul class="blockList">
@@ -326,6 +252,15 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public static&nbsp;void&nbsp;checkIndexes&#8203;(int&nbsp;from,
                                 int&nbsp;to,
                                 int[][]&nbsp;matrix)</pre>
+<div class="block">Validates that both 'from' and 'to' indices are within bounds of the matrix.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the source vertex index</dd>
+<dd><code>to</code> - the destination vertex index</dd>
+<dd><code>matrix</code> - the graph's adjacency or incidence matrix</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the indices are out of bounds</dd>
+</dl>
 </li>
 </ul>
 <a id="checkIndexesNeg(int,int)">
@@ -336,6 +271,15 @@ extends java.lang.Object</pre>
 <h4>checkIndexesNeg</h4>
 <pre class="methodSignature">public static&nbsp;void&nbsp;checkIndexesNeg&#8203;(int&nbsp;from,
                                    int&nbsp;to)</pre>
+<div class="block">Validates that both 'from' and 'to' indices are non-negative.
+ This method is used in scenarios where matrix bounds are not considered.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the source vertex index</dd>
+<dd><code>to</code> - the destination vertex index</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the indices are negative</dd>
+</dl>
 </li>
 </ul>
 <a id="checkIndex(int,int[][])">
@@ -346,6 +290,14 @@ extends java.lang.Object</pre>
 <h4>checkIndex</h4>
 <pre class="methodSignature">public static&nbsp;void&nbsp;checkIndex&#8203;(int&nbsp;index,
                               int[][]&nbsp;matrix)</pre>
+<div class="block">Validates that a single index is within the bounds of the matrix.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>index</code> - the vertex index to check</dd>
+<dd><code>matrix</code> - the graph's adjacency or incidence matrix</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the index is out of bounds</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -399,13 +351,13 @@ extends java.lang.Object</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

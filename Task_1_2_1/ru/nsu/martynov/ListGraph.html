@@ -137,6 +137,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">ListGraph</span>
 extends java.lang.Object
 implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></pre>
+<div class="block">This class represents a graph using a list of edges.
+ Each edge is represented as a triple (from, to, count)
+ This class implements basic graph operations:
+   adding/removing vertices and edges,
+   reading from a file,
+   printing the graph.</div>
 </li>
 </ul>
 </div>
@@ -158,7 +164,9 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">ListGraph</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs an empty graph with no edges.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -182,48 +190,66 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addEdge(int,int)">addEdge</a></span>&#8203;(int&nbsp;from,
        int&nbsp;to)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds an edge between two vertices.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addVert()">addVert</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds a new vertex to the graph.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>int[]</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNeighbours(int)">getNeighbours</a></span>&#8203;(int&nbsp;index)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns an array of vertices adjacent to the specified vertex.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVertCount()">getVertCount</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the number of vertices in the graph.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.Set&lt;<a href="Edge.html" title="class in ru.nsu.martynov">Edge</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#list()">list</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the set of edges in the graph.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#printGraph()">printGraph</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Prints the entire graph by printing all its edges.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readFile(java.lang.String)">readFile</a></span>&#8203;(java.lang.String&nbsp;fileName)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Reads a graph from a file and constructs it based on the provided adjacency matrix.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remEdge(int,int)">remEdge</a></span>&#8203;(int&nbsp;from,
        int&nbsp;to)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Removes an edge between two vertices.</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remVert(int)">remVert</a></span>&#8203;(int&nbsp;index)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Removes all edges connected to a given vertex.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -256,6 +282,7 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <li class="blockList">
 <h4>ListGraph</h4>
 <pre>public&nbsp;ListGraph()</pre>
+<div class="block">Constructs an empty graph with no edges.</div>
 </li>
 </ul>
 </li>
@@ -275,6 +302,11 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <li class="blockList">
 <h4>list</h4>
 <pre class="methodSignature">public&nbsp;java.util.Set&lt;<a href="Edge.html" title="class in ru.nsu.martynov">Edge</a>&gt;&nbsp;list()</pre>
+<div class="block">Returns the set of edges in the graph.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the set of edges.</dd>
+</dl>
 </li>
 </ul>
 <a id="addVert()">
@@ -284,6 +316,9 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <li class="blockList">
 <h4>addVert</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addVert()</pre>
+<div class="block">Adds a new vertex to the graph.
+ This implementation doesn't store explicit vertices,
+ so this method doesn't affect the internal structure.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#addVert()">addVert</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></code></dd>
@@ -297,9 +332,12 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <li class="blockList">
 <h4>remVert</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;remVert&#8203;(int&nbsp;index)</pre>
+<div class="block">Removes all edges connected to a given vertex.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#remVert(int)">remVert</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>index</code> - the index of the vertex to be removed.</dd>
 </dl>
 </li>
 </ul>
@@ -311,9 +349,13 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <h4>addEdge</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addEdge&#8203;(int&nbsp;from,
                     int&nbsp;to)</pre>
+<div class="block">Adds an edge between two vertices. If the edge already exists, increments its count.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#addEdge(int,int)">addEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the starting vertex of the edge.</dd>
+<dd><code>to</code> - the ending vertex of the edge.</dd>
 </dl>
 </li>
 </ul>
@@ -325,9 +367,16 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <h4>remEdge</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;remEdge&#8203;(int&nbsp;from,
                    int&nbsp;to)</pre>
+<div class="block">Removes an edge between two vertices. If the edge exists and has a count greater than 1,
+ decrements the count. Otherwise, removes the edge entirely.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#remEdge(int,int)">remEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the starting vertex of the edge.</dd>
+<dd><code>to</code> - the ending vertex of the edge.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>1 if an edge was removed, or 0 if no edge existed.</dd>
 </dl>
 </li>
 </ul>
@@ -338,6 +387,12 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <li class="blockList">
 <h4>getVertCount</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getVertCount()</pre>
+<div class="block">Returns the number of vertices in the graph. The vertex count is inferred
+ from the highest index found in the edges.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the number of vertices in the graph.</dd>
+</dl>
 </li>
 </ul>
 <a id="getNeighbours(int)">
@@ -347,9 +402,14 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <li class="blockList">
 <h4>getNeighbours</h4>
 <pre class="methodSignature">public&nbsp;int[]&nbsp;getNeighbours&#8203;(int&nbsp;index)</pre>
+<div class="block">Returns an array of vertices adjacent to the specified vertex.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#getNeighbours(int)">getNeighbours</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>index</code> - the index of the vertex.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>an array of adjacent vertices.</dd>
 </dl>
 </li>
 </ul>
@@ -360,6 +420,7 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <li class="blockList">
 <h4>printGraph</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;printGraph()</pre>
+<div class="block">Prints the entire graph by printing all its edges.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#printGraph()">printGraph</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></code></dd>
@@ -373,9 +434,16 @@ implements <a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></
 <li class="blockList">
 <h4>readFile</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;readFile&#8203;(java.lang.String&nbsp;fileName)</pre>
+<div class="block">Reads a graph from a file and constructs it based on the provided adjacency matrix.
+ The file should start with the number of vertices, followed by the adjacency matrix.
+ Positive integers in the matrix represent the number of edges between two vertices.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Graph.html#readFile(java.lang.String)">readFile</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.martynov">Graph</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fileName</code> - the name of the file containing the graph data.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the file format is incorrect.</dd>
 </dl>
 </li>
 </ul>

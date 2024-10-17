@@ -132,6 +132,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">General</span>
 extends java.lang.Object</pre>
+<div class="block">The General class represents a generalized view of a graph where edges are stored as
+ (from, to, count) tuples. It provides methods for converting different matrix representations
+ (adjacency matrix, incidence matrix) into this format and for comparing graphs.</div>
 </li>
 </ul>
 </div>
@@ -153,7 +156,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">General</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs an empty General graph.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -176,22 +181,30 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fromAdjacencyMatrix(int%5B%5D%5B%5D)">fromAdjacencyMatrix</a></span>&#8203;(int[][]&nbsp;adjacencyMatrix)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Converts an adjacency matrix into the general graph format.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fromIncidenceMatrix(int%5B%5D%5B%5D)">fromIncidenceMatrix</a></span>&#8203;(int[][]&nbsp;incidenceMatrix)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Converts an incidence matrix into the general graph format.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fromList(java.util.Set)">fromList</a></span>&#8203;(java.util.Set&lt;<a href="Edge.html" title="class in ru.nsu.martynov">Edge</a>&gt;&nbsp;list)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Converts a set of edges into the general graph format.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#genEquals(ru.nsu.martynov.General)">genEquals</a></span>&#8203;(<a href="General.html" title="class in ru.nsu.martynov">General</a>&nbsp;other)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Compares the current general graph with another general graph for equality.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -224,6 +237,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>General</h4>
 <pre>public&nbsp;General()</pre>
+<div class="block">Constructs an empty General graph.</div>
 </li>
 </ul>
 </li>
@@ -243,6 +257,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>fromAdjacencyMatrix</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;fromAdjacencyMatrix&#8203;(int[][]&nbsp;adjacencyMatrix)</pre>
+<div class="block">Converts an adjacency matrix into the general graph format.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>adjacencyMatrix</code> - the adjacency matrix to convert</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the adjacency matrix is invalid</dd>
+</dl>
 </li>
 </ul>
 <a id="fromIncidenceMatrix(int[][])">
@@ -252,6 +273,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>fromIncidenceMatrix</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;fromIncidenceMatrix&#8203;(int[][]&nbsp;incidenceMatrix)</pre>
+<div class="block">Converts an incidence matrix into the general graph format.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>incidenceMatrix</code> - the incidence matrix to convert</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the incidence matrix is invalid</dd>
+</dl>
 </li>
 </ul>
 <a id="fromList(java.util.Set)">
@@ -261,6 +289,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>fromList</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;fromList&#8203;(java.util.Set&lt;<a href="Edge.html" title="class in ru.nsu.martynov">Edge</a>&gt;&nbsp;list)</pre>
+<div class="block">Converts a set of edges into the general graph format.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>list</code> - the set of edges to import into the general graph</dd>
+</dl>
 </li>
 </ul>
 <a id="genEquals(ru.nsu.martynov.General)">
@@ -270,6 +303,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>genEquals</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;genEquals&#8203;(<a href="General.html" title="class in ru.nsu.martynov">General</a>&nbsp;other)</pre>
+<div class="block">Compares the current general graph with another general graph for equality.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>other</code> - the other General graph to compare with</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the two graphs are equal, false otherwise</dd>
+</dl>
 </li>
 </ul>
 </li>

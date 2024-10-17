@@ -127,6 +127,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">Graph</span></pre>
+<div class="block">The Graph interface defines a set of methods for working with various graph representations.
+ Implementations of this interface should handle adding/removing vertices and edges, retrieving
+ neighbors, printing the graph structure, and reading graph data from a file.</div>
 </li>
 </ul>
 </div>
@@ -151,38 +154,52 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addEdge(int,int)">addEdge</a></span>&#8203;(int&nbsp;from,
        int&nbsp;to)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds an edge between two vertices in the graph.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addVert()">addVert</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds a new vertex to the graph.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>int[]</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNeighbours(int)">getNeighbours</a></span>&#8203;(int&nbsp;index)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the neighbors of a vertex, i.e., the vertices connected to it by edges.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#printGraph()">printGraph</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Prints the structure of the graph, typically by listing vertices and their connections.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readFile(java.lang.String)">readFile</a></span>&#8203;(java.lang.String&nbsp;fileName)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Reads the graph structure from a file.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remEdge(int,int)">remEdge</a></span>&#8203;(int&nbsp;from,
        int&nbsp;to)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Removes an edge between two vertices in the graph.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#remVert(int)">remVert</a></span>&#8203;(int&nbsp;index)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Removes the vertex with the given index from the graph.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -208,6 +225,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>addVert</h4>
 <pre class="methodSignature">void&nbsp;addVert()</pre>
+<div class="block">Adds a new vertex to the graph.</div>
 </li>
 </ul>
 <a id="remVert(int)">
@@ -217,6 +235,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>remVert</h4>
 <pre class="methodSignature">void&nbsp;remVert&#8203;(int&nbsp;index)</pre>
+<div class="block">Removes the vertex with the given index from the graph.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>index</code> - the index of the vertex to be removed</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the index is out of bounds</dd>
+</dl>
 </li>
 </ul>
 <a id="addEdge(int,int)">
@@ -227,6 +252,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>addEdge</h4>
 <pre class="methodSignature">void&nbsp;addEdge&#8203;(int&nbsp;from,
              int&nbsp;to)</pre>
+<div class="block">Adds an edge between two vertices in the graph. Supports multiple edges between the same vertices.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the source vertex index</dd>
+<dd><code>to</code> - the destination vertex index</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the indices are out of bounds</dd>
+</dl>
 </li>
 </ul>
 <a id="remEdge(int,int)">
@@ -237,6 +270,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>remEdge</h4>
 <pre class="methodSignature">int&nbsp;remEdge&#8203;(int&nbsp;from,
             int&nbsp;to)</pre>
+<div class="block">Removes an edge between two vertices in the graph.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>from</code> - the source vertex index</dd>
+<dd><code>to</code> - the destination vertex index</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the number of edges removed, typically 1 or 0 if no edge exists</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the indices are out of bounds</dd>
+</dl>
 </li>
 </ul>
 <a id="getNeighbours(int)">
@@ -246,6 +289,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>getNeighbours</h4>
 <pre class="methodSignature">int[]&nbsp;getNeighbours&#8203;(int&nbsp;index)</pre>
+<div class="block">Returns the neighbors of a vertex, i.e., the vertices connected to it by edges.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>index</code> - the index of the vertex</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>an array of indices of neighboring vertices</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the index is out of bounds</dd>
+</dl>
 </li>
 </ul>
 <a id="printGraph()">
@@ -255,6 +307,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>printGraph</h4>
 <pre class="methodSignature">void&nbsp;printGraph()</pre>
+<div class="block">Prints the structure of the graph, typically by listing vertices and their connections.</div>
 </li>
 </ul>
 <a id="readFile(java.lang.String)">
@@ -264,6 +317,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>readFile</h4>
 <pre class="methodSignature">void&nbsp;readFile&#8203;(java.lang.String&nbsp;fileName)</pre>
+<div class="block">Reads the graph structure from a file. The file is expected to define the vertices and edges.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fileName</code> - the name of the file containing the graph data</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if the file format is incorrect</dd>
+</dl>
 </li>
 </ul>
 </li>
