@@ -123,9 +123,9 @@ class ListGraphTest {
     @Test
     void readFileTest() {
         String fileName = "readFileList.txt";
-        PrintStream oldOut = System.out;
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
         ListGraph listGraph = new ListGraph();
