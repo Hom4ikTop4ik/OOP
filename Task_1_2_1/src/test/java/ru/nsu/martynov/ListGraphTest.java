@@ -9,7 +9,16 @@ import java.io.PrintStream;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for the ListGraph class, covering basic graph operations
+ * such as adding/removing vertices and edges, getting neighbors, and
+ * reading from a file.
+ */
 class ListGraphTest {
+
+    /**
+     * Tests that the initial list of edges in a new ListGraph is empty.
+     */
     @Test
     void listTest() {
         ListGraph listGraph = new ListGraph();
@@ -17,30 +26,33 @@ class ListGraphTest {
                 "Initial list of edges should be empty.");
     }
 
+    /**
+     * Tests adding a vertex. Currently, this operation doesn't change
+     * the internal vertex count in this implementation.
+     */
     @Test
     void addVertTest() {
         ListGraph listGraph = new ListGraph();
-        listGraph.addVert(); // В текущей реализации вершина не сохраняется, тест добавлен для формы
+        listGraph.addVert(); // Currently has no effect on vertex count
         assertEquals(0, listGraph.getVertCount(),
                 "Vert count should still be 0.");
     }
 
+    /**
+     * Tests removing a vertex, which should remove edges connected to it.
+     */
     @Test
     void remVertTest() {
         ListGraph listGraph = new ListGraph();
         listGraph.addEdge(0, 1);
         listGraph.addEdge(1, 2);
-        // 0 1 0
-        // 0 0 1
-        // 0 0 0
         assertEquals(3, listGraph.getVertCount(),
                 "Vert count should be 3.");
-        listGraph.remVert(1);
-        // 0 x 0
-        // x x x
-        // 0 x 0
+
+        listGraph.remVert(1); // Remove vertex 1
         assertEquals(0, listGraph.getVertCount(),
                 "Vert count should be 0 after removing vertex 1.");
+
         Set<Edge> edges = listGraph.list();
         for (Edge edge : edges) {
             assertTrue(edge.from != 1 && edge.to != 1,
@@ -48,6 +60,11 @@ class ListGraphTest {
         }
     }
 
+    /**
+     * Tests adding an edge to the graph.
+     * - Ensures that the edge is added correctly.
+     * - Adds the same edge twice to increase its weight (count).
+     */
     @Test
     void addEdgeTest() {
         ListGraph listGraph = new ListGraph();
@@ -55,20 +72,23 @@ class ListGraphTest {
         Set<Edge> edges = listGraph.list();
         assertEquals(1, edges.size(),
                 "There should be one edge after adding.");
+
         Edge edge = edges.iterator().next();
         assertEquals(0, edge.from);
         assertEquals(1, edge.to);
-        assertEquals(1, edge.count,
-                "Initial edge count should be 1.");
+        assertEquals(1, edge.count, "Initial edge count should be 1.");
 
         listGraph.addEdge(0, 1);
         assertEquals(1, edges.size(),
                 "Edge count should still be 1 (with increased weight).");
         edge = edges.iterator().next();
-        assertEquals(2, edge.count,
-                "Edge count should increase to 2.");
+        assertEquals(2, edge.count, "Edge count should increase to 2.");
     }
 
+    /**
+     * Tests removing an edge from the graph.
+     * - Checks return values when removing existing and non-existing edges.
+     */
     @Test
     void remEdgeTest() {
         ListGraph listGraph = new ListGraph();
@@ -81,6 +101,9 @@ class ListGraphTest {
                 "List of edges should be empty after removal.");
     }
 
+    /**
+     * Tests getting the vertex count based on added edges.
+     */
     @Test
     void getVertCountTest() {
         ListGraph listGraph = new ListGraph();
@@ -96,6 +119,9 @@ class ListGraphTest {
                 "Vertex count should be 3 after adding edge (1, 2).");
     }
 
+    /**
+     * Tests retrieving the neighbors of a vertex.
+     */
     @Test
     void getNeighboursTest() {
         ListGraph listGraph = new ListGraph();
@@ -116,12 +142,15 @@ class ListGraphTest {
                 "Neighbours of vertex 2 should be 0 and 1.");
     }
 
+    /**
+     * Tests the printGraph method by capturing and comparing the console output.
+     */
     @Test
     void printGraphTest() {
         ListGraph listGraph = new ListGraph();
-
         int num = 5;
 
+        // Add 10 edges from vertex 3 to vertex 7
         for (int aboba = 0; aboba < 2; aboba++) {
             for (int i = 0; i < num; i++) {
                 listGraph.addEdge(3, 7);
@@ -133,16 +162,18 @@ class ListGraphTest {
         System.setOut(new PrintStream(outputStream));
 
         listGraph.printGraph();
-
-        String output = "Edge{from=3, to=7, count=10}" + System.lineSeparator();
+        String expectedOutput = "Edge{from=3, to=7, count=10}" + System.lineSeparator();
         System.setOut(oldOut);
-        assertEquals(output, outputStream.toString());
+
+        assertEquals(expectedOutput, outputStream.toString());
     }
 
+    /**
+     * Tests reading a graph from a file and verifying its contents.
+     */
     @Test
     void readFileTest() {
         String fileName = "readFileList.txt";
-
         ListGraph listGraph = new ListGraph();
         listGraph.readFile(fileName);
 
@@ -151,8 +182,9 @@ class ListGraphTest {
         System.setOut(new PrintStream(outputStream));
 
         listGraph.printGraph();
-        String output = "Edge{from=3, to=1, count=9}" + System.lineSeparator();
+        String expectedOutput = "Edge{from=3, to=1, count=9}" + System.lineSeparator();
         System.setOut(oldOut);
-        assertEquals(output, outputStream.toString());
+
+        assertEquals(expectedOutput, outputStream.toString());
     }
 }

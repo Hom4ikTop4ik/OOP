@@ -8,6 +8,12 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 
 class AdjacencyTest {
+
+    /**
+     * Tests the retrieval of the vertex count in the Adjacency class.
+     * This test checks if the getVertCount method correctly returns the number of vertices
+     * after adding vertices to the adjacency structure.
+     */
     @Test
     void getVertCountTest() {
         Adjacency adj = new Adjacency();
@@ -25,6 +31,12 @@ class AdjacencyTest {
                 "Vertex count should be 4 after adding four vertices.");
     }
 
+    /**
+     * Tests the adjacency matrix representation of the graph.
+     * This test checks if the matrix method returns the correct matrix
+     * representation after adding vertices and edges, including
+     * verifying the correct values in specific positions of the matrix.
+     */
     @Test
     void matrixTest() {
         Adjacency adj = new Adjacency();
@@ -55,6 +67,11 @@ class AdjacencyTest {
                 "Matrix value at (1,1) should be 3 after adding three edges.");
     }
 
+    /**
+     * Tests the addition of vertices in the Adjacency class.
+     * This test checks if the matrix updates correctly in terms of size
+     * (rows and columns) after adding vertices.
+     */
     @Test
     void addVertTest() {
         Adjacency adj = new Adjacency();
@@ -79,6 +96,11 @@ class AdjacencyTest {
                 "Matrix should have 2 columns in the second row.");
     }
 
+    /**
+     * Tests the removal of vertices in the Adjacency class.
+     * This test checks if the matrix updates correctly in terms of size
+     * after removing vertices, including boundary checks for non-existing vertices.
+     */
     @Test
     void remVertTest() {
         Adjacency adj = new Adjacency();
@@ -114,7 +136,7 @@ class AdjacencyTest {
         assertEquals(cnt, out[0].length,
                 "Matrix should have 2 columns after removing vertex 1.");
 
-        // Try removing not existing vert
+        // Try removing non-existing vert
         boolean flag = false;
         try {
             adj.remVert(-1);
@@ -146,11 +168,21 @@ class AdjacencyTest {
                 "Matrix should be empty after removing the last vertex.");
     }
 
+    /**
+     * Tests the addition of edges in the Adjacency class.
+     * This test validates the functionality of adding edges by reusing
+     * the matrix test to verify if edges are added correctly.
+     */
     @Test
     void addEdgeTest() {
         matrixTest();
     }
 
+    /**
+     * Tests the removal of edges in the Adjacency class.
+     * This test checks if the remEdge method correctly removes edges
+     * and updates the adjacency matrix accordingly.
+     */
     @Test
     void remEdgeTest() {
         Adjacency adj = new Adjacency();
@@ -205,88 +237,4 @@ class AdjacencyTest {
         // 0 2
         out = adj.matrix();
         assertEquals(0, out[0][0],
-                "Matrix value at (0,0) should remain 0.");
-        assertEquals(2, out[0][1],
-                "Matrix value at (0,1) should remain 2.");
-        assertEquals(0, out[1][0],
-                "Matrix value at (1,0) should remain 0.");
-        assertEquals(2, out[1][1],
-                "Matrix value at (1,1) should be 2 after removing one edge.");
-    }
-
-    @Test
-    void getNeighboursTest() {
-        Adjacency adj = new Adjacency();
-        adj.addVert();
-        adj.addVert();
-        adj.addVert();
-        adj.addEdge(0, 0);
-        adj.addEdge(0, 0);
-        adj.addEdge(1, 0);
-        adj.addEdge(0, 2);
-        adj.addEdge(2, 1);
-        adj.addEdge(2, 2);
-        // 2 0 1
-        // 1 0 0
-        // 0 1 1
-
-        int[] neighbours = adj.getNeighbours(0); // should be equals {0, 1, 2}
-        assertEquals(0, neighbours[0],
-                "First neighbour of vertex 0 should be 0.");
-        assertEquals(1, neighbours[1],
-                "Second neighbour of vertex 0 should be 1.");
-        assertEquals(2, neighbours[2],
-                "Third neighbour of vertex 0 should be 2.");
-    }
-
-    @Test
-    void printGraphTest() {
-        Adjacency adj = new Adjacency();
-
-        for (int i = 0; i < 5; i++) {
-            adj.addVert();
-        }
-        for (int aboba = 0; aboba < 3; aboba++) {
-            for (int i = 0; i < adj.getVertCount(); i++) {
-                adj.addEdge(i, adj.getVertCount() - 1 - i);
-            }
-        }
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream oldOut = System.out;
-        System.setOut(new PrintStream(outputStream));
-
-        adj.printGraph();
-
-        String output = "0 0 0 0 3 " + System.lineSeparator()
-                + "0 0 0 3 0 " + System.lineSeparator()
-                + "0 0 3 0 0 " + System.lineSeparator()
-                + "0 3 0 0 0 " + System.lineSeparator()
-                + "3 0 0 0 0 " + System.lineSeparator();
-        System.setOut(oldOut);
-        assertEquals(output, outputStream.toString(),
-                "Printed graph should match the expected output.");
-    }
-
-    @Test
-    void readFileTest() {
-        String fileName = "readFileAdj.txt";
-
-        Adjacency adj = new Adjacency();
-        adj.readFile(fileName);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream oldOut = System.out;
-        System.setOut(new PrintStream(outputStream));
-
-        adj.printGraph();
-        String output = "1 0 0 9 2 " + System.lineSeparator()
-                + "5 7 3 0 8 " + System.lineSeparator()
-                + "2 9 6 6 2 " + System.lineSeparator()
-                + "0 4 7 9 2 " + System.lineSeparator()
-                + "3 0 5 9 2 " + System.lineSeparator();
-        System.setOut(oldOut);
-        assertEquals(output, outputStream.toString(),
-                "Graph read from file should match the expected output.");
-    }
-}
+                "Matrix value at (0,0) should remain

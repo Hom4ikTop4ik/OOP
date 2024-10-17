@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 class GeneralTest {
+
+    /**
+     * Tests the consistency of graph representations by comparing adjacency, incidence, and list representations.
+     * This test checks that after adding edges to all three graph types, their generated representations are equal.
+     * It also verifies that the representations remain consistent when vertices are removed.
+     */
     @Test
     void cmpTest() {
         ListGraph listGraph = new ListGraph();
@@ -12,11 +18,13 @@ class GeneralTest {
         Incidence inc = new Incidence();
 
         int num = 5;
+        // Add vertices to the adjacency and incidence graphs
         for (int i = 0; i < num; i++) {
             adj.addVert();
             inc.addVert();
         }
 
+        // Add edges and compare graph representations
         for (int aboba = 0; aboba < 2; aboba++) {
             for (int i = 0; i < num; i++) {
                 listGraph.addEdge(i, num - 1 - i);
@@ -30,12 +38,14 @@ class GeneralTest {
                 General genList = new General();
                 genList.fromList(listGraph.list());
 
+                // Assert that all graph representations are equivalent
                 assertTrue(genAdj.genEquals(genInc));
                 assertTrue(genInc.genEquals(genList));
                 assertTrue(genList.genEquals(genAdj));
             }
         }
 
+        // Remove vertices and compare graph representations again
         for (int i = 4; i >= 0; i--) {
             listGraph.remVert(i);
             adj.remVert(i);
@@ -48,10 +58,10 @@ class GeneralTest {
             General genList = new General();
             genList.fromList(listGraph.list());
 
+            // Assert that all graph representations are still equivalent after vertex removal
             assertTrue(genAdj.genEquals(genInc));
             assertTrue(genInc.genEquals(genList));
             assertTrue(genList.genEquals(genAdj));
         }
     }
-
 }

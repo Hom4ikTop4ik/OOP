@@ -1,11 +1,18 @@
 package ru.nsu.martynov;
 
-// MagicNumbersAndStrings
+/**
+ * The Helper class provides utility methods for validating indices in graph operations
+ * and defines some constant prime numbers for general use.
+ */
 public class Helper {
-    public static final int FIRST_PRIME = 83;
-    public static final int SECOND_PRIME = 89;
-    public static final int THIRD_PRIME = 97;
-
+    /**
+     * Validates that both 'from' and 'to' indices are within bounds of the matrix.
+     *
+     * @param from   the source vertex index
+     * @param to     the destination vertex index
+     * @param matrix the graph's adjacency or incidence matrix
+     * @throws IllegalArgumentException if the indices are out of bounds
+     */
     public static void checkIndexes(int from, int to, int[][] matrix) {
         if (from < 0) {
             throw new IllegalArgumentException("From index меньше нуля");
@@ -21,6 +28,14 @@ public class Helper {
         }
     }
 
+    /**
+     * Validates that both 'from' and 'to' indices are non-negative.
+     * This method is used in scenarios where matrix bounds are not considered.
+     *
+     * @param from the source vertex index
+     * @param to   the destination vertex index
+     * @throws IllegalArgumentException if the indices are negative
+     */
     public static void checkIndexesNeg(int from, int to) {
         if (from < 0) {
             throw new IllegalArgumentException("From index меньше нуля");
@@ -30,6 +45,13 @@ public class Helper {
         }
     }
 
+    /**
+     * Validates that a single index is within the bounds of the matrix.
+     *
+     * @param index  the vertex index to check
+     * @param matrix the graph's adjacency or incidence matrix
+     * @throws IllegalArgumentException if the index is out of bounds
+     */
     public static void checkIndex(int index, int[][] matrix) {
         if (index < 0) {
             throw new IllegalArgumentException("Index меньше нуля");

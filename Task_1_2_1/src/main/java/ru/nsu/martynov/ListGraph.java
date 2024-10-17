@@ -6,23 +6,50 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * This class represents a graph using a list of edges.
+ * Each edge is represented as a triple (from, to, count)
+ * This class implements basic graph operations:
+ *   adding/removing vertices and edges,
+ *   reading from a file,
+ *   printing the graph.
+ */
 public class ListGraph implements Graph {
-    // Множество рёбер: каждый элемент представляет собой тройку (from, to, count)
+    /**
+     * Set of edges in the graph. Each edge is represented by the {@code Edge} class.
+     */
     private Set<Edge> edges;
 
+    /**
+     * Constructs an empty graph with no edges.
+     */
     public ListGraph() {
         this.edges = new HashSet<>();
     }
 
+    /**
+     * Returns the set of edges in the graph.
+     *
+     * @return the set of edges.
+     */
     public Set<Edge> list() {
         return edges;
     }
 
+    /**
+     * Adds a new vertex to the graph.
+     * This implementation doesn't store explicit vertices,
+     * so this method doesn't affect the internal structure.
+     */
     public void addVert() {
-        // nothing
+        // No explicit vertex handling
     }
 
-    // Удаление вершины по индексу
+    /**
+     * Removes all edges connected to a given vertex.
+     *
+     * @param index the index of the vertex to be removed.
+     */
     public void remVert(int index) {
         Set<Edge> toDelete = new HashSet<>();
 
@@ -37,23 +64,35 @@ public class ListGraph implements Graph {
         }
     }
 
-    // Добавление ребра между вершинами (from, to) с возможностью кратных рёбер
+    /**
+     * Adds an edge between two vertices. If the edge already exists, increments its count.
+     *
+     * @param from the starting vertex of the edge.
+     * @param to the ending vertex of the edge.
+     */
     public void addEdge(int from, int to) {
         Helper.checkIndexesNeg(from, to);
 
-        // Проверяем, есть ли уже ребро (from -> to)
+        // Check if the edge already exists
         for (Edge edge : edges) {
             if (edge.from == from && edge.to == to) {
-                edge.count++;  // Увеличиваем количество рёбер
+                edge.count++;  // Increment edge count
                 return;
             }
         }
 
-        // Если ребра нет, добавляем новое
+        // Add new edge if it doesn't exist
         edges.add(new Edge(from, to, 1));
     }
 
-    // Удаление ребра между вершинами (from, to)
+    /**
+     * Removes an edge between two vertices. If the edge exists and has a count greater than 1,
+     * decrements the count. Otherwise, removes the edge entirely.
+     *
+     * @param from the starting vertex of the edge.
+     * @param to the ending vertex of the edge.
+     * @return 1 if an edge was removed, or 0 if no edge existed.
+     */
     public int remEdge(int from, int to) {
         for (Edge edge : this.edges) {
             if (edge.from == from && edge.to == to) {
@@ -71,6 +110,12 @@ public class ListGraph implements Graph {
         return 0;
     }
 
+    /**
+     * Returns the number of vertices in the graph. The vertex count is inferred
+     * from the highest index found in the edges.
+     *
+     * @return the number of vertices in the graph.
+     */
     public int getVertCount() {
         int count = -1;
         for (Edge edge : this.edges) {
@@ -84,7 +129,12 @@ public class ListGraph implements Graph {
         return count + 1; // indexes start from zero
     }
 
-    // Возвращает массив вершин, смежных к текущей
+    /**
+     * Returns an array of vertices adjacent to the specified vertex.
+     *
+     * @param index the index of the vertex.
+     * @return an array of adjacent vertices.
+     */
     public int[] getNeighbours(int index) {
         Set<Integer> neighboursSet = new HashSet<>();
 
@@ -96,7 +146,7 @@ public class ListGraph implements Graph {
             }
         }
 
-        // Преобразование Set в массив
+        // Convert Set to array
         int[] neighboursArray = new int[neighboursSet.size()];
         int i = 0;
         for (Integer neighbour : neighboursSet) {
@@ -106,17 +156,30 @@ public class ListGraph implements Graph {
         return neighboursArray;
     }
 
-    // Вывод всех рёбер
+    /**
+     * Prints all the edges of the graph.
+     */
     private void printEdges() {
         for (Edge edge : this.edges) {
             System.out.println(edge);
         }
     }
 
+    /**
+     * Prints the entire graph by printing all its edges.
+     */
     public void printGraph() {
         printEdges();
     }
 
+    /**
+     * Reads a graph from a file and constructs it based on the provided adjacency matrix.
+     * The file should start with the number of vertices, followed by the adjacency matrix.
+     * Positive integers in the matrix represent the number of edges between two vertices.
+     *
+     * @param fileName the name of the file containing the graph data.
+     * @throws IllegalArgumentException if the file format is incorrect.
+     */
     @Override
     public void readFile(String fileName) {
         try {

@@ -1,17 +1,32 @@
 package ru.nsu.martynov;
 
-// Класс для представления ребра
+/**
+ * The Edge class represents an edge in a graph, storing information about
+ * the start vertex (from), end vertex (to), and the count (weight or multiplicity) of the edge.
+ */
 public class Edge {
     int from;
     int to;
     int count;
 
+    /**
+     * Constructs an Edge with specified start vertex, end vertex, and count.
+     *
+     * @param from the starting vertex of the edge
+     * @param to the ending vertex of the edge
+     * @param count the count (weight or multiplicity) of the edge
+     */
     public Edge(int from, int to, int count) {
         this.from = from;
         this.to = to;
         this.count = count;
     }
 
+    /**
+     * Returns a string representation of the edge.
+     *
+     * @return a string describing the edge with its start, end, and count values
+     */
     @Override
     public String toString() {
         return "Edge{"
@@ -21,13 +36,13 @@ public class Edge {
                 + '}';
     }
 
-    // @Override
-    // public int hashCode() {
-    //     return this.from * Helper.FIRST_PRIME
-    //             + this.to * Helper.SECOND_PRIME
-    //             + this.count * Helper.THIRD_PRIME;
-    // }
-
+    /**
+     * Checks if this edge is equal to another object.
+     *
+     * @param obj the object to compare with
+     * @return true if the specified object is an Edge with the same start vertex,
+     *         end vertex, and count, otherwise false
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
