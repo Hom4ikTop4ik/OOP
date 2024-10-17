@@ -51,9 +51,13 @@ public class Adjacency implements Graph {
 
         // Копируем данные, пропуская удаляемую вершину
         for (int i = 0, ii = 0; i < this.matrix.length; i++) {
-            if (i == index) continue;
+            if (i == index) {
+                continue;
+            }
             for (int j = 0, jj = 0; j < this.matrix.length; j++) {
-                if (j == index) continue;
+                if (j == index) {
+                    continue;
+                }
                 newMatrix[ii][jj++] = matrix[i][j];
             }
             ii++;
@@ -107,7 +111,8 @@ public class Adjacency implements Graph {
             Scanner scanner = new Scanner(file);
             int vertCount = 0;
             if (!scanner.hasNextInt()) {
-                throw new IllegalArgumentException("File is bad — there isn't table size (count of vertices)");
+                throw new IllegalArgumentException(
+                        "File is bad — there isn't table size (count of vertices)");
             }
             vertCount = scanner.nextInt();
             int[][] newMatrix = new int[vertCount][vertCount];
@@ -115,7 +120,8 @@ public class Adjacency implements Graph {
             for (int i = 0; i < vertCount; i++) {
                 for (int j = 0; j < vertCount; j++) {
                     if (!scanner.hasNextInt()) {
-                        throw new IllegalArgumentException("File is bad — not enough numbers in table");
+                        throw new IllegalArgumentException(
+                                "File is bad — not enough numbers in table");
                     }
                     int tmp = scanner.nextInt();
                     newMatrix[i][j] = tmp;
@@ -124,7 +130,7 @@ public class Adjacency implements Graph {
             matrix = newMatrix;
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Ошибка чтения файла " + fileName);
+            System.out.println("Error reading file " + fileName);
         }
     }
 }

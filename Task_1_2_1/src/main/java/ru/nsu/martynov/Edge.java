@@ -14,11 +14,11 @@ public class Edge {
 
     @Override
     public String toString() {
-        return "Edge{" +
-                "from=" + from +
-                ", to=" + to +
-                ", count=" + count +
-                '}';
+        return "Edge{"
+                + "from=" + from
+                + ", to=" + to
+                + ", count=" + count
+                + '}';
     }
 
 //    @Override
@@ -30,8 +30,12 @@ public class Edge {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         Edge edge = (Edge) obj;
         return from == edge.from && to == edge.to && count == edge.count;
     }

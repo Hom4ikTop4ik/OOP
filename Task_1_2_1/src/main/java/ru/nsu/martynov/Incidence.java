@@ -17,8 +17,9 @@ public class Incidence implements Graph {
     }
 
     public int getEdgeCount() {
-        if (this.matrix.length == 0)
+        if (this.matrix.length == 0) {
             return 0;
+        }
         return this.matrix[0].length;
     }
 
@@ -260,11 +261,13 @@ public class Incidence implements Graph {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
             if (!scanner.hasNextInt()) {
-                throw new IllegalArgumentException("File is bad — there isn't table size (count of vertices)");
+                throw new IllegalArgumentException(
+                        "File is bad — there isn't table size (count of vertices)");
             }
             int vertCount = scanner.nextInt();
             if (!scanner.hasNextInt()) {
-                throw new IllegalArgumentException("File is bad — there isn't table size (count of edges)");
+                throw new IllegalArgumentException(
+                        "File is bad — there isn't table size (count of edges)");
             }
             int edgeCount = scanner.nextInt();
 
@@ -273,7 +276,8 @@ public class Incidence implements Graph {
             for (int i = 0; i < vertCount; i++) {
                 for (int j = 0; j < edgeCount; j++) {
                     if (!scanner.hasNextInt()) {
-                        throw new IllegalArgumentException("File is bad — not enough numbers in table");
+                        throw new IllegalArgumentException(
+                                "File is bad — not enough numbers in table");
                     }
                     int tmp = scanner.nextInt();
                     newMatrix[i][j] = tmp;

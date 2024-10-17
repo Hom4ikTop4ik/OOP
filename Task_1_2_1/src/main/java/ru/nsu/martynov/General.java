@@ -31,7 +31,8 @@ public class General {
 
         // По рёбрам
         for (int e = 0; e < edgesCount; e++) {
-            int from = -1, to = -1;
+            int from = -1;
+            int to = -1;
             // Поиск вершин from и to
             for (int v = 0; v < vertices; v++) {
                 if (incidenceMatrix[v][e] > 0) {
@@ -49,8 +50,8 @@ public class General {
                 }
                 edges.add(new Edge(from, to, count));
             } else {
-                throw new IllegalArgumentException
-                        ("Invalid graph: edge from '" + from + "' to '" + to + "'");
+                throw new IllegalArgumentException(
+                        "Invalid graph: edge from '" + from + "' to '" + to + "'");
             }
         }
     }
@@ -61,17 +62,17 @@ public class General {
 
     // Метод для сравнения общего вида графов
     public boolean genEquals(General other) {
-        // закомментированное не работает:
-//        for (Edge edge : this.edges) {
-//            if (!other.edges.contains(edge)) {
-//                return false;
-//            }
-//        }
-//        for (Edge edgeOther : other.edges) {
-//            if (!this.edges.contains(edgeOther)) {
-//                return false;
-//            }
-//        }
+        // Я хочу понять: почему закомментированное не работает.
+        //   for (Edge edge : this.edges) {
+        //     if (!other.edges.contains(edge)) {
+        //         return false;
+        //     }
+        // }
+        // for (Edge edgeOther : other.edges) {
+        //     if (!this.edges.contains(edgeOther)) {
+        //         return false;
+        //     }
+        // }
 
         for (Edge edge : this.edges) {
             boolean found = false;

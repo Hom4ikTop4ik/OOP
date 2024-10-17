@@ -124,7 +124,8 @@ public class ListGraph implements Graph {
             Scanner scanner = new Scanner(file);
             int vertCount = 0;
             if (!scanner.hasNextInt()) {
-                throw new IllegalArgumentException("File is bad — there isn't table size (count of vertices)");
+                throw new IllegalArgumentException(
+                        "File is bad — there isn't table size (count of vertices)");
             }
             vertCount = scanner.nextInt();
 
@@ -133,7 +134,8 @@ public class ListGraph implements Graph {
             for (int i = 0; i < vertCount; i++) {
                 for (int j = 0; j < vertCount; j++) {
                     if (!scanner.hasNextInt()) {
-                        throw new IllegalArgumentException("File is bad — not enough numbers in table");
+                        throw new IllegalArgumentException(
+                                "File is bad — not enough numbers in table");
                     }
                     int tmp = scanner.nextInt();
                     if (tmp > 0) {
@@ -144,7 +146,7 @@ public class ListGraph implements Graph {
             edges = newEdges;
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Ошибка чтения файла " + fileName);
+            System.out.println("Error reading file " + fileName);
         }
     }
 }
