@@ -1,6 +1,9 @@
 package ru.nsu.martynov;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Incidence implements Graph {
     private int[][] matrix;
@@ -39,7 +42,6 @@ public class Incidence implements Graph {
 
     // Добавление новой вершины
     public void addVert() {
-        // На одну строчку больше.
         if (this.matrix.length <= 0) {
             this.matrix = new int[1][0];
             return;
@@ -58,11 +60,10 @@ public class Incidence implements Graph {
     // Удаление вершины по индексу.
     // То есть стереть строчку и связанные ребра. O(M) — кол-во рёбер.
     public void remVert(int index) {
-        if (index < 0 || index >= this.matrix.length) {
-            throw new IllegalArgumentException("Invalid index");
-        }
-        int cnt = 0;
-        for (int j = 0; j < this.matrix[index].length; j++) {
+        Helper.checkIndex(index, this.matrix);
+
+        int cnt = 0; // кол-во рёбер, не связанных с удаляемой вершиной
+        for (int j = 0; j < this.matrix[0].length; j++) {
             if (this.matrix[index][j] == 0) {
                 cnt++;
             }
@@ -70,12 +71,15 @@ public class Incidence implements Graph {
 
         int[][] newMatrix = new int[this.matrix.length - 1][cnt];
 
-        for (int j = 0, jj = 0; j < this.matrix[index].length; j++) {
+        for (int j = 0, jj = 0; j < this.matrix[0].length; j++) {
             // Если ребра в/из удаляемой вершины нет, копируем столбец.
             // Иначе ребро есть и столбец нужно занулить, значит столбец станет бесполезным.
             if (this.matrix[index][j] == 0) {
-                for (int i = 0; i < this.matrix.length; i++) {
-                    newMatrix[i][jj] = this.matrix[index][j];
+                for (int i = 0, ii = 0; i < this.matrix.length; i++) {
+                    if (i != index) {
+                        newMatrix[ii][jj] = this.matrix[i][j];
+                        ii++;
+                    }
                 }
                 jj++;
             }
@@ -87,16 +91,16 @@ public class Incidence implements Graph {
 
     @Override
     public void addEdge(int from, int to) {
-        if (from < 0 || from >= this.matrix.length || to < 0 || to >= this.matrix.length) {
-            throw new IllegalArgumentException("Invalid vertex index");
-        }
+        Helper.checkIndexes(from, to, this.matrix);
 
         int edgeIndex = -1;
 
         if (from == to) {
             for (int j = 0; j < this.matrix[0].length; j++) {
                 boolean flag = true;
-                if (this.matrix[from][j] == 0) {
+                // Только больше нуля
+                // Если в ячейке <0, значит ребро входит в него из кого-то другого
+                if (this.matrix[from][j] > 0) {
                     for (int i = 0; i < this.matrix.length; i++) {
                         if (i == from) {
                             continue;
@@ -106,17 +110,17 @@ public class Incidence implements Graph {
                             break;
                         }
                     }
-                }
-                // Если весь столбец занулён, кроме ячейки from == to.
-                // То есть нашли ребро в себя.
-                if (flag) {
-                    edgeIndex = j;
-                    break;
+                    // Если весь столбец занулён, кроме ячейки from == to.
+                    // То есть нашли ребро в себя.
+                    if (flag) {
+                        edgeIndex = j;
+                        break;
+                    }
                 }
             }
         } else {
             for (int j = 0; j < this.matrix[0].length; j++) {
-                if (this.matrix[from][j] != 0
+                if (this.matrix[from][j] > 0
                         && this.matrix[from][j] == (-1 * this.matrix[to][j])) {
                     edgeIndex = j;
                     break;
@@ -147,17 +151,15 @@ public class Incidence implements Graph {
             if (from == to) {
                 this.matrix[from][edgeIndex] += 2;
             } else {
-                matrix[from][this.matrix[0].length]++;
-                matrix[to][this.matrix[0].length]--;
+                matrix[from][edgeIndex]++;
+                matrix[to][edgeIndex]--;
             }
         }
     }
 
     @Override
     public int remEdge(int from, int to) {
-        if (from < 0 || from >= this.matrix.length || to < 0 || to >= this.matrix.length) {
-            throw new IllegalArgumentException("Invalid vertex index");
-        }
+        Helper.checkIndexes(from, to, this.matrix);
 
         // Если ребро в себя же, ищу его и пытаюсь -2k сделать.
         // Иначе ищу ребро from-to, пытаюсь -(+k) и -(-k) сделать.
@@ -222,24 +224,24 @@ public class Incidence implements Graph {
 
     @Override
     public int[] getNeighbours(int index) {
+        Helper.checkIndex(index, this.matrix);
+
         int cnt = 0;
         int[] neighbours = new int[this.matrix.length];
-        for (int j = 0; j < this.matrix[index].length; j++) {
-            if (this.matrix[index][j] != 0) {
-                int oldCnt = cnt;
-
-                for (int i = 0; i < this.matrix.length; i++) {
-                    if (i == index) {
-                        continue;
-                    }
-                    if (this.matrix[i][j] != 0) {
-                        neighbours[cnt++] = i;
+        for (int i = 0; i < this.matrix.length; i++) {
+            if (i == index) {
+                for (int j = 0; j < this.matrix[0].length; j++) {
+                    if (this.matrix[i][j] == 2) {
+                        neighbours[cnt++] = i; // сама себе сосед
                         break;
                     }
                 }
-                if (oldCnt == cnt) {
-                    neighbours[cnt] = index;
-                    cnt++;
+            } else {
+                for (int j = 0; j < this.matrix[0].length; j++) {
+                    if (this.matrix[i][j] != 0 && this.matrix[index][j] == -this.matrix[i][j]) {
+                        neighbours[cnt++] = i;
+                        break;
+                    }
                 }
             }
         }
@@ -254,6 +256,33 @@ public class Incidence implements Graph {
 
     @Override
     public void readFile(String fileName) {
-        // TO DO
+        try {
+            File file = new File(fileName);
+            Scanner scanner = new Scanner(file);
+            if (!scanner.hasNextInt()) {
+                throw new IllegalArgumentException("File is bad — there isn't table size (count of vertices)");
+            }
+            int vertCount = scanner.nextInt();
+            if (!scanner.hasNextInt()) {
+                throw new IllegalArgumentException("File is bad — there isn't table size (count of edges)");
+            }
+            int edgeCount = scanner.nextInt();
+
+            int[][] newMatrix = new int[vertCount][edgeCount];
+
+            for (int i = 0; i < vertCount; i++) {
+                for (int j = 0; j < edgeCount; j++) {
+                    if (!scanner.hasNextInt()) {
+                        throw new IllegalArgumentException("File is bad — not enough numbers in table");
+                    }
+                    int tmp = scanner.nextInt();
+                    newMatrix[i][j] = tmp;
+                }
+            }
+            matrix = newMatrix;
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.print("Error reading file " + fileName);
+        }
     }
 }

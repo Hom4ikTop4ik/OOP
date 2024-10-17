@@ -1,6 +1,10 @@
 package ru.nsu.martynov;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
 
 public class Adjacency implements Graph {
     private int[][] matrix;
@@ -9,7 +13,7 @@ public class Adjacency implements Graph {
         this.matrix = new int[0][0];
     }
 
-    public int size() {
+    public int getVertCount() {
         return this.matrix.length;
     }
 
@@ -41,9 +45,7 @@ public class Adjacency implements Graph {
 
     // Удаление вершины по индексу
     public void remVert(int index) {
-        if (index < 0 || index >= this.matrix.length) {
-            throw new IllegalArgumentException("Invalid index");
-        }
+        Helper.checkIndex(index, this.matrix);
 
         int[][] newMatrix = new int[this.matrix.length - 1][this.matrix.length - 1];
 
@@ -63,11 +65,15 @@ public class Adjacency implements Graph {
 
     @Override
     public void addEdge(int from, int to) {
+        Helper.checkIndexes(from, to, this.matrix);
+
         this.matrix[from][to]++;
     }
 
     @Override
     public int remEdge(int from, int to) {
+        Helper.checkIndexes(from, to, this.matrix);
+
         if (this.matrix[from][to] <= 0) {
             this.matrix[from][to] = 0;
             return 0;
@@ -82,8 +88,7 @@ public class Adjacency implements Graph {
         int[] neighbours = new int[this.matrix.length];
         for (int i = 0; i < this.matrix.length; i++) {
             if (this.matrix[i][index] > 0 || this.matrix[index][i] > 0) {
-                neighbours[cnt] = i;
-                cnt++;
+                neighbours[cnt++] = i;
             }
         }
         neighbours = Arrays.copyOf(neighbours, cnt);
@@ -97,6 +102,29 @@ public class Adjacency implements Graph {
 
     @Override
     public void readFile(String fileName) {
-        // TO DO
+        try {
+            File file = new File(fileName);
+            Scanner scanner = new Scanner(file);
+            int vertCount = 0;
+            if (!scanner.hasNextInt()) {
+                throw new IllegalArgumentException("File is bad — there isn't table size (count of vertices)");
+            }
+            vertCount = scanner.nextInt();
+            int[][] newMatrix = new int[vertCount][vertCount];
+
+            for (int i = 0; i < vertCount; i++) {
+                for (int j = 0; j < vertCount; j++) {
+                    if (!scanner.hasNextInt()) {
+                        throw new IllegalArgumentException("File is bad — not enough numbers in table");
+                    }
+                    int tmp = scanner.nextInt();
+                    newMatrix[i][j] = tmp;
+                }
+            }
+            matrix = newMatrix;
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Ошибка чтения файла " + fileName);
+        }
     }
 }
