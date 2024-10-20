@@ -2,6 +2,13 @@ package ru.nsu.martynov;
 
 import java.util.Map;
 
+/**
+ * Represents a variable in the expression tree.
+ * This class extends Expression class and provides methods:
+ *   to print the expression;
+ *   compute its derivative;
+ *   and evaluate its value.
+ */
 public class Variable extends Expression {
     private final String variable;
 

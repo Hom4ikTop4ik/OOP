@@ -18,8 +18,8 @@ public abstract class Expression {
     /**
      * Takes the derivative of one variable and returns it as an expression.
      *
-     * @param x — variable for derivative
-     * @return new derived expression.
+     * @param x — variable for derivative.
+     * @return — new derived expression.
      */
     abstract Expression derivative(String x);
 
@@ -31,6 +31,12 @@ public abstract class Expression {
      */
     abstract Double evalMap(Map<String, Double> vars);
 
+    /**
+     * Evaluates the expression using a string representation of variable assignments.
+     *
+     * @param vars — string with all the variables that occur in the expression.
+     * @return — result after substitution of values.
+     */
     abstract Double eval(String vars);
 
     private static String doubleFromString(String str) {
@@ -67,6 +73,12 @@ public abstract class Expression {
         return str.substring(0, cnt);
     }
 
+    /**
+     * Parse string of variable assignments into a map.
+     *
+     * @param varStr — the string containing variable assignments.
+     * @return — map of variable names and their corresponding values.
+     */
     public Map<String, Double> parse(String varStr) {
         if (varStr.isEmpty()) {
             return new HashMap<>();
@@ -100,6 +112,12 @@ public abstract class Expression {
         return map;
     }
 
+    /**
+     * Simple pair class to hold two related objects.
+     *
+     * @param <L> — type of the left element.
+     * @param <R> — type of the right element.
+     */
     public static class Pair<L, R> {
         public final L left;
         public final R right;

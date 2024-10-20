@@ -2,6 +2,13 @@ package ru.nsu.martynov;
 
 import java.util.Map;
 
+/**
+ * Represents the addition of two mathematical expressions.
+ * This class extends Expression class and implements methods:
+ *   to print the expression;
+ *   compute its derivative;
+ *   evaluate its value.
+ */
 public class Add extends Expression {
     private final Expression left;
     private final Expression right;

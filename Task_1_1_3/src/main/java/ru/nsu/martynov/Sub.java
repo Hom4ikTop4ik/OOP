@@ -2,6 +2,13 @@ package ru.nsu.martynov;
 
 import java.util.Map;
 
+/**
+ * Represents a subtraction expression in the expression tree.
+ * This class extends Expression class and provides methods:
+ *   to print the expression;
+ *   compute its derivative;
+ *   and evaluate its value.
+ */
 public class Sub extends Expression {
     private final Expression left;
     private final Expression right;

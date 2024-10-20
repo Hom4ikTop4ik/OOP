@@ -2,6 +2,13 @@ package ru.nsu.martynov;
 
 import java.util.Map;
 
+/**
+ * Represents the division of two mathematical expressions.
+ * This class extends Expression class and provides methods:
+ *   to print the expression;
+ *   compute its derivative;
+ *   evaluate its value.
+ */
 public class Div extends Expression {
     private final Expression left;
     private final Expression right;
