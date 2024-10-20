@@ -1,6 +1,12 @@
 package ru.nsu.martynov;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -90,28 +96,22 @@ class HashTableTest {
         HashTable<String, Integer> hashTable1 = new HashTable<>();
         HashTable<String, Integer> hashTable2 = new HashTable<>();
 
-        // Добавим пары в первую таблицу
         hashTable1.put("key1", 1);
         hashTable1.put("key2", 2);
 
-        // Добавим те же пары во вторую таблицу
         hashTable2.put("key1", 1);
         hashTable2.put("key2", 2);
 
-        // Проверяем, что обе таблицы имеют одинаковый хэш-код
         assertEquals(hashTable1.hashCode(), hashTable2.hashCode());
 
-        // Изменим одну из таблиц
         hashTable2.put("key3", 3);
 
-        // Проверяем, что хэш-коды теперь различаются
         assertNotEquals(hashTable1.hashCode(), hashTable2.hashCode());
 
-        // Проверим, что хэш-код для пустой таблицы равен 1 (или любому другому ожидаемому значению)
         HashTable<String, Integer> emptyHashTable = new HashTable<>();
         hashTable1.remove("key1");
         hashTable1.remove("key2");
-        assertEquals(hashTable1.hashCode(), emptyHashTable.hashCode()); // Предполагая, что ваш hashCode возвращает 1 для пустой таблицы
+        assertEquals(hashTable1.hashCode(), emptyHashTable.hashCode());
     }
 
 }
