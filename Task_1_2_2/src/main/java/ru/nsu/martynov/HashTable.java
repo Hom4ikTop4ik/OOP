@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 
 /**
  * Class HashTable.
+ *
  * @param <K> — key
  * @param <V> — value
  */
@@ -14,10 +15,7 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
     private LinkedList<Pair<K, V>>[] table;
     private int capacity;
     private int cnt;
-    private int modificationCount;  // Для отслеживания изменений
-
-    private static final double LOAD_FACTOR = 1.0;
-
+    private int modificationCount;
 
     /**
      * HashTable constructor.
@@ -48,7 +46,7 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
             capacity = 0;
         }
 
-        if (cnt >= capacity * LOAD_FACTOR ) {
+        if (cnt >= capacity * MNAS.HASH_TABLE_LOAD_FACTOR) {
             resize();
         }
 
@@ -74,6 +72,7 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
 
     /**
      * Remove the pair if it exists.
+     *
      * @param key — key.
      */
     public void remove(K key) {
@@ -105,20 +104,22 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
                 }
             }
         }
-        return null; // Возвращаем null, если ключ не найден
+        return null; // if key isn't exist.
     }
 
     /**
      * Update or add pair into hashTable.
+     *
      * @param key — key.
      * @param value — value.
      */
     public void update(K key, V value) {
-        put(key, value); // Вставляем или обновляем пару ключ-значение
+        put(key, value); // Add or update pair(key, value)
     }
 
     /**
      * Check if the pair (key, value) exists.
+     *
      * @param key — key.
      * @return true if exists, otherwise — false.
      */
@@ -130,7 +131,8 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
      * Resize the hash table when load factor is exceeded.
      */
     private void resize() {
-        this.capacity = 1 +  2 * this.capacity;
+        // if start from 0, we will get 0 every because 2 * 0 = 0, so add 1.
+        this.capacity = 1 + 2 * this.capacity;
         LinkedList<Pair<K, V>>[] newTable = new LinkedList[this.capacity];
 
         for (LinkedList<Pair<K, V>> list : table) {
@@ -157,34 +159,41 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
      */
     @Override
     public int hashCode() {
-        int hash = 1; // Начинаем с произвольного числа
+        int hash = MNAS.HASH_START_VALUE;
         for (LinkedList<Pair<K, V>> list : table) {
             if (list != null) {
                 for (Pair<K, V> pair : list) {
-                    int keyHash = (pair.key != null) ? pair.key.hashCode() : 0; // Хеш для ключа
-                    int valueHash = (pair.value != null) ? pair.value.hashCode() : 0; // Хеш для значения
-                    hash = 31 * hash + keyHash; // Перемешивание хеша ключа
-                    hash = 31 * hash + valueHash; // Перемешивание хеша значения
+                    int keyHash = (pair.key != null) ? pair.key.hashCode() : 0;
+                    int valueHash = (pair.value != null) ? pair.value.hashCode() : 0;
+                    hash = MNAS.HASH_COEF * hash + keyHash; // Add hash(key)
+                    hash = MNAS.HASH_COEF * hash + valueHash; // Add hash(value)
                 }
             }
         }
-        hash = 31 * hash + cnt; // Добавляем количество элементов в таблице
+        hash = MNAS.HASH_COEF * hash + cnt; // Add count of elems in table
         return hash;
     }
 
     /**
      * Compare this hash table with another.
+     *
      * @param obj — other object to compare with.
      * @return true if equal, otherwise — false.
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || this.getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
 
         HashTable<K, V> other = (HashTable<K, V>) obj;
 
-        if (this.cnt != other.cnt) return false; // Разное количество элементов
+        if (this.cnt != other.cnt) {
+            return false;
+        }
 
         for (LinkedList<Pair<K, V>> list : table) {
             if (list != null) {
@@ -202,6 +211,7 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
 
     /**
      * Creates a string based on the hash table data.
+     *
      * @return table contents in the form of key-value pairs (unordered).
      */
     @Override
@@ -232,18 +242,18 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
      * Iterator for the hash table.
      */
     private class HashTableIterator implements Iterator<Pair<K, V>> {
-        private int currentIndexI;  // Текущий индекс по таблице
-        private int currentIndexJ;  // Текущий индекс в списке
-        private int iteratedCount;  // Сколько элементов уже итерировано
-        private final int expectedModificationCount;  // Для отслеживания изменений
+        private int curIndexI;  // Current index in table
+        private int curIndexJ;  // Current index in list
+        private int iteratedCount;  // How many elements have already been iterated
+        private final int expectedModificationCount;  // For modification checking
 
         /**
          * Constructor for the iterator.
          * Initializes indices and sets the expected modification count.
          */
         public HashTableIterator() {
-            this.currentIndexI = 0;
-            this.currentIndexJ = -1;
+            this.curIndexI = 0;
+            this.curIndexJ = -1;
             this.iteratedCount = 0;
             this.expectedModificationCount = modificationCount;
         }
@@ -265,12 +275,12 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
          * @return the next key-value pair, or null if there are no more elements.
          */
         private Pair<K, V> findNext() {
-            while (currentIndexI < capacity) {
-                if (table[currentIndexI] != null && currentIndexJ + 1 < table[currentIndexI].size()) {
-                    return table[currentIndexI].get(++currentIndexJ);
+            while (curIndexI < capacity) {
+                if (table[curIndexI] != null && curIndexJ + 1 < table[curIndexI].size()) {
+                    return table[curIndexI].get(++curIndexJ);
                 }
-                currentIndexJ = -1;  // Переходим к следующему bucket
-                currentIndexI++;
+                curIndexJ = -1;  // Переходим к следующему bucket
+                curIndexI++;
             }
             return null;
         }
