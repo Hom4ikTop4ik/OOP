@@ -69,7 +69,6 @@ class GeneralTest {
 
     @Test
     void test2() {
-        ListGraph listGraph = new ListGraph();
         Adjacency adj = new Adjacency();
         Incidence inc = new Incidence();
 
@@ -79,6 +78,8 @@ class GeneralTest {
             adj.addVert();
             inc.addVert();
         }
+
+        ListGraph listGraph = new ListGraph();
 
         adj.addEdge(0, 0);
         inc.addEdge(1, 3);

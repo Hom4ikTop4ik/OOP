@@ -20,7 +20,8 @@ public interface Graph {
     void remVert(int index);
 
     /**
-     * Adds an edge between two vertices in the graph. Supports multiple edges between the same vertices.
+     * Adds an edge between two vertices in the graph.
+     * Supports multiple edges between the same vertices.
      *
      * @param from the source vertex index
      * @param to   the destination vertex index
