@@ -182,7 +182,7 @@ class ListGraphTest {
      */
     @Test
     void readFileTest() {
-        String fileName = "readFileList.txt";
+        String fileName = "src/test/resource/readFileList.txt";
         ListGraph listGraph = new ListGraph();
         listGraph.readFile(fileName);
 
@@ -202,7 +202,7 @@ class ListGraphTest {
      */
     @Test
     void readFileTestNotExist() {
-        String fileName = "readFileListNotExist.txt";
+        String fileName = "src/test/resource/readFileListNotExist.txt";
         ListGraph listGraph = new ListGraph();
 
 
@@ -220,7 +220,7 @@ class ListGraphTest {
      */
     @Test
     void readFileTestNotEnough() {
-        String fileName = "readFileListNotEnough.txt";
+        String fileName = "src/test/resource/readFileListNotEnough.txt";
         ListGraph listGraph = new ListGraph();
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -241,7 +241,7 @@ class ListGraphTest {
      */
     @Test
     void readFileTestNoSize() {
-        String fileName = "readFileListNoSize.txt";
+        String fileName = "src/test/resource/readFileListNoSize.txt";
         ListGraph listGraph = new ListGraph();
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

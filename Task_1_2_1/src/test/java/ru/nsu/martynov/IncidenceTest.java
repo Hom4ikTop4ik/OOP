@@ -262,7 +262,7 @@ class IncidenceTest {
      */
     @Test
     void readFileTest() {
-        String fileName = "readFileInc.txt";
+        String fileName = "src/test/resource/readFileInc.txt";
 
         Incidence inc = new Incidence();
         inc.readFile(fileName);
@@ -287,7 +287,7 @@ class IncidenceTest {
      */
     @Test
     void readFileTestBad0() {
-        String fileName = "readFileIncBadNotExist.txt";
+        String fileName = "src/test/resource/readFileIncBadNotExist.txt";
 
         Incidence inc = new Incidence();
 
@@ -300,7 +300,7 @@ class IncidenceTest {
         } catch (Exception e) {
             System.out.print(e.getMessage());
         }
-        String output = "Error reading file readFileIncBadNotExist.txt";
+        String output = "Error reading file " + fileName;
         System.setOut(oldOut);
         assertEquals(output, outputStream.toString(),
                 "Bad file. There is should be exception.");
@@ -308,7 +308,7 @@ class IncidenceTest {
 
     @Test
     void readFileTestBad1() {
-        String fileName = "readFileIncBad1.txt";
+        String fileName = "src/test/resource/readFileIncBad1.txt";
 
         Incidence inc = new Incidence();
 
@@ -329,7 +329,7 @@ class IncidenceTest {
 
     @Test
     void readFileTestBad2() {
-        String fileName = "readFileIncBad2.txt";
+        String fileName = "src/test/resource/readFileIncBad2.txt";
 
         Incidence inc = new Incidence();
 
@@ -350,7 +350,7 @@ class IncidenceTest {
 
     @Test
     void readFileTestBad3() {
-        String fileName = "readFileIncBad3.txt";
+        String fileName = "src/test/resource/readFileIncBad3.txt";
 
         Incidence inc = new Incidence();
 

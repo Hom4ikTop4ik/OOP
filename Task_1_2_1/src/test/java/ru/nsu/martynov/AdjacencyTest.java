@@ -271,7 +271,7 @@ class AdjacencyTest {
 
     @Test
     void readFileTest() {
-        String fileName = "readFileAdj.txt";
+        String fileName = "src/test/resource/readFileAdj.txt";
 
         Adjacency adj = new Adjacency();
         adj.readFile(fileName);
@@ -293,7 +293,7 @@ class AdjacencyTest {
 
     @Test
     void readFileTestNotEnough() {
-        String fileName = "readFileAdjNotEnough.txt";
+        String fileName = "src/test/resource/readFileAdjNotEnough.txt";
 
         Adjacency adj = new Adjacency();
 
@@ -314,7 +314,7 @@ class AdjacencyTest {
 
     @Test
     void readFileTestNotExist() {
-        String fileName = "readFileAdjNotExist.txt";
+        String fileName = "src/test/resource/readFileAdjNotExist.txt";
 
         Adjacency adj = new Adjacency();
 
@@ -331,7 +331,7 @@ class AdjacencyTest {
 
     @Test
     void readFileTestNoSize() {
-        String fileName = "readFileAdjNoSize.txt";
+        String fileName = "src/test/resource/readFileAdjNoSize.txt";
 
         Adjacency adj = new Adjacency();
 
