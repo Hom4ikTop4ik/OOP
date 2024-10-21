@@ -10,26 +10,26 @@ import java.util.Map;
  *   and evaluate its value.
  */
 public class Variable extends Expression {
-    private final String variable;
+    final String name;
 
     /**
      * Constructor.
      *
-     * @param variable — variable in string.
+     * @param variableName — variableName in string.
      */
-    public Variable(String variable) {
-        for (Character c : variable.toCharArray()) {
+    public Variable(String variableName) {
+        for (Character c : variableName.toCharArray()) {
             if (!Character.isAlphabetic(c)) {
-                String print = "'" + variable + "' is not valid name — use letters";
-                throw new IllegalArgumentException(print);
+                throw new IllegalArgumentException(
+                        "'" + variableName + "' is not valid name — use letters");
             }
         }
 
-        if (variable.isEmpty()) {
-            throw new IllegalArgumentException("Variable is empty");
+        if (variableName.isEmpty()) {
+            throw new IllegalArgumentException("Variable name is empty");
         }
 
-        this.variable = variable;
+        this.name = variableName;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Variable extends Expression {
      */
     @Override
     public void print() {
-        System.out.print(this.variable);
+        System.out.print(this.name);
     }
 
     /**
@@ -48,7 +48,7 @@ public class Variable extends Expression {
      */
     @Override
     public Expression derivative(String var) {
-        if (var.equals(this.variable)) {
+        if (var.equals(this.name)) {
             return new Number(1);
         } else {
             return new Number(0);
@@ -57,9 +57,9 @@ public class Variable extends Expression {
 
     @Override
     public Double evalMap(Map<String, Double> vars) {
-        Double value = vars.get(this.variable);
+        Double value = vars.get(this.name);
         if (value == null) {
-            throw new IllegalArgumentException("Variable '" + this.variable + "' not found");
+            throw new IllegalArgumentException("Variable '" + this.name + "' not found");
         }
         return value;
     }

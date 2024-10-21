@@ -22,11 +22,16 @@ public class Add extends Expression {
     public Add(Expression left, Expression right) {
         this.left = left;
         this.right = right;
+
+        // Вынести print в отдельный класс Printer или ExpressionPrinter
+//        iif (left instanceof Add) {
+//            printAdd((Add)left);
+//        }
     }
 
     /**
      * Print '(', left term, '+', right term and ')'.
-     */
+     */ // (Exp + Exp)
     @Override
     public void print() {
         System.out.print("(");
