@@ -22,11 +22,6 @@ public class Add extends Expression {
     public Add(Expression left, Expression right) {
         this.left = left;
         this.right = right;
-
-        // Вынести print в отдельный класс Printer или ExpressionPrinter
-//        iif (left instanceof Add) {
-//            printAdd((Add)left);
-//        }
     }
 
     /**
@@ -37,12 +32,6 @@ public class Add extends Expression {
         return "(" + this.left.toString() + " + " + this.right.toString() + ")";
     }
 
-    /**
-     * Derivative of the sum left and right.
-     *
-     * @param var — variable for derivative.
-     * @return new Expression: (left + right)' = (left' + right').
-     */
     @Override
     public Expression derivative(String var) {
         return new Add(this.left.derivative(var), this.right.derivative(var));
