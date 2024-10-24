@@ -24,7 +24,7 @@ class VariableTest {
             System.out.print(e.getMessage());
         }
 
-        assertEquals("Variable is empty", outputStream.toString());
+        assertEquals("Variable name is empty", outputStream.toString());
     }
 
     @Test
@@ -64,34 +64,30 @@ class VariableTest {
     @Test
     void printGood1() {
         Variable var = new Variable("x");
-        var.print();
 
-        assertEquals("x", outputStream.toString());
+        assertEquals("x", var.toString());
     }
 
     @Test
     void printGood2() {
         Variable var = new Variable("abc");
-        var.print();
 
-        assertEquals("abc", outputStream.toString());
+        assertEquals("abc", var.toString());
     }
 
 
     @Test
     void derivativeGood0() {
         Variable var = new Variable("x");
-        var.derivative("y").print();
 
-        assertEquals("0.0", outputStream.toString());
+        assertEquals("0.0", var.derivative("y").toString());
     }
 
     @Test
     void derivativeGood1() {
         Variable var = new Variable("abc");
-        var.derivative("abc").print();
 
-        assertEquals("1.0", outputStream.toString());
+        assertEquals("1.0", var.derivative("abc").toString());
     }
 
 

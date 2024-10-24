@@ -28,10 +28,9 @@ class LongTest {
                                         new Number(3)),
                                 new Number(2))),
                 new Number(3.5));
-        exp.print();
 
         String ans = "((1.0 + ((5.0 * 3.0) / 2.0)) - 3.5)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, exp.toString());
     }
 
     @Test
@@ -50,10 +49,9 @@ class LongTest {
                 ),
                 new Variable("apple")
         );
-        exp.print();
 
         String ans = "((aboba - (1.0 + (x / y))) * apple)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, exp.toString());
     }
 
     @Test
@@ -68,10 +66,9 @@ class LongTest {
                                         new Number(3)),
                                 new Number(2))),
                 new Number(3.5));
-        exp.derivative("x").print();
         String print = "((0.0 + (((((0.0 * 3.0) + (5.0 * 0.0)) * 2.0) "
                         + "- ((5.0 * 3.0) * 0.0)) / (2.0 * 2.0))) - 0.0)";
-        assertEquals(print, outputStream.toString());
+        assertEquals(print,  exp.derivative("x").toString());
     }
 
     @Test

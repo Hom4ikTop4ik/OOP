@@ -21,16 +21,15 @@ class ParserTest {
         String exp = "((3+(2.5*x)) / (y - 7))";
         String print = "((3.0 + (2.5 * x)) / (y - 7.0))";
         Expression expression = Expression.parseString(exp);
-        expression.print();
 
-        assertEquals(print, outputStream.toString());
+        assertEquals(print, expression.toString());
     }
 
     @Test
     void parserTestBad1() {
         String exp = "1..2185.21852";
         try {
-            Expression.parseString(exp).print();
+            Expression.parseString(exp).toString();
         } catch (IllegalArgumentException e) {
             System.out.print(e.getMessage());
         }
@@ -42,7 +41,7 @@ class ParserTest {
     void parserTestBad2() {
         String exp = "1.2YES5";
         try {
-            Expression.parseString(exp).print();
+            Expression.parseString(exp).toString();
         } catch (IllegalArgumentException e) {
             System.out.print(e.getMessage());
         }
@@ -52,17 +51,18 @@ class ParserTest {
         setUp();
         exp = "15Apples";
         try {
-            Expression.parseString(exp).print();
+            Expression.parseString(exp).toString();
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            System.out.print(e.getMessage());
         }
+        assertEquals("Should be operator, but it isn't", outputStream.toString());
     }
 
     @Test
     void parserTestEmpty() {
         String exp = "";
         try {
-            Expression.parseString(exp).print();
+            Expression.parseString(exp).toString();
         } catch (IllegalArgumentException e) {
             System.out.print(e.getMessage());
         }

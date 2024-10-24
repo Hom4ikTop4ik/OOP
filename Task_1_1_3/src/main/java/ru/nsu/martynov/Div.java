@@ -19,15 +19,11 @@ public class Div extends Expression {
     }
 
     /**
-     * Print '(', left term, '/', right term and ')'.
+     * (Exp / Exp)
      */
     @Override
-    public void print() {
-        System.out.print("(");
-        this.left.print();
-        System.out.print(" / ");
-        this.right.print();
-        System.out.print(")");
+    public String toString() {
+        return "(" + this.left.toString() + " / " + this.right.toString() + ")";
     }
 
     /**

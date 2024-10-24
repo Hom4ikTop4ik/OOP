@@ -20,91 +20,81 @@ class MulTest {
     @Test
     void printNums1() {
         Mul mul = new Mul(new Number(0), new Number(0));
-        mul.print();
 
         String ans = "(0.0 * 0.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.toString());
     }
 
     @Test
     void printNums2() {
         Mul mul = new Mul(new Number(1), new Number(2));
-        mul.print();
 
         String ans = "(1.0 * 2.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.toString());
     }
 
     @Test
     void printNums3() {
         Mul mul = new Mul(new Number(-3), new Number(4));
-        mul.print();
 
         String ans = "(-3.0 * 4.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.toString());
     }
 
     @Test
     void printNums4() {
         Mul mul = new Mul(new Number(5), new Number(-6));
-        mul.print();
 
         String ans = "(5.0 * -6.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.toString());
     }
 
     @Test
     void printNums5() {
         Mul mul = new Mul(new Number(-7), new Number(-8));
-        mul.print();
 
         String ans = "(-7.0 * -8.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.toString());
     }
 
     @Test
     void printNumsVars() {
         Mul mul = new Mul(new Number(0), new Variable("aboba"));
-        mul.print();
 
         String ans = "(0.0 * aboba)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.toString());
     }
 
     @Test
     void printVar1() {
         Mul mul = new Mul(new Variable("x"), new Variable("x"));
-        mul.print();
 
         String ans = "(x * x)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.toString());
     }
 
     @Test
     void printVar2() {
         Mul mul = new Mul(new Variable("xyz"), new Variable("abc"));
-        mul.print();
 
         String ans = "(xyz * abc)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.toString());
     }
 
     @Test
     void printVar3() {
         Mul mul = new Mul(new Variable("hihi"), new Variable("a"));
-        mul.print();
 
         String ans = "(hihi * a)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.toString());
     }
 
     @Test
     void derivative1() {
         Mul mul = new Mul(new Variable("x"), new Variable("y"));
-        mul.derivative("x").print();
 
         String ans = "((1.0 * y) + (x * 0.0))";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, mul.derivative("x").toString());
     }
 
     @Test

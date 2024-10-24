@@ -22,11 +22,11 @@ public class Number extends Expression {
     }
 
     /**
-     * Print const number.
+     * Convert const number to String.
      */
     @Override
-    public void print() {
-        System.out.print(this.constNum);
+    public String toString() {
+        return Double.toString(this.constNum);
     }
 
     /**

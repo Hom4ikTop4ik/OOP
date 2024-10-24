@@ -19,43 +19,37 @@ class NumberTest {
     @Test
     void print1() {
         Number num = new Number(-5);
-        num.print();
-        assertEquals("-5.0", outputStream.toString());
+        assertEquals("-5.0", num.toString());
     }
 
     @Test
     void print2() {
         Number num = new Number(0);
-        num.print();
-        assertEquals("0.0", outputStream.toString());
+        assertEquals("0.0", num.toString());
     }
 
     @Test
     void print3() {
         Number num = new Number(5);
-        num.print();
-        assertEquals("5.0", outputStream.toString());
+        assertEquals("5.0", num.toString());
     }
 
     @Test
     void derivative1() {
         Number num = new Number(-5);
-        num.derivative("x").print();
-        assertEquals("0.0", outputStream.toString());
+        assertEquals("0.0", num.derivative("x").toString());
     }
 
     @Test
     void derivative2() {
         Number num = new Number(0);
-        num.derivative("abc").print();
-        assertEquals("0.0", outputStream.toString());
+        assertEquals("0.0", num.derivative("abc").toString());
     }
 
     @Test
     void derivative3() {
         Number num = new Number(5);
-        num.derivative("123").print();
-        assertEquals("0.0", outputStream.toString());
+        assertEquals("0.0", num.derivative("123").toString());
     }
 
     @Test

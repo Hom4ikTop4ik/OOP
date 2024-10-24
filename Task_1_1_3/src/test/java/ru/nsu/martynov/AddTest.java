@@ -20,112 +20,99 @@ class AddTest {
     @Test
     void printNums1() {
         Add add = new Add(new Number(0), new Number(0));
-        add.print();
 
         String ans = "(0.0 + 0.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void printNums2() {
         Add add = new Add(new Number(1), new Number(2));
-        add.print();
 
         String ans = "(1.0 + 2.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void printNums3() {
         Add add = new Add(new Number(-3), new Number(4));
-        add.print();
 
         String ans = "(-3.0 + 4.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void printNums4() {
         Add add = new Add(new Number(5), new Number(-6));
-        add.print();
 
         String ans = "(5.0 + -6.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void printNums5() {
         Add add = new Add(new Number(-7), new Number(-8));
-        add.print();
 
         String ans = "(-7.0 + -8.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void printNumsVars1() {
         Add add = new Add(new Number(0), new Variable("x"));
-        add.print();
 
         String ans = "(0.0 + x)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void printVar1() {
         Add add = new Add(new Variable("x"), new Variable("x"));
-        add.print();
 
         String ans = "(x + x)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void printVar2() {
         Add add = new Add(new Variable("xyz"), new Variable("abc"));
-        add.print();
 
         String ans = "(xyz + abc)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void printVar3() {
         Add add = new Add(new Variable("hihi"), new Variable("a"));
-        add.print();
 
         String ans = "(hihi + a)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void printVar4() {
         Add add = new Add(new Add(new Variable("a"), new Variable("b")), new Number(123));
-        add.print();
 
         String ans = "((a + b) + 123.0)";
-        assertEquals(ans, outputStream.toString());
+        assertEquals(ans, add.toString());
     }
 
     @Test
     void derivative1() {
         Add add = new Add(new Number(2), new Number(3));
-        add.derivative("x").print();
-        assertEquals("(0.0 + 0.0)", outputStream.toString());
+        assertEquals("(0.0 + 0.0)", add.derivative("x").toString());
     }
 
     @Test
     void derivative2() {
         Add add = new Add(new Variable("x"), new Number(3));
-        add.derivative("x").print();
-        assertEquals("(1.0 + 0.0)", outputStream.toString());
+        assertEquals("(1.0 + 0.0)", add.derivative("x").toString());
     }
 
     @Test
     void derivative3() {
         Add add = new Add(new Variable("x"), new Variable("y"));
-        add.derivative("x").print();
-        assertEquals("(1.0 + 0.0)", outputStream.toString());
+        assertEquals("(1.0 + 0.0)", add.derivative("x").toString());
     }
 
     @Test

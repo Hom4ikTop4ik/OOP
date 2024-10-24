@@ -13,7 +13,7 @@ public abstract class Expression {
     /**
      * Print expression.
      */
-    abstract void print();
+    public abstract String toString();
 
     /**
      * Takes the derivative of one variable and returns it as an expression.
