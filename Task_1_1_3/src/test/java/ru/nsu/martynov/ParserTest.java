@@ -109,6 +109,4 @@ class ParserTest {
 
         assertEquals("There isn't number or variable", outputStream.toString());
     }
-
-
 }
