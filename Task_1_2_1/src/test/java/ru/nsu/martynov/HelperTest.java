@@ -113,18 +113,18 @@ class HelperTest {
     }
 
     /**
-     * Tests the Helper.checkIndex() method for valid single indexes within the matrix bounds.
+     * Tests the Helper.checkIndexInMatrix() method for valid single indexes within the matrix bounds.
      * This method should not throw any exceptions for valid index inputs.
      */
     @Test
     void checkIndexValidTest() {
         int[][] matrix = new int[3][3];
-        assertDoesNotThrow(() -> Helper.checkIndex(0, matrix));
-        assertDoesNotThrow(() -> Helper.checkIndex(2, matrix));
+        assertDoesNotThrow(() -> Helper.checkIndexInMatrix(0, matrix));
+        assertDoesNotThrow(() -> Helper.checkIndexInMatrix(2, matrix));
     }
 
     /**
-     * Tests the Helper.checkIndex() method when the index is negative.
+     * Tests the Helper.checkIndexInMatrix() method when the index is negative.
      * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
@@ -132,13 +132,13 @@ class HelperTest {
         int[][] matrix = new int[3][3];
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () ->
-                        Helper.checkIndex(-1, matrix)
+                        Helper.checkIndexInMatrix(-1, matrix)
                 );
         assertEquals("Index меньше нуля", exception.getMessage());
     }
 
     /**
-     * Tests the Helper.checkIndex() method when the index exceeds the matrix bounds.
+     * Tests the Helper.checkIndexInMatrix() method when the index exceeds the matrix bounds.
      * The method should throw an IllegalArgumentException with the correct error message.
      */
     @Test
@@ -146,7 +146,7 @@ class HelperTest {
         int[][] matrix = new int[3][3];
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () ->
-                        Helper.checkIndex(3, matrix)
+                        Helper.checkIndexInMatrix(3, matrix)
                 );
         assertEquals("Index слишком большой для текущего графа", exception.getMessage());
     }

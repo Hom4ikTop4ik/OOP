@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.martynov.DivTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2024-10-24T20:12:04" hostname="DESKTOP-3KNQGGT" time="0.021">
+  <properties/>
+  <testcase name="printNumsVars()" classname="ru.nsu.martynov.DivTest" time="0.001"/>
+  <testcase name="printVar1()" classname="ru.nsu.martynov.DivTest" time="0.001"/>
+  <testcase name="printVar2()" classname="ru.nsu.martynov.DivTest" time="0.001"/>
+  <testcase name="printVar3()" classname="ru.nsu.martynov.DivTest" time="0.002"/>
+  <testcase name="evalBad()" classname="ru.nsu.martynov.DivTest" time="0.002"/>
+  <testcase name="printNums1()" classname="ru.nsu.martynov.DivTest" time="0.002"/>
+  <testcase name="printNums2()" classname="ru.nsu.martynov.DivTest" time="0.001"/>
+  <testcase name="printNums3()" classname="ru.nsu.martynov.DivTest" time="0.001"/>
+  <testcase name="printNums4()" classname="ru.nsu.martynov.DivTest" time="0.001"/>
+  <testcase name="printNums5()" classname="ru.nsu.martynov.DivTest" time="0.001"/>
+  <testcase name="evalGood1()" classname="ru.nsu.martynov.DivTest" time="0.0"/>
+  <testcase name="evalGood2()" classname="ru.nsu.martynov.DivTest" time="0.001"/>
+  <testcase name="derivative1()" classname="ru.nsu.martynov.DivTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Number format exception: 1a
+]]></system-err>
+</testsuite>

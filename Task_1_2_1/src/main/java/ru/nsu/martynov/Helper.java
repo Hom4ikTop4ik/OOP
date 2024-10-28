@@ -52,7 +52,7 @@ public class Helper {
      * @param matrix the graph's adjacency or incidence matrix
      * @throws IllegalArgumentException if the index is out of bounds
      */
-    public static void checkIndex(int index, int[][] matrix) {
+    public static void checkIndexInMatrix(int index, int[][] matrix) {
         if (index < 0) {
             throw new IllegalArgumentException("Index меньше нуля");
         }

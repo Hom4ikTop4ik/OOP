@@ -95,7 +95,7 @@ public class Incidence implements Graph {
      * @throws IllegalArgumentException if the index is out of bounds
      */
     public void remVert(int index) {
-        Helper.checkIndex(index, this.matrix);
+        Helper.checkIndexInMatrix(index, this.matrix);
 
         int cnt = 0; // кол-во рёбер, не связанных с удаляемой вершиной
         for (int j = 0; j < this.matrix[0].length; j++) {
@@ -297,7 +297,7 @@ public class Incidence implements Graph {
      */
     @Override
     public int[] getNeighbours(int index) {
-        Helper.checkIndex(index, this.matrix);
+        Helper.checkIndexInMatrix(index, this.matrix);
 
         int cnt = 0;
         int[] neighbours = new int[this.matrix.length];

@@ -72,7 +72,7 @@ public class Adjacency implements Graph {
      * @param index the index of the vertex to remove
      */
     public void remVert(int index) {
-        Helper.checkIndex(index, this.matrix);
+        Helper.checkIndexInMatrix(index, this.matrix);
 
         int[][] newMatrix = new int[this.matrix.length - 1][this.matrix.length - 1];
 
