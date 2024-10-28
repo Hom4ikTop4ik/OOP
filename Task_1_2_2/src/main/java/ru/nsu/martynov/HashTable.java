@@ -5,6 +5,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
+import static ru.nsu.martynov.HashMapConstants.HASH_COEF;
+import static ru.nsu.martynov.HashMapConstants.HASH_START_VALUE;
+import static ru.nsu.martynov.HashMapConstants.HASH_TABLE_LOAD_FACTOR;
+
 /**
  * Class HashTable.
  *
@@ -28,13 +32,6 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
     }
 
     /**
-     * Hash func — index in table.
-     */
-    private int hash(K key) {
-        return Math.abs(key.hashCode()) % this.capacity;
-    }
-
-    /**
      * Put Pair(Key, Value) in hashTable.
      * If pair exist update this.
      *
@@ -46,7 +43,7 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
             capacity = 0;
         }
 
-        if (cnt >= capacity * MNAS.HASH_TABLE_LOAD_FACTOR) {
+        if (cnt >= capacity * HASH_TABLE_LOAD_FACTOR) {
             resize();
         }
 
@@ -128,29 +125,6 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
     }
 
     /**
-     * Resize the hash table when load factor is exceeded.
-     */
-    private void resize() {
-        // if start from 0, we will get 0 every because 2 * 0 = 0, so add 1.
-        this.capacity = 1 + 2 * this.capacity;
-        LinkedList<Pair<K, V>>[] newTable = new LinkedList[this.capacity];
-
-        for (LinkedList<Pair<K, V>> list : table) {
-            if (list != null) {
-                for (Pair<K, V> pair : list) {
-                    int newIndex = hash(pair.key);
-                    if (newTable[newIndex] == null) {
-                        newTable[newIndex] = new LinkedList<>();
-                    }
-                    newTable[newIndex].add(pair);
-                }
-            }
-        }
-
-        table = newTable;
-    }
-
-    /**
      * Hash code for the hash table to compare them.
      * It collects the hash codes of all keys and values,
      * and adds the size of the table.
@@ -159,18 +133,18 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
      */
     @Override
     public int hashCode() {
-        int hash = MNAS.HASH_START_VALUE;
+        int hash = HASH_START_VALUE;
         for (LinkedList<Pair<K, V>> list : table) {
             if (list != null) {
                 for (Pair<K, V> pair : list) {
                     int keyHash = (pair.key != null) ? pair.key.hashCode() : 0;
                     int valueHash = (pair.value != null) ? pair.value.hashCode() : 0;
-                    hash = MNAS.HASH_COEF * hash + keyHash; // Add hash(key)
-                    hash = MNAS.HASH_COEF * hash + valueHash; // Add hash(value)
+                    hash = HASH_COEF * hash + keyHash; // Add hash(key)
+                    hash = HASH_COEF * hash + valueHash; // Add hash(value)
                 }
             }
         }
-        hash = MNAS.HASH_COEF * hash + cnt; // Add count of elems in table
+        hash = HASH_COEF * hash + cnt; // Add count of elems in table
         return hash;
     }
 
@@ -236,6 +210,36 @@ public class HashTable<K, V> implements Iterable<Pair<K, V>> {
     @Override
     public Iterator<Pair<K, V>> iterator() {
         return new HashTableIterator();
+    }
+
+    /**
+     * Hash func — index in table.
+     */
+    private int hash(K key) {
+        return Math.abs(key.hashCode()) % this.capacity;
+    }
+
+    /**
+     * Resize the hash table when load factor is exceeded.
+     */
+    private void resize() {
+        // if start from 0, we will get 0 every because 2 * 0 = 0, so add 1.
+        this.capacity = 1 + 2 * this.capacity;
+        LinkedList<Pair<K, V>>[] newTable = new LinkedList[this.capacity];
+
+        for (LinkedList<Pair<K, V>> list : table) {
+            if (list != null) {
+                for (Pair<K, V> pair : list) {
+                    int newIndex = hash(pair.key);
+                    if (newTable[newIndex] == null) {
+                        newTable[newIndex] = new LinkedList<>();
+                    }
+                    newTable[newIndex].add(pair);
+                }
+            }
+        }
+
+        table = newTable;
     }
 
     /**

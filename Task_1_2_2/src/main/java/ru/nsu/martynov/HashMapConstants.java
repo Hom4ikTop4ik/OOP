@@ -3,7 +3,7 @@ package ru.nsu.martynov;
 /**
  * Magic Numbers And Strings.
  */
-public class MNAS {
+public class HashMapConstants {
     public static final int HASH_START_VALUE = 1;
     public static final int HASH_COEF = 31;
 
