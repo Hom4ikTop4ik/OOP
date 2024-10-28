@@ -177,14 +177,6 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkIndex(int,int%5B%5D%5B%5D)">checkIndex</a></span>&#8203;(int&nbsp;index,
-          int[][]&nbsp;matrix)</code></th>
-<td class="colLast">
-<div class="block">Validates that a single index is within the bounds of the matrix.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkIndexes(int,int,int%5B%5D%5B%5D)">checkIndexes</a></span>&#8203;(int&nbsp;from,
             int&nbsp;to,
             int[][]&nbsp;matrix)</code></th>
@@ -192,12 +184,20 @@ extends java.lang.Object</pre>
 <div class="block">Validates that both 'from' and 'to' indices are within bounds of the matrix.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkIndexesNeg(int,int)">checkIndexesNeg</a></span>&#8203;(int&nbsp;from,
                int&nbsp;to)</code></th>
 <td class="colLast">
 <div class="block">Validates that both 'from' and 'to' indices are non-negative.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkIndexInMatrix(int,int%5B%5D%5B%5D)">checkIndexInMatrix</a></span>&#8203;(int&nbsp;index,
+                  int[][]&nbsp;matrix)</code></th>
+<td class="colLast">
+<div class="block">Validates that a single index is within the bounds of the matrix.</div>
 </td>
 </tr>
 </table>
@@ -282,14 +282,14 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="checkIndex(int,int[][])">
+<a id="checkIndexInMatrix(int,int[][])">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>checkIndex</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;checkIndex&#8203;(int&nbsp;index,
-                              int[][]&nbsp;matrix)</pre>
+<h4>checkIndexInMatrix</h4>
+<pre class="methodSignature">public static&nbsp;void&nbsp;checkIndexInMatrix&#8203;(int&nbsp;index,
+                                      int[][]&nbsp;matrix)</pre>
 <div class="block">Validates that a single index is within the bounds of the matrix.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
