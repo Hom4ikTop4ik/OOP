@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.martynov.HelperTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2024-10-28T06:06:59" hostname="DESKTOP-3KNQGGT" time="0.019">
+  <properties/>
+  <testcase name="checkIndexesToNegativeTest()" classname="ru.nsu.martynov.HelperTest" time="0.003"/>
+  <testcase name="checkIndexTooLargeTest()" classname="ru.nsu.martynov.HelperTest" time="0.0"/>
+  <testcase name="checkIndexesNegFromNegativeTest()" classname="ru.nsu.martynov.HelperTest" time="0.001"/>
+  <testcase name="checkIndexesFromTooLargeTest()" classname="ru.nsu.martynov.HelperTest" time="0.0"/>
+  <testcase name="checkIndexesNegValidTest()" classname="ru.nsu.martynov.HelperTest" time="0.002"/>
+  <testcase name="checkIndexesNegToNegativeTest()" classname="ru.nsu.martynov.HelperTest" time="0.001"/>
+  <testcase name="checkIndexesToTooLargeTest()" classname="ru.nsu.martynov.HelperTest" time="0.001"/>
+  <testcase name="checkIndexNegativeTest()" classname="ru.nsu.martynov.HelperTest" time="0.001"/>
+  <testcase name="checkIndexValidTest()" classname="ru.nsu.martynov.HelperTest" time="0.001"/>
+  <testcase name="checkIndexesFromNegativeTest()" classname="ru.nsu.martynov.HelperTest" time="0.0"/>
+  <testcase name="checkIndexesValidTest()" classname="ru.nsu.martynov.HelperTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
