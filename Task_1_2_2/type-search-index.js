@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.martynov","l":"HashTable"},{"p":"ru.nsu.martynov","l":"MNAS"},{"p":"ru.nsu.martynov","l":"Pair"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.martynov","l":"HashMapConstants"},{"p":"ru.nsu.martynov","l":"HashTable"},{"p":"ru.nsu.martynov","l":"Pair"}]
