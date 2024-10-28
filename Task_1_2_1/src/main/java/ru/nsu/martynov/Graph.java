@@ -1,5 +1,7 @@
 package ru.nsu.martynov;
 
+import java.io.FileNotFoundException;
+
 /**
  * The Graph interface defines a set of methods for working with various graph representations.
  * Implementations of this interface should handle adding/removing vertices and edges, retrieving
