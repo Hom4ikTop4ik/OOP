@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.martynov.VariableTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2024-10-24T20:12:04" hostname="DESKTOP-3KNQGGT" time="0.013">
+  <properties/>
+  <testcase name="printBadName1()" classname="ru.nsu.martynov.VariableTest" time="0.001"/>
+  <testcase name="printBadName2()" classname="ru.nsu.martynov.VariableTest" time="0.001"/>
+  <testcase name="printBadName3()" classname="ru.nsu.martynov.VariableTest" time="0.0"/>
+  <testcase name="derivativeGood0()" classname="ru.nsu.martynov.VariableTest" time="0.0"/>
+  <testcase name="derivativeGood1()" classname="ru.nsu.martynov.VariableTest" time="0.001"/>
+  <testcase name="printEmpty()" classname="ru.nsu.martynov.VariableTest" time="0.001"/>
+  <testcase name="printGood1()" classname="ru.nsu.martynov.VariableTest" time="0.0"/>
+  <testcase name="printGood2()" classname="ru.nsu.martynov.VariableTest" time="0.0"/>
+  <testcase name="evalBad1()" classname="ru.nsu.martynov.VariableTest" time="0.001"/>
+  <testcase name="evalBad2()" classname="ru.nsu.martynov.VariableTest" time="0.001"/>
+  <testcase name="evalBad3()" classname="ru.nsu.martynov.VariableTest" time="0.001"/>
+  <testcase name="evalBad4()" classname="ru.nsu.martynov.VariableTest" time="0.001"/>
+  <testcase name="evalGood()" classname="ru.nsu.martynov.VariableTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Number format exception: abc
+]]></system-err>
+</testsuite>
