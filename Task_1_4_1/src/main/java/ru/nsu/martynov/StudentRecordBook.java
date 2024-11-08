@@ -48,6 +48,8 @@ public class StudentRecordBook {
     }
 
     /**
+     * Method for add zachet to record block.
+     *
      * @param subject — subject name.
      * @param semester — number of semester.
      * @param pass — zachet or otchislen :).
@@ -66,6 +68,8 @@ public class StudentRecordBook {
     }
 
     /**
+     * Method to calculate average grade.
+     *
      * @return average grade for every semesters.
      */
     public double calculateAverageGrade() {
@@ -82,6 +86,8 @@ public class StudentRecordBook {
     }
 
     /**
+     * This method return boolean value — can or not student get FREE education.
+     *
      * @return can student get FREE education or not.
      */
     public boolean canGetFreeEducation() {
@@ -117,6 +123,8 @@ public class StudentRecordBook {
     // 3. Проверка возможности получения диплома с отличием
 
     /**
+     * This method return boolean value — can or not student get Red Diplom.
+     *
      * @return can student get Red Diplom having current grades.
      */
     public boolean canGetRedDiplom() {
@@ -144,6 +152,8 @@ public class StudentRecordBook {
     }
 
     /**
+     * This method return boolean value — can or not student get BIG stip.
+     *
      * @return can student get BIG stip or not.
      */
     public boolean canGetBigStip() {
@@ -223,6 +233,8 @@ public class StudentRecordBook {
         }
 
         /**
+         * Method return true if grade from exam.
+         *
          * @return if gradeType is exam.
          */
         public boolean isExam() {
@@ -230,6 +242,8 @@ public class StudentRecordBook {
         }
 
         /**
+         * Method return true if grade from diff zachet.
+         *
          * @return if gradeType is diff zachet.
          */
         public boolean isDiff() {
@@ -237,6 +251,8 @@ public class StudentRecordBook {
         }
 
         /**
+         * Method return true if grade from zachet.
+         *
          * @return if gradeType is zachet.
          */
         public boolean isZach() {
@@ -244,6 +260,8 @@ public class StudentRecordBook {
         }
 
         /**
+         * Method return number current semester.
+         *
          * @return number of current semester.
          */
         public int getSemester() {
