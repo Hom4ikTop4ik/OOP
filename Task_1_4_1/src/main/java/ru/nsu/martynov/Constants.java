@@ -1,5 +1,8 @@
 package ru.nsu.martynov;
 
+/**
+ * Class that stores constants for the entire code.
+ */
 public class Constants {
     public static final double EXCELLENT_PERCENTAGE_FOR_BIG_STIP = 0.0;
     public static final double EXCELLENT_PERCENTAGE_FOR_RED_DIPLOM = 0.75;
