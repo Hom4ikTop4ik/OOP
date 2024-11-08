@@ -58,6 +58,7 @@ public class StudentRecordBook {
 
     /**
      * Set Qualification work grade.
+     *
      * @param gradeValue — grade value.
      */
     public void setQualificationWorkGrade(int gradeValue) {
@@ -97,7 +98,7 @@ public class StudentRecordBook {
                                     || grade.getSemester() == lastSemester - 1;
             // если в течение последних двух семестров плохая оценка за экзамен
             if (grade.isExam() && lastPreLastSem && satisfactory) {
-                    return false;
+                return false;
             }
         }
 
@@ -106,6 +107,7 @@ public class StudentRecordBook {
 
     /**
      * Method for changing FreeEducation status.
+     *
      * @param free — boolean flag.
      */
     public void setFreeEducation(boolean free) {
@@ -129,15 +131,15 @@ public class StudentRecordBook {
             if (grade.isExam() || grade.isDiff()) {
                 if (grade.getNumericValue() == EXCELLENT_MARK) {
                     excellentCount++;
-                } else if (grade.getNumericValue() <= SATISFACTORY_MARK) { // Оценки "неуд" или "удовлетворительно"
+                } else if (grade.getNumericValue() <= SATISFACTORY_MARK) {
                     satisfactoryCount++;
                 }
             }
         }
 
         // Нет оценок — нет красного (любого) диплома
-        double excellentPercentage = grades.isEmpty() ? 0 : (double) excellentCount / grades.size();
-        return excellentPercentage >= EXCELLENT_PERCENTAGE_FOR_RED_DIPLOM
+        double excPercent = grades.isEmpty() ? 0 : (double) excellentCount / grades.size();
+        return excPercent >= EXCELLENT_PERCENTAGE_FOR_RED_DIPLOM
                 && satisfactoryCount == SATISFACTORY_COUNT_FOR_RED_DIPLOM;
     }
 

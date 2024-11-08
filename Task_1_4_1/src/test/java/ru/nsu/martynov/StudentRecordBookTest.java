@@ -1,18 +1,13 @@
 package ru.nsu.martynov;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static ru.nsu.martynov.Constants.DIFF_NAME;
 import static ru.nsu.martynov.Constants.EXAM_NAME;
 import static ru.nsu.martynov.Constants.EXCELLENT_MARK;
-import static ru.nsu.martynov.Constants.EXCELLENT_PERCENTAGE_FOR_BIG_STIP;
-import static ru.nsu.martynov.Constants.EXCELLENT_PERCENTAGE_FOR_RED_DIPLOM;
 import static ru.nsu.martynov.Constants.GOOD_MARK;
-import static ru.nsu.martynov.Constants.SATISFACTORY_COUNT_FOR_RED_DIPLOM;
-import static ru.nsu.martynov.Constants.SATISFACTORY_COUNT_FOR_BIG_STIP;
 import static ru.nsu.martynov.Constants.SATISFACTORY_MARK;
-import static ru.nsu.martynov.Constants.ZACH_NAME;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
