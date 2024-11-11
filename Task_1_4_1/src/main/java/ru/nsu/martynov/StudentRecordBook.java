@@ -99,11 +99,11 @@ public class StudentRecordBook {
         int lastSemester = getLastSemester();
 
         for (Grade grade : grades) {
-            boolean satisfactory = grade.getNumericValue() <= SATISFACTORY_MARK;
+            boolean satisfactoryAndBelow = grade.getNumericValue() <= SATISFACTORY_MARK;
             boolean lastPreLastSem = grade.getSemester() == lastSemester
                                     || grade.getSemester() == lastSemester - 1;
             // если в течение последних двух семестров плохая оценка за экзамен
-            if (grade.isExam() && lastPreLastSem && satisfactory) {
+            if (grade.isExam() && lastPreLastSem && satisfactoryAndBelow) {
                 return false;
             }
         }
@@ -148,7 +148,7 @@ public class StudentRecordBook {
         // Нет оценок — нет красного (любого) диплома
         double excPercent = grades.isEmpty() ? 0 : (double) excellentCount / grades.size();
         return excPercent >= EXCELLENT_PERCENTAGE_FOR_RED_DIPLOM
-                && satisfactoryCount == SATISFACTORY_COUNT_FOR_RED_DIPLOM;
+                && satisfactoryCount <= SATISFACTORY_COUNT_FOR_RED_DIPLOM;
     }
 
     /**
