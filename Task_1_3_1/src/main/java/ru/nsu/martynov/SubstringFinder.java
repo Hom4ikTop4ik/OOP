@@ -1,7 +1,6 @@
 package ru.nsu.martynov;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,16 +19,17 @@ public class SubstringFinder {
      * @param substring — substring you want find.
      * @return ArrayList with indexes in the string where the substrings begin.
      */
-    public static ArrayList<Integer> find(String fileName, String substring) throws IOException {
+    public static ArrayList<Pair> find(String fileName, String substring) throws IOException {
         int ptr = 0;
         int lenSub = substring.length();
+        int lineNumber = 0;
 
         if (lenSub == 0) {
             return new ArrayList<>();
         }
 
-        Hashtable<Integer, Integer> process = new Hashtable<>();
-        ArrayList<Integer> done = new ArrayList<>();
+        Hashtable<Pair, Integer> process = new Hashtable<>();
+        ArrayList<Pair> done = new ArrayList<>();
 
         char c;
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName), BUFFER_SIZE)) {
@@ -38,15 +38,20 @@ public class SubstringFinder {
                 if (c == '\r') {
                     continue;
                 }
+                if (c == '\n') {
+                    lineNumber++;
+                    ptr = 0;
+                    continue;
+                }
 
                 // Вставим запись в HashTable, что с текущего индекса совпало НОЛЬ символов.
                 // В цикле ниже проверится, совпадёт ли нулевой символ.
                 // Если нет, то пара удалится. Да — начала подстроки и текста совпадают.
-                process.put(ptr++, 0);
+                process.put(new Pair(ptr++, lineNumber), 0);
 
-                ArrayList<Integer> indexesToRemove = new ArrayList<>();
+                ArrayList<Pair> indexesToRemove = new ArrayList<>();
 
-                for (Integer i : process.keySet()) {
+                for (Pair i : process.keySet()) {
                     Integer index = process.get(i);
 
                     // если index'овый символ совпал, перепишем для дальнейшей проверки на +1;
