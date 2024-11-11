@@ -1,14 +1,14 @@
-package ru.nsu.martynov;
+package ru.nsu.martynov.studentrecord;
 
-import static ru.nsu.martynov.Constants.DIFF_NAME;
-import static ru.nsu.martynov.Constants.EXAM_NAME;
-import static ru.nsu.martynov.Constants.EXCELLENT_MARK;
-import static ru.nsu.martynov.Constants.EXCELLENT_PERCENTAGE_FOR_BIG_STIP;
-import static ru.nsu.martynov.Constants.EXCELLENT_PERCENTAGE_FOR_RED_DIPLOM;
-import static ru.nsu.martynov.Constants.SATISFACTORY_COUNT_FOR_RED_DIPLOM;
-import static ru.nsu.martynov.Constants.SATISFACTORY_COUNT_FOR_BIG_STIP;
-import static ru.nsu.martynov.Constants.SATISFACTORY_MARK;
-import static ru.nsu.martynov.Constants.ZACH_NAME;
+import static ru.nsu.martynov.studentrecord.Constants.DIFF_NAME;
+import static ru.nsu.martynov.studentrecord.Constants.EXAM_NAME;
+import static ru.nsu.martynov.studentrecord.Constants.EXCELLENT_MARK;
+import static ru.nsu.martynov.studentrecord.Constants.EXCELLENT_PERCENTAGE_FOR_BIG_STIP;
+import static ru.nsu.martynov.studentrecord.Constants.EXCELLENT_PERCENTAGE_FOR_RED_DIPLOM;
+import static ru.nsu.martynov.studentrecord.Constants.SATISFACTORY_COUNT_FOR_RED_DIPLOM;
+import static ru.nsu.martynov.studentrecord.Constants.SATISFACTORY_COUNT_FOR_BIG_STIP;
+import static ru.nsu.martynov.studentrecord.Constants.SATISFACTORY_MARK;
+import static ru.nsu.martynov.studentrecord.Constants.ZACH_NAME;
 
 import java.util.ArrayList;
 import java.util.List;

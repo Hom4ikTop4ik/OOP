@@ -1,4 +1,4 @@
-package ru.nsu.martynov;
+package ru.nsu.martynov.studentrecord;
 
 /**
  * Class that stores constants for the entire code.

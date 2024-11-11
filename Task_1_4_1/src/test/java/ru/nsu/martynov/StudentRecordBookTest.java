@@ -3,14 +3,15 @@ package ru.nsu.martynov;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ru.nsu.martynov.Constants.DIFF_NAME;
-import static ru.nsu.martynov.Constants.EXAM_NAME;
-import static ru.nsu.martynov.Constants.EXCELLENT_MARK;
-import static ru.nsu.martynov.Constants.GOOD_MARK;
-import static ru.nsu.martynov.Constants.SATISFACTORY_MARK;
+import static ru.nsu.martynov.studentrecord.Constants.DIFF_NAME;
+import static ru.nsu.martynov.studentrecord.Constants.EXAM_NAME;
+import static ru.nsu.martynov.studentrecord.Constants.EXCELLENT_MARK;
+import static ru.nsu.martynov.studentrecord.Constants.GOOD_MARK;
+import static ru.nsu.martynov.studentrecord.Constants.SATISFACTORY_MARK;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.nsu.martynov.studentrecord.StudentRecordBook;
 
 class StudentRecordBookTest {
     private StudentRecordBook recordBook;
