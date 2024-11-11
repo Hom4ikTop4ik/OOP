@@ -1,4 +1,4 @@
-package ru.nsu.martynov;
+package ru.nsu.martynov.substringfinder;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,4 +1,4 @@
-package ru.nsu.martynov;
+package ru.nsu.martynov.substringfinder;
 
 /**
  * Pair class.

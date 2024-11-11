@@ -1,4 +1,4 @@
-package ru.nsu.martynov;
+package ru.nsu.martynov.substringfinder;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
