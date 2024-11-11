@@ -34,6 +34,11 @@ public class SubstringFinder {
         char c;
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName), BUFFER_SIZE)) {
             while ((c = (char) reader.read()) != (char) -1) {
+                // Такое только в Windows можно встретить обычно.
+                if (c == '\r') {
+                    continue;
+                }
+
                 // Вставим запись в HashTable, что с текущего индекса совпало НОЛЬ символов.
                 // В цикле ниже проверится, совпадёт ли нулевой символ.
                 // Если нет, то пара удалится. Да — начала подстроки и текста совпадают.
