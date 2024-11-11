@@ -1,9 +1,18 @@
 package ru.nsu.martynov;
 
+/**
+ * Pair class
+ */
 public class Pair {
     Integer fst;
     Integer snd;
 
+    /**
+     * Pair constructor.
+     *
+     * @param fst — first Integer.
+     * @param snd — second Integer.
+     */
     public Pair(Integer fst, Integer snd) {
         this.fst = fst;
         this.snd = snd;
@@ -18,6 +27,12 @@ public class Pair {
         return "(" + fst + ", " + snd + ")";
     }
 
+    /**
+     * equals func to compare Pairs.
+     *
+     * @param obj — second pair for comparing.
+     * @return boolean value. True if Pairs are equal, false otherwise.
+     */
     public boolean equals(Object obj) {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
