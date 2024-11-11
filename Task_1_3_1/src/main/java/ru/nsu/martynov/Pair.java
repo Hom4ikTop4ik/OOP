@@ -1,7 +1,7 @@
 package ru.nsu.martynov;
 
 /**
- * Pair class
+ * Pair class.
  */
 public class Pair {
     Integer fst;
