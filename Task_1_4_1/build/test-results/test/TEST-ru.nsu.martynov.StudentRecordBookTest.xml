@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.martynov.StudentRecordBookTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2024-11-08T14:05:20" hostname="DESKTOP-3KNQGGT" time="0.049">
+  <properties/>
+  <testcase name="setQualificationWorkGradeTest()" classname="ru.nsu.martynov.StudentRecordBookTest" time="0.03"/>
+  <testcase name="calculateAverageGradeTest()" classname="ru.nsu.martynov.StudentRecordBookTest" time="0.007"/>
+  <testcase name="addGradeTest()" classname="ru.nsu.martynov.StudentRecordBookTest" time="0.001"/>
+  <testcase name="canGetRedDiplomTest()" classname="ru.nsu.martynov.StudentRecordBookTest" time="0.001"/>
+  <testcase name="addZachTest()" classname="ru.nsu.martynov.StudentRecordBookTest" time="0.001"/>
+  <testcase name="canGetBigStipTest()" classname="ru.nsu.martynov.StudentRecordBookTest" time="0.001"/>
+  <testcase name="canGetFreeEducationTest()" classname="ru.nsu.martynov.StudentRecordBookTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

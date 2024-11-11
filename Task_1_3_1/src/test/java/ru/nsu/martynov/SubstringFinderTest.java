@@ -2,13 +2,14 @@ package ru.nsu.martynov;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 class SubstringFinderTest {
 
     @Test
-    void findTestYes() {
+    void findTestYes() throws IOException {
         ArrayList<Integer> list1 = new ArrayList<>();
         list1.add(1); list1.add(8);
         assertEquals(list1, SubstringFinder.find("test1.txt", "бра"));
@@ -23,18 +24,16 @@ class SubstringFinderTest {
     }
 
     @Test
-    void findTestNo() {
+    void findTestNo() throws IOException {
         ArrayList<Integer> listEmpty = new ArrayList<>();
         assertEquals(listEmpty, SubstringFinder.find("test1.txt", "яблоко"));
     }
 
     @Test
-    void findTestEmpty() {
+    void findTestEmpty() throws IOException {
         ArrayList<Integer> listEmpty = new ArrayList<>();
         assertEquals(listEmpty, SubstringFinder.find("test1.txt", ""));
         assertEquals(listEmpty, SubstringFinder.find("testEmpty.txt", "apple"));
         assertEquals(listEmpty, SubstringFinder.find("testEmpty.txt", ""));
     }
-
-
 }

@@ -1,5 +1,9 @@
 package ru.nsu.martynov;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -7,6 +11,7 @@ import java.util.Hashtable;
  * Class with find function.
  */
 public class SubstringFinder {
+    public static final int BUFFER_SIZE = 1024;
 
     /**
      * Main function.
@@ -15,7 +20,7 @@ public class SubstringFinder {
      * @param substring — substring you want find.
      * @return ArrayList with indexes in the string where the substrings begin.
      */
-    public static ArrayList<Integer> find(String fileName, String substring) {
+    public static ArrayList<Integer> find(String fileName, String substring) throws IOException {
         int ptr = 0;
         int lenSub = substring.length();
 
@@ -23,41 +28,43 @@ public class SubstringFinder {
             return new ArrayList<>();
         }
 
-        Hashtable<Integer, Integer> proccess = new Hashtable<>();
+        Hashtable<Integer, Integer> process = new Hashtable<>();
         ArrayList<Integer> done = new ArrayList<>();
 
-        MyReader reader = new MyReader(fileName);
-
         char c;
-        while ((c = reader.getChar()) != (char) -1) {
-            // Вставим запись в HashTable, что с текущего индекса совпало НОЛЬ символов.
-            // В цикле ниже проверится, совпадёт ли нулевой символ.
-            // Если нет, то пара удалится. Да — начала подстроки и текста совпадают.
-            proccess.put(ptr++, 0);
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName), BUFFER_SIZE)) {
+            while ((c = (char) reader.read()) != (char) -1) {
+                // Вставим запись в HashTable, что с текущего индекса совпало НОЛЬ символов.
+                // В цикле ниже проверится, совпадёт ли нулевой символ.
+                // Если нет, то пара удалится. Да — начала подстроки и текста совпадают.
+                process.put(ptr++, 0);
 
-            ArrayList<Integer> indexesToRemove = new ArrayList<>();
+                ArrayList<Integer> indexesToRemove = new ArrayList<>();
 
-            for (Integer i : proccess.keySet()) {
-                Integer index = proccess.get(i);
+                for (Integer i : process.keySet()) {
+                    Integer index = process.get(i);
 
-                // если index'овый символ совпал, перепишем для дальнейшей проверки на +1;
-                // иначе удалим запись, ведь подстрока не совпала на index'овом символе.
-                if (substring.charAt(index) == c) {
-                    // совпал последний символ — добавим индекс в ответ и удалим из hash таблицы
-                    if (index + 1 == lenSub) {
-                        done.add(i);
-                        indexesToRemove.add(i);
+                    // если index'овый символ совпал, перепишем для дальнейшей проверки на +1;
+                    // иначе удалим запись, ведь подстрока не совпала на index'овом символе.
+                    if (substring.charAt(index) == c) {
+                        // совпал последний символ — добавим индекс в ответ и удалим из hash таблицы
+                        if (index + 1 == lenSub) {
+                            done.add(i);
+                            indexesToRemove.add(i);
+                        } else {
+                            process.put(i, index + 1);
+                        }
                     } else {
-                        proccess.put(i, index + 1);
+                        indexesToRemove.add(i);
                     }
-                } else {
-                    indexesToRemove.add(i);
+                }
+
+                for (int i = 0; i < indexesToRemove.size(); i++) {
+                    process.remove(indexesToRemove.get(i));
                 }
             }
-
-            for (int i = 0; i < indexesToRemove.size(); i++) {
-                proccess.remove(indexesToRemove.get(i));
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return done;
