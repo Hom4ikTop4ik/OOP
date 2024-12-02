@@ -149,14 +149,14 @@ class MulTest {
 
     @Test
     void simplifyOne() {
-        Mul mul = new Mul(new Number(1), new Number(6));
+        Mul mul = new Mul(new Number(1), new Variable("y"));
         Expression sim = mul.simplify();
-        Number num = new Number(6);
-        assertEquals(sim, num);
+        Variable var = new Variable("y");
+        assertEquals(sim, var);
 
-        Mul mul2 = new Mul(new Number(2), new Number(1));
+        Mul mul2 = new Mul(new Variable("x"), new Number(1));
         Expression sim2 = mul2.simplify();
-        Number num2 = new Number(2);
-        assertEquals(sim2, num2);
+        Variable var2 = new Variable("x");
+        assertEquals(sim2, var2);
     }
 }
