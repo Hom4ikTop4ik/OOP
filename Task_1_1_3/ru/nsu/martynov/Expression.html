@@ -14,7 +14,7 @@
 <!--[if IE]>
 <script type="text/javascript" src="../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../jquery/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../../../jquery/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":9,"i2":6};
+var data = {"i0":10,"i1":9,"i2":6,"i3":6};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -216,6 +216,11 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>abstract <a href="Expression.html" title="class in ru.nsu.martynov">Expression</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#simplify()">simplify</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>abstract java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">
@@ -293,6 +298,15 @@ extends java.lang.Object</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>— map of variable names and their corresponding values.</dd>
 </dl>
+</li>
+</ul>
+<a id="simplify()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>simplify</h4>
+<pre class="methodSignature">public abstract&nbsp;<a href="Expression.html" title="class in ru.nsu.martynov">Expression</a>&nbsp;simplify()</pre>
 </li>
 </ul>
 <a id="parseString(java.lang.String)">
