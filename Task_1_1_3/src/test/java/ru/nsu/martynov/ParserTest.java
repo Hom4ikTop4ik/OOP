@@ -109,4 +109,38 @@ class ParserTest {
 
         assertEquals(print, outputStream.toString());
     }
+
+    @Test
+    void expressionNoRightBracket() {
+        String str = "1+(2*3";
+        try {
+            String result = Expression.parseString(str).toString();
+            System.out.print(result);
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+
+        assertEquals("Mismatched parentheses", outputStream.toString());
+    }
+
+    @Test
+    void expressionBadSymbol() {
+        String str = "1+&2*3";
+        try {
+            String result = Expression.parseString(str).toString();
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+        assertEquals("Expected number or variable", outputStream.toString());
+
+        setUp();
+
+        String str2 = "1+";
+        try {
+            String result = Expression.parseString(str2).toString();
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+        assertEquals("Expected number or variable", outputStream.toString());
+    }
 }

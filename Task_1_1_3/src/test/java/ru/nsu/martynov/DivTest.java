@@ -142,7 +142,7 @@ class DivTest {
 
     @Test
     void simplifyZero() {
-        Div div = new Div(new Number(0), new Add(new Number(5), new Number(6)));
+        Div div = new Div(new Number(0), new Variable("x"));
         Expression sim = div.simplify();
         Number num = new Number(0);
         assertEquals(sim, num);
@@ -160,5 +160,13 @@ class DivTest {
         Expression sim = div.simplify();
         Variable var = new Variable("x");
         assertEquals(sim, var);
+    }
+
+    @Test
+    void simplifyNumbers() {
+        Div div = new Div(new Number(6), new Number(2));
+        Expression sim = div.simplify();
+        Number num = new Number(3);
+        assertEquals(sim, num);
     }
 }
