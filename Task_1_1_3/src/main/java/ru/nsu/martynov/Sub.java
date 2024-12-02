@@ -47,4 +47,22 @@ public class Sub extends Expression {
         Map<String, Double> map = parse(vars);
         return evalMap(map);
     }
+
+    @Override
+    public Expression simplify() {
+        Expression l = left.simplify();
+        Expression r = right.simplify();
+
+        // Если оба выражения — числа, вычисляем результат
+        if (l instanceof Number && r instanceof Number) {
+            return new Number(((Number) l).eval("") - ((Number) r).eval(""));
+        }
+
+        // Если выражения одинаковы, результат — 0
+        if (l.toString().equals(r.toString())) {
+            return new Number(0);
+        }
+
+        return new Sub(l, r); // Вернуть упрощённое вычитание
+    }
 }

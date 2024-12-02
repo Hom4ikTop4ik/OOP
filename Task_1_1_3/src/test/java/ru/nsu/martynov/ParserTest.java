@@ -39,23 +39,14 @@ class ParserTest {
 
     @Test
     void parserTestBad2() {
-        String exp = "1.2YES5";
-        try {
-            Expression.parseString(exp).toString();
-        } catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
-
-        assertEquals("Should be operator, but it isn't", outputStream.toString());
+        String exp = "1+1.2*5YES5";
+        String ans = Expression.parseString(exp).toString();
+        assertEquals("(1.0 + (1.2 * 5.0))", ans);
 
         setUp();
         exp = "15Apples";
-        try {
-            Expression.parseString(exp).toString();
-        } catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
-        assertEquals("Should be operator, but it isn't", outputStream.toString());
+        ans = Expression.parseString(exp).toString();
+        assertEquals("15.0", ans);
     }
 
     @Test
@@ -75,13 +66,10 @@ class ParserTest {
         String exp = "(3+(2.5*x)))";
         String print = "(3.0 + (2.5 * x))";
 
-        try {
-            Expression expression = Expression.parseString(exp);
-        } catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
+        String a = Expression.parseString(exp).toString();
+        System.out.print(a);
 
-        assertEquals("Should be operator, but it isn't", outputStream.toString());
+        assertEquals(print, outputStream.toString());
     }
 
     @Test
@@ -94,7 +82,7 @@ class ParserTest {
             System.out.print(e.getMessage());
         }
 
-        assertEquals("There isn't number or variable", outputStream.toString());
+        assertEquals("Expected number or variable", outputStream.toString());
     }
 
     @Test
@@ -107,6 +95,17 @@ class ParserTest {
             System.out.print(e.getMessage());
         }
 
-        assertEquals("There isn't number or variable", outputStream.toString());
+        assertEquals("Expected number or variable", outputStream.toString());
+    }
+
+    @Test
+    void parserTestMany() {
+        String exp = "1+2+3+4+5+6+a*b*c*d/e/f+xyz";
+        String print = "(((((((1.0 + 2.0) + 3.0) + 4.0) + 5.0) + 6.0) + (((((a * b) * c) * d) / e) / f)) + xyz)";
+
+        String a = Expression.parseString(exp).toString();
+        System.out.print(a);
+
+        assertEquals(print, outputStream.toString());
     }
 }
