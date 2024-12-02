@@ -63,8 +63,8 @@ public class Mul extends Expression {
         }
 
         // Если одно из выражений — 0, результат — 0
-        if ((l instanceof Number && ((Number) l).eval("") == 0) ||
-                (r instanceof Number && ((Number) r).eval("") == 0)) {
+        if ((l instanceof Number && ((Number) l).eval("") == 0)
+            || (r instanceof Number && ((Number) r).eval("") == 0)) {
             return new Number(0);
         }
 

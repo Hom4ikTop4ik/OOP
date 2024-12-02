@@ -100,8 +100,9 @@ class ParserTest {
 
     @Test
     void parserTestMany() {
-        String exp = "1+2+3+4+5+6+a*b*c*d/e/f+xyz";
-        String print = "(((((((1.0 + 2.0) + 3.0) + 4.0) + 5.0) + 6.0) + (((((a * b) * c) * d) / e) / f)) + xyz)";
+        String exp = "1+2+3+4+5+6+a*b*c*d/e/f-xyz";
+        String print = "(((((((1.0 + 2.0) + 3.0) + 4.0) + 5.0) + 6.0) + "
+                     + "(((((a * b) * c) * d) / e) / f)) - xyz)";
 
         String a = Expression.parseString(exp).toString();
         System.out.print(a);

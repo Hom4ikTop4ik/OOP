@@ -148,7 +148,10 @@ public abstract class Expression {
             skip++;
 
             // Проверка: после оператора должно быть число, переменная или '('
-            if (expString.isEmpty() || (!Character.isDigit(expString.charAt(0)) && expString.charAt(0) != '(' && !Character.isLetter(expString.charAt(0)))) {
+            if (expString.isEmpty()
+                || (!Character.isDigit(expString.charAt(0))
+                    && expString.charAt(0) != '('
+                    && !Character.isLetter(expString.charAt(0)))) {
                 throw new IllegalArgumentException("Expected number or variable");
             }
 
@@ -185,7 +188,10 @@ public abstract class Expression {
             skip++;
 
             // Проверка: после оператора должно быть число, переменная или '('
-            if (expString.isEmpty() || (!Character.isDigit(expString.charAt(0)) && expString.charAt(0) != '(' && !Character.isLetter(expString.charAt(0)))) {
+            if (expString.isEmpty()
+                || (!Character.isDigit(expString.charAt(0))
+                    && expString.charAt(0) != '('
+                    && !Character.isLetter(expString.charAt(0)))) {
                 throw new IllegalArgumentException("Expected number or variable");
             }
 
