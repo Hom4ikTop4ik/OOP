@@ -124,4 +124,41 @@ class DivTest {
         assertEquals("Variable 'x' not found", outputStream.toString());
         assertTrue(flag);
     }
+
+    @Test
+    void simplifyNone() {
+        Div div = new Div(new Variable("x"), new Variable("y"));
+        Expression sim = div.simplify();
+        assertEquals(div, sim);
+    }
+
+    @Test
+    void simplifyIn() {
+        Div div = new Div(new Variable("x"), new Add(new Number(5), new Number(6)));
+        Expression sim = div.simplify();
+        Div divEq = new Div(new Variable("x"), new Number(11));
+        assertEquals(sim, divEq);
+    }
+
+    @Test
+    void simplifyZero() {
+        Div div = new Div(new Number(0), new Add(new Number(5), new Number(6)));
+        Expression sim = div.simplify();
+        Number num = new Number(0);
+        assertEquals(sim, num);
+
+        Div div2 = new Div(new Number(0), new Add(new Variable("x"), new Number(6)));
+        Expression sim2 = div.simplify();
+        Number num2 = new Number(0);
+        assertEquals(sim2, num2);
+    }
+
+
+    @Test
+    void simplifyOne() {
+        Div div = new Div(new Variable("x"), new Number(1));
+        Expression sim = div.simplify();
+        Variable var = new Variable("x");
+        assertEquals(sim, var);
+    }
 }

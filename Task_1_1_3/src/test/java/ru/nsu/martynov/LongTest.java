@@ -1,6 +1,7 @@
 package ru.nsu.martynov;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -158,5 +159,16 @@ class LongTest {
             System.out.print(e.getMessage());
         }
         assertEquals("Variable 'aboba' not found", outputStream.toString());
+    }
+
+    @Test
+    void expressionEquals() {
+        Add add = new Add(new Variable("aboba"), new Number(1));
+        Add add2 = new Add(new Variable("aboba"), new Number(1));
+
+        assertEquals(add, add);
+        assertEquals(add, add2);
+        assertNotEquals(add, null);
+        assertNotEquals(add, new Number(1));
     }
 }

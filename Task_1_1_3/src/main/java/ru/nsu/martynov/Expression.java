@@ -256,4 +256,12 @@ public abstract class Expression {
         return parseAdditionOrSubtraction(expString).left;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Expression exp = (Expression) obj;
+        return this.toString().equals(exp.toString());
+    }
 }
