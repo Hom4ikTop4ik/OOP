@@ -125,4 +125,46 @@ class MulTest {
         assertEquals("Variable 'x' not found", outputStream.toString());
         assertTrue(flag);
     }
+
+    @Test
+    void simplifyNumbers() {
+        Mul mul = new Mul(new Number(2), new Number(6));
+        Expression sim = mul.simplify();
+        Number num = new Number(12);
+        assertEquals(sim, num);
+    }
+
+    @Test
+    void simplifyZero() {
+        Mul mul = new Mul(new Number(0), new Variable("y"));
+        Expression sim = mul.simplify();
+        Number num = new Number(0);
+        assertEquals(sim, num);
+
+        Mul mul2 = new Mul(new Variable("x"), new Number(0));
+        Expression sim2 = mul2.simplify();
+        Number num2 = new Number(0);
+        assertEquals(sim2, num2);
+    }
+
+    @Test
+    void simplifyOne() {
+        Mul mul = new Mul(new Number(1), new Variable("y"));
+        Expression sim = mul.simplify();
+        Variable var = new Variable("y");
+        assertEquals(sim, var);
+
+        Mul mul2 = new Mul(new Variable("x"), new Number(1));
+        Expression sim2 = mul2.simplify();
+        Variable var2 = new Variable("x");
+        assertEquals(sim2, var2);
+    }
+
+    @Test
+    void simplifyIn() {
+        Mul mul = new Mul(new Variable("x"), new Add(new Number(4), new Number(5)));
+        Expression sim = mul.simplify();
+        Mul mulEq = new Mul(new Variable("x"), new Number(9));
+        assertEquals(sim, mulEq);
+    }
 }

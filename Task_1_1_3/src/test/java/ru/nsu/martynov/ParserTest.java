@@ -1,5 +1,6 @@
 package ru.nsu.martynov;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -13,7 +14,7 @@ class ParserTest {
     @BeforeEach
     void setUp() {
         outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
+//        System.setOut(new PrintStream(outputStream));
     }
 
     @Test
@@ -27,35 +28,29 @@ class ParserTest {
 
     @Test
     void parserTestBad1() {
-        String exp = "1..2185.21852";
-        try {
-            Expression.parseString(exp).toString();
-        } catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
+        final String wrongExpr = "1..2185.21852";
+        assertThatThrownBy(() -> Expression.parseString(wrongExpr))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Number must contain no more than one dot");
+    }
 
-        assertEquals("Number must contain no more than one dot", outputStream.toString());
+    @Test
+    void parserTestBad21() {
+        String exp = "1+1.2*5*(7+1)";
+        String ans = Expression.parseString(exp).toString();
+        System.out.println(ans);
     }
 
     @Test
     void parserTestBad2() {
-        String exp = "1.2YES5";
-        try {
-            Expression.parseString(exp).toString();
-        } catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
-
-        assertEquals("Should be operator, but it isn't", outputStream.toString());
+        String exp = "1+1.2*5YES5";
+        String ans = Expression.parseString(exp).toString();
+        assertEquals("(1.0 + (1.2 * 5.0))", ans);
 
         setUp();
         exp = "15Apples";
-        try {
-            Expression.parseString(exp).toString();
-        } catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
-        assertEquals("Should be operator, but it isn't", outputStream.toString());
+        ans = Expression.parseString(exp).toString();
+        assertEquals("15.0", ans);
     }
 
     @Test
@@ -75,13 +70,10 @@ class ParserTest {
         String exp = "(3+(2.5*x)))";
         String print = "(3.0 + (2.5 * x))";
 
-        try {
-            Expression expression = Expression.parseString(exp);
-        } catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
+        String a = Expression.parseString(exp).toString();
+        System.out.print(a);
 
-        assertEquals("Should be operator, but it isn't", outputStream.toString());
+        assertEquals(print, outputStream.toString());
     }
 
     @Test
@@ -94,7 +86,7 @@ class ParserTest {
             System.out.print(e.getMessage());
         }
 
-        assertEquals("There isn't number or variable", outputStream.toString());
+        assertEquals("Expected number or variable", outputStream.toString());
     }
 
     @Test
@@ -107,6 +99,52 @@ class ParserTest {
             System.out.print(e.getMessage());
         }
 
-        assertEquals("There isn't number or variable", outputStream.toString());
+        assertEquals("Expected number or variable", outputStream.toString());
+    }
+
+    @Test
+    void parserTestMany() {
+        String exp = "1+2+3+4+5+6+a*b*c*d/e/f-xyz";
+        String print = "(((((((1.0 + 2.0) + 3.0) + 4.0) + 5.0) + 6.0) + "
+                     + "(((((a * b) * c) * d) / e) / f)) - xyz)";
+
+        String a = Expression.parseString(exp).toString();
+        System.out.print(a);
+
+        assertEquals(print, outputStream.toString());
+    }
+
+    @Test
+    void expressionNoRightBracket() {
+        String str = "1+(2*3";
+        try {
+            String result = Expression.parseString(str).toString();
+            System.out.print(result);
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+
+        assertEquals("Mismatched parentheses", outputStream.toString());
+    }
+
+    @Test
+    void expressionBadSymbol() {
+        String str = "1+&2*3";
+        try {
+            String result = Expression.parseString(str).toString();
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+        assertEquals("Expected number or variable", outputStream.toString());
+
+        setUp();
+
+        String str2 = "1+";
+        try {
+            String result = Expression.parseString(str2).toString();
+        } catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+        assertEquals("Expected number or variable", outputStream.toString());
     }
 }

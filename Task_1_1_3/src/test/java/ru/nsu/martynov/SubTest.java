@@ -157,4 +157,27 @@ class SubTest {
         assertEquals("Variable 'y' not found", outputStream.toString());
         assertTrue(flag);
     }
+
+    @Test
+    void simplifyNone() {
+        Sub sub = new Sub(new Variable("x"), new Variable("y"));
+        Expression sim = sub.simplify();
+        assertEquals(sub, sim);
+    }
+
+    @Test
+    void simplifyNumbers() {
+        Sub sub = new Sub(new Add(new Number(10), new Number(2)), new Add(new Number(5), new Number(6)));
+        Expression sim = sub.simplify();
+        Number num = new Number(1);
+        assertEquals(sim, num);
+    }
+
+    @Test
+    void simplifySame() {
+        Sub sub = new Sub(new Variable("x"), new Variable("x"));
+        Expression sim = sub.simplify();
+        Number num = new Number(0);
+        assertEquals(sim, num);
+    }
 }

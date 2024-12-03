@@ -9,7 +9,7 @@ import java.util.Map;
  *   compute its derivative;
  *   and evaluate its value.
  */
-public class Number extends Expression {
+public class Number extends AbstractExpression {
     private final double constNum;
 
     /**
@@ -55,5 +55,10 @@ public class Number extends Expression {
     public Double eval(String vars) {
         Map<String, Double> map = parse(vars);
         return evalMap(map);
+    }
+
+    @Override
+    public Expression simplify() {
+        return this; // Число уже упрощено
     }
 }

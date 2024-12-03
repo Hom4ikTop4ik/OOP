@@ -9,7 +9,7 @@ import java.util.Map;
  *   compute its derivative;
  *   evaluate its value.
  */
-public class Add extends Expression {
+public class Add extends AbstractExpression {
     private final Expression left;
     private final Expression right;
 
@@ -46,5 +46,18 @@ public class Add extends Expression {
     public Double eval(String vars) {
         Map<String, Double> map = parse(vars);
         return evalMap(map);
+    }
+
+    @Override
+    public Expression simplify() {
+        Expression l = left.simplify();
+        Expression r = right.simplify();
+
+        // Если оба выражения — числа, вычисляем результат
+        if (l instanceof Number && r instanceof Number) {
+            return new Number(((Number) l).eval("") + ((Number) r).eval(""));
+        } else {
+            return new Add(l, r); // Вернуть упрощённое сложение
+        }
     }
 }

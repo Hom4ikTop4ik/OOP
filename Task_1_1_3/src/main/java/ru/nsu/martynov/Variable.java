@@ -9,7 +9,7 @@ import java.util.Map;
  *   compute its derivative;
  *   and evaluate its value.
  */
-public class Variable extends Expression {
+public class Variable extends AbstractExpression {
     final String name;
 
     /**
@@ -68,5 +68,10 @@ public class Variable extends Expression {
     public Double eval(String vars) {
         Map<String, Double> map = parse(vars);
         return evalMap(map);
+    }
+
+    @Override
+    public Expression simplify() {
+        return this; // Переменная уже упрощена
     }
 }

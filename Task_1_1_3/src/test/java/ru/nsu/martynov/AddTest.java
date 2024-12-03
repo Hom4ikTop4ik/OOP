@@ -157,4 +157,19 @@ class AddTest {
         assertEquals("Variable 'y' not found", outputStream.toString());
         assertTrue(flag);
     }
+
+    @Test
+    void simplifyNone() {
+        Add add = new Add(new Variable("x"), new Variable("y"));
+        Expression sim = add.simplify();
+        assertEquals(add, sim);
+    }
+
+    @Test
+    void simplifyIn() {
+        Add add = new Add(new Variable("x"), new Add(new Number(5), new Number(6)));
+        Expression sim = add.simplify();
+        Add addEq = new Add(new Variable("x"), new Number(11));
+        assertEquals(sim, addEq);
+    }
 }
