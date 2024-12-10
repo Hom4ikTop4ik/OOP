@@ -9,7 +9,7 @@ import java.util.Map;
  *   compute its derivative;
  *   and evaluate its value.
  */
-public class Number extends Expression {
+public class Number extends AbstractExpression {
     private final double constNum;
 
     /**

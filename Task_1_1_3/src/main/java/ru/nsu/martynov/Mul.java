@@ -9,7 +9,7 @@ import java.util.Map;
  *   compute its derivative;
  *   and evaluate its value.
  */
-public class Mul extends Expression {
+public class Mul extends AbstractExpression {
     private final Expression left;
     private final Expression right;
 

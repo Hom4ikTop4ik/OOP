@@ -1,5 +1,6 @@
 package ru.nsu.martynov;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -13,7 +14,7 @@ class ParserTest {
     @BeforeEach
     void setUp() {
         outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
+//        System.setOut(new PrintStream(outputStream));
     }
 
     @Test
@@ -27,14 +28,17 @@ class ParserTest {
 
     @Test
     void parserTestBad1() {
-        String exp = "1..2185.21852";
-        try {
-            Expression.parseString(exp).toString();
-        } catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
+        final String wrongExpr = "1..2185.21852";
+        assertThatThrownBy(() -> Expression.parseString(wrongExpr))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Number must contain no more than one dot");
+    }
 
-        assertEquals("Number must contain no more than one dot", outputStream.toString());
+    @Test
+    void parserTestBad21() {
+        String exp = "1+1.2*5*(7+1)";
+        String ans = Expression.parseString(exp).toString();
+        System.out.println(ans);
     }
 
     @Test
