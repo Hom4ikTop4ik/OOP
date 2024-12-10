@@ -59,4 +59,26 @@ public class Div extends Expression {
         return evalMap(map);
     }
 
+    @Override
+    public Expression simplify() {
+        Expression l = left.simplify();
+        Expression r = right.simplify();
+
+        // Если оба выражения — числа, вычисляем результат
+        if (l instanceof Number && r instanceof Number) {
+            return new Number(((Number) l).eval("") / ((Number) r).eval(""));
+        }
+
+        // Если числитель 0, результат — 0
+        if (l instanceof Number && ((Number) l).eval("") == 0) {
+            return new Number(0);
+        }
+
+        // Если знаменатель 1, результат — числитель
+        if (r instanceof Number && ((Number) r).eval("") == 1) {
+            return l;
+        }
+
+        return new Div(l, r); // Вернуть упрощённое деление
+    }
 }

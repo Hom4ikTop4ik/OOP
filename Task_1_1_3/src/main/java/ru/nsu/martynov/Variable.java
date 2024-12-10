@@ -69,4 +69,9 @@ public class Variable extends Expression {
         Map<String, Double> map = parse(vars);
         return evalMap(map);
     }
+
+    @Override
+    public Expression simplify() {
+        return this; // Переменная уже упрощена
+    }
 }

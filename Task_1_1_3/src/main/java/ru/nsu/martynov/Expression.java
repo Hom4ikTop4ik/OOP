@@ -128,10 +128,92 @@ public abstract class Expression {
         }
     }
 
-    private static Pair<Expression, Integer> parseStringHelper(String expString) {
-        expString = expString.replaceAll(" ", "");
+    public abstract Expression simplify();
 
-        Integer skip = 0;
+    // Разбирает сложение и вычитание
+    private static Pair<Expression, Integer> parseAdditionOrSubtraction(String expString) {
+        Pair<Expression, Integer> pair = parseMultiplicationOrDivision(expString);
+        Expression e1 = pair.left;
+        expString = expString.substring(pair.right);
+        int skip = pair.right;
+
+        while (!expString.isEmpty()) {
+            char op = expString.charAt(0);
+
+            if (!"+-".contains(Character.toString(op))) {
+                break; // Если символ не оператор умножения или деления, завершаем цикл
+            }
+
+            expString = expString.substring(1); // Пропускаем операцию
+            skip++;
+
+            // Проверка: после оператора должно быть число, переменная или '('
+            if (expString.isEmpty()
+                || (!Character.isDigit(expString.charAt(0))
+                    && expString.charAt(0) != '('
+                    && !Character.isLetter(expString.charAt(0)))) {
+                throw new IllegalArgumentException("Expected number or variable");
+            }
+
+            Pair<Expression, Integer> pair2 = parseMultiplicationOrDivision(expString);
+            Expression e2 = pair2.left;
+            expString = expString.substring(pair2.right);
+            skip += pair2.right;
+
+            if (op == '+') {
+                e1 = new Add(e1, e2);
+            } else if (op == '-') {
+                e1 = new Sub(e1, e2);
+            }
+        }
+
+        return new Pair<>(e1, skip);
+    }
+
+    // Разбирает умножение и деление
+    private static Pair<Expression, Integer> parseMultiplicationOrDivision(String expString) {
+        Pair<Expression, Integer> pair = parseAtom(expString);
+        Expression e1 = pair.left;
+        expString = expString.substring(pair.right);
+        int skip = pair.right;
+
+        while (!expString.isEmpty()) {
+            char op = expString.charAt(0);
+
+            if (!"*/".contains(Character.toString(op))) {
+                break; // Если символ не оператор умножения или деления, завершаем цикл
+            }
+
+            expString = expString.substring(1); // Пропускаем операцию
+            skip++;
+
+            // Проверка: после оператора должно быть число, переменная или '('
+            if (expString.isEmpty()
+                || (!Character.isDigit(expString.charAt(0))
+                    && expString.charAt(0) != '('
+                    && !Character.isLetter(expString.charAt(0)))) {
+                throw new IllegalArgumentException("Expected number or variable");
+            }
+
+            Pair<Expression, Integer> pair2 = parseAtom(expString);
+            Expression e2 = pair2.left;
+            expString = expString.substring(pair2.right);
+            skip += pair2.right;
+
+            if (op == '*') {
+                e1 = new Mul(e1, e2);
+            } else if (op == '/') {
+                e1 = new Div(e1, e2);
+            }
+        }
+
+        return new Pair<>(e1, skip);
+    }
+
+    // Разбирает базовые элементы (число, переменную или выражение в скобках)
+    private static Pair<Expression, Integer> parseAtom(String expString) {
+        expString = expString.replaceAll(" ", "");
+        int skip = 0;
 
         if (expString.isEmpty()) {
             throw new IllegalArgumentException("Expression can't be empty");
@@ -139,103 +221,47 @@ public abstract class Expression {
 
         Expression e1;
         if (expString.charAt(0) == '(') {
-            // skip '('
-            expString = expString.substring(1);
+            expString = expString.substring(1); // Пропускаем '('
             skip++;
 
-            Pair<Expression, Integer> pair = parseStringHelper(expString);
+            Pair<Expression, Integer> pair = parseAdditionOrSubtraction(expString);
             e1 = pair.left;
             expString = expString.substring(pair.right);
             skip += pair.right;
 
-            // skip ')'
-            expString = expString.substring(1);
+            if (expString.isEmpty() || expString.charAt(0) != ')') {
+                throw new IllegalArgumentException("Mismatched parentheses");
+            }
+            expString = expString.substring(1); // Пропускаем ')'
             skip++;
         } else {
-            boolean flag = true; // Число
-            // пробуем вытащить из строки число
-            String exp1 = doubleFromString(expString);
-            if (exp1.isEmpty()) {
-                // если нет, то обязано быть имя переменной
-                exp1 = varFromString(expString);
-                flag = false; // Переменная
+            String token = doubleFromString(expString);
+            boolean isNumber = !token.isEmpty();
+            if (!isNumber) {
+                token = varFromString(expString);
             }
-            if (exp1.isEmpty()) {
-                throw new IllegalArgumentException("There isn't number or variable");
+            if (token.isEmpty()) {
+                throw new IllegalArgumentException("Expected number or variable");
             }
-            if (flag) {
-                e1 = new Number(Double.parseDouble(exp1));
-            } else {
-                e1 = new Variable(exp1);
-            }
-
-            // skip number or variable
-            expString = expString.substring(exp1.length());
-            skip += exp1.length();
+            e1 = isNumber ? new Number(Double.parseDouble(token)) : new Variable(token);
+            expString = expString.substring(token.length());
+            skip += token.length();
         }
 
-        if (expString.isEmpty()) {
-            return new Pair<Expression, Integer>(e1, 0);
-        }
-        Character op = expString.charAt(0);
-
-        Expression e2 = new Variable("tmp");
-        if ("+-*/".contains(op.toString())) {
-            // skip operation symbol
-            expString = expString.substring(1);
-            skip++;
-
-            if (expString.charAt(0) == '(') {
-                // skip '('
-                expString = expString.substring(1);
-                skip++;
-
-                Pair<Expression, Integer> pair = parseStringHelper(expString);
-                e2 = pair.left;
-                expString = expString.substring(pair.right);
-                skip += pair.right;
-
-                // skip ')'
-                expString = expString.substring(1);
-                skip++;
-            } else {
-                boolean flag = true; // Число
-                // пробуем вытащить из строки число
-                String exp2 = doubleFromString(expString);
-                if (exp2.isEmpty()) {
-                    // если нет, то обязано быть имя переменной
-                    exp2 = varFromString(expString);
-                    flag = false; // Переменная
-                }
-                if (exp2.isEmpty()) {
-                    throw new IllegalArgumentException("There isn't number or variable");
-                }
-                if (flag) {
-                    e2 = new Number(Double.parseDouble(exp2));
-                } else {
-                    e2 = new Variable(exp2);
-                }
-
-                // skip number or variable
-                expString = expString.substring(exp2.length());
-                skip += exp2.length();
-            }
-        }
-
-        if (op == '+') {
-            return new Pair(new Add(e1, e2), skip);
-        } else if (op == '-') {
-            return new Pair(new Sub(e1, e2), skip);
-        } else if (op == '*') {
-            return new Pair(new Mul(e1, e2), skip);
-        } else if (op == '/') {
-            return new Pair(new Div(e1, e2), skip);
-        } else {
-            throw new IllegalArgumentException("Should be operator, but it isn't");
-        }
+        return new Pair<>(e1, skip);
     }
 
+    // Основная точка входа
     public static Expression parseString(String expString) {
-        return parseStringHelper(expString).left;
+        return parseAdditionOrSubtraction(expString).left;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Expression exp = (Expression) obj;
+        return this.toString().equals(exp.toString());
     }
 }

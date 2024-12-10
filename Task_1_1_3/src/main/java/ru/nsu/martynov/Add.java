@@ -47,4 +47,17 @@ public class Add extends Expression {
         Map<String, Double> map = parse(vars);
         return evalMap(map);
     }
+
+    @Override
+    public Expression simplify() {
+        Expression l = left.simplify();
+        Expression r = right.simplify();
+
+        // Если оба выражения — числа, вычисляем результат
+        if (l instanceof Number && r instanceof Number) {
+            return new Number(((Number) l).eval("") + ((Number) r).eval(""));
+        }
+
+        return new Add(l, r); // Вернуть упрощённое сложение
+    }
 }
