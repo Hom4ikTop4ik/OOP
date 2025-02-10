@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.martynov","l":"AlphaTron"},{"p":"ru.nsu.martynov","l":"Main.Bogdans"},{"p":"ru.nsu.martynov","l":"Main"},{"p":"ru.nsu.martynov","l":"OptimusPrime"},{"p":"ru.nsu.martynov","l":"Prime"},{"p":"ru.nsu.martynov","l":"UsualPrime"}];updateSearchResults();
