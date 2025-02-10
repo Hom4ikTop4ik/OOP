@@ -3,27 +3,50 @@ package ru.nsu.martynov;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-// Thread
+/**
+ * Thread prime checker.
+ */
 public class AlphaTron implements Prime {
     int countOfThread;
 
+    /**
+     * Constructor.
+     *
+     * @param cnt — count of threads.
+     */
     public AlphaTron(int cnt) {
         countOfThread = cnt;
     }
 
-    public Boolean check/*стук-стук*/(int[] primes, int start, int end) {
+    /**
+     * Helper function.
+     *
+     * @param primes — array with numbers
+     * @param start — start index
+     * @param end — end index (last index will be end-1)
+     * @return true if subarray primes[start; end) has composite number
+     */
+    private Boolean check/*стук-стук*/(int[] primes, int start, int end) {
         for (int i = start; i < end; i++) {
-            if (found.get()) break;
+            if (found) {
+                break;
+            }
             if (!isPrime(primes[i])) {
-                found = new AtomicBoolean(true);
+                found = true;
                 return true;
             }
         }
-        return found.get();
+        return found;
     }
 
-    AtomicBoolean found = new AtomicBoolean(false);
+    Boolean found = false;
 
+    /**
+     * Function.
+     *
+     * @param primes — array if numbers.
+     * @return true if array has composite number.
+     */
     public Boolean hasCompositeNumber(int[] primes) {
         Thread[] threads = new Thread[countOfThread];
 
@@ -32,26 +55,25 @@ public class AlphaTron implements Prime {
             int start = i * cnt;
             int end = Math.min(start + cnt, primes.length);
             threads[i] = new Thread(() -> {
-                if (!found.get()) check(primes, start, end);
+                if (!found) check(primes, start, end);
             });
-            if (found.get()) continue;
+            if (found) {
+                continue;
+            }
             threads[i].start();
         }
 
         for (Thread thread : threads) {
             try {
                 thread.join();
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
         }
 
-        Boolean hihihaha = found.get();
-        found = new AtomicBoolean(false);
+        Boolean hihihaha = found;
+        found = false;
         return hihihaha;
     }
-
-
 }

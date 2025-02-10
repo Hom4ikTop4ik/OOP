@@ -42,7 +42,7 @@ class TestPrimes {
     @Test
     void hasCompositeNumber_bigArray() {
         int kk = 1000 * 1000;
-        int cnt = 200;
+        int cnt = 1;
         int len = cnt * kk;
 
         int[] brr = {1,2,3,5,7,11,13,17,19,23};

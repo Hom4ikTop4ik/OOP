@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-// Stream
+/**
+ * Stream prime checker.
+ */
 public class OptimusPrime implements Prime {
 
-//    public Boolean hasCompositeNumber(ArrayList<Integer> primes) {
-//        Stream<Integer> stream = primes.stream();
-//        return stream.anyMatch(x -> !isPrime(x));
-//    }
-
+    /**
+     * Function.
+     *
+     * @param primes — array of numbers
+     * @return boolean value: true if array has composite number
+     */
     public Boolean hasCompositeNumber(int[] primes) {
         return Arrays.stream(primes).anyMatch(x -> !isPrime(x));
-        // Stream<Integer> stream = primes.stream();
-        // return stream.anyMatch(x -> !isPrime(x));
     }
 }
