@@ -35,16 +35,18 @@ public class AlphaTron implements Prime {
         }
     }
 
-//    private void check/*стук-стук*/(ArrayList<Integer> primes, int start, int end) {
-//        int repeat = 10;
-//        for (int r = 0; r < repeat; r++) {
-//            for (int i = start; !found && i < end; i++) {
-//                if (!isPrime(primes.get(i))) {
-//                    found = true;
-//                }
-//            }
-//        }
-//    }
+    /*
+    private void check(ArrayList<Integer> primes, int start, int end) {
+        int repeat = 10;
+        for (int r = 0; r < repeat; r++) {
+            for (int i = start; !found && i < end; i++) {
+                if (!isPrime(primes.get(i))) {
+                    found = true;
+                }
+            }
+        }
+    }
+    */
 
     /**
      * Function.

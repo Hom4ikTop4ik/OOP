@@ -1,6 +1,7 @@
 package ru.nsu.martynov;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ class TestPrimes {
 
     @Test
     void hasCompositeNumber_onlyPrimes() {
-        int[] brr = {1,2,3,5,7,11,13,17,19,23};
+        int[] brr = {1, 2, 3, 5, 7, 11, 13, 17, 19, 23};
         ArrayList<Integer> list = new ArrayList<Integer>(brr.length);
         for (int i = 0; i < brr.length; i++) {
             list.add(brr[i]);
@@ -44,7 +45,6 @@ class TestPrimes {
 
     @Test
     void hasCompositeNumber_bigArray() {
-        boolean cutePrint = true;
 
         int kk = 1000 * 1000;
         int cnt = 10;
@@ -52,7 +52,7 @@ class TestPrimes {
 
         System.out.println("Array's length: " + cnt + "kk");
 
-        int[] brr = {1,2,3,5,7,11,13,17,19,23};
+        int[] brr = {1, 2, 3, 5, 7, 11, 13, 17, 19, 23};
 
         ArrayList<Integer> list = new ArrayList<Integer>(len);
         for (int i = 0; i < len; i++) {
@@ -60,6 +60,7 @@ class TestPrimes {
         }
 
         System.out.println("Lets calc!");
+        boolean cutePrint = true;
 
         UsualPrime usualPrime = new UsualPrime();
         long startTime = System.nanoTime();
