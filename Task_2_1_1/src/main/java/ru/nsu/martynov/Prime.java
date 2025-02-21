@@ -1,5 +1,7 @@
 package ru.nsu.martynov;
 
+import java.util.ArrayList;
+
 /**
  * Interface with default method.
  */
@@ -20,5 +22,5 @@ public interface Prime {
      * @param primes — array of numbers
      * @return boolean value: true if array has composite number
      */
-    public Boolean hasCompositeNumber(int[] primes);
+    Boolean hasCompositeNumber(ArrayList<Integer> primes);
 }
