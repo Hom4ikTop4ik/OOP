@@ -1,8 +1,6 @@
 package ru.nsu.martynov;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Stream;
 
 /**
  * Stream prime checker.

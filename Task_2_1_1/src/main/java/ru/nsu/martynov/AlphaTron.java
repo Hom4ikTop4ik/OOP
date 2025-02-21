@@ -31,7 +31,6 @@ public class AlphaTron implements Prime {
         for (int i = start; !found && i < end; i++) {
             if (!isPrime(primes.get(i))) {
                 found = true;
-                return;
             }
         }
     }
