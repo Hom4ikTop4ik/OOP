@@ -64,7 +64,7 @@ class TestPrimes {
 
         UsualPrime usualPrime = new UsualPrime();
         long startTime = System.nanoTime();
-        Boolean usual = usualPrime.hasCompositeNumber(list);
+        final boolean usual = usualPrime.hasCompositeNumber(list);
         long estimatedTime = System.nanoTime() - startTime;
         if (!cutePrint) {
             System.out.println("Usual: ");
@@ -74,7 +74,7 @@ class TestPrimes {
 
         OptimusPrime optimusPrime = new OptimusPrime();
         startTime = System.nanoTime();
-        Boolean optimus = optimusPrime.hasCompositeNumber(list);
+        final boolean optimus = optimusPrime.hasCompositeNumber(list);
         estimatedTime = System.nanoTime() - startTime;
         if (!cutePrint) {
             System.out.println("Optimus: ");
@@ -85,7 +85,7 @@ class TestPrimes {
         for (int i = 1; i < 32; i++) {
             AlphaTron alphaTron = new AlphaTron(i);
             startTime = System.nanoTime();
-            Boolean alpha = alphaTron.hasCompositeNumber(list);
+            final boolean alpha = alphaTron.hasCompositeNumber(list);
             estimatedTime = System.nanoTime() - startTime;
             if (!cutePrint) {
                 System.out.printf("Alpha %d: ", i);
