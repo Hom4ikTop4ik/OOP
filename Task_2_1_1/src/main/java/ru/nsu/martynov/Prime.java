@@ -27,5 +27,5 @@ public interface Prime {
      * @param primes — array of numbers
      * @return boolean value: true if array has composite number
      */
-    Boolean hasCompositeNumber(ArrayList<Integer> primes);
+    Boolean hasCompositeNumber(int[] primes);
 }

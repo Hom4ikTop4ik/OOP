@@ -13,9 +13,9 @@ public class UsualPrime implements Prime {
      * @param primes — array of numbers
      * @return boolean value: true if it has composite number
      */
-    public Boolean hasCompositeNumber(ArrayList<Integer> primes) {
-        for (int i = 0; i < primes.size() - 1; i++) {
-            if (!isPrime(primes.get(i))) {
+    public Boolean hasCompositeNumber(int[] primes) {
+        for (int i = 0; i < primes.length - 1; i++) {
+            if (!isPrime(primes[i])) {
                 return true;
             }
         }

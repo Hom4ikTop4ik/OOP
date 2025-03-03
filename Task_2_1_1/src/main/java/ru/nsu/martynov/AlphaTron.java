@@ -28,9 +28,9 @@ public class AlphaTron implements Prime {
      * @param end — end index (last index will be end-1)
      * @return true if subarray primes[start; end) has composite number
      */
-    private void check/*стук-стук*/(ArrayList<Integer> primes, int start, int end, int coef) {
+    private void check/*стук-стук*/(int[] primes, int start, int end, int coef) {
         for (int i = start; i < end; i++) {
-            if (!isPrime(primes.get(i))) {
+            if (!isPrime(primes[i])) {
                 found.set(true);
                 return;
             }
@@ -46,15 +46,15 @@ public class AlphaTron implements Prime {
      * @param primes — array if numbers.
      * @return true if array has composite number.
      */
-    public Boolean hasCompositeNumber(ArrayList<Integer> primes) {
+    public Boolean hasCompositeNumber(int[] primes) {
         Thread[] threads = new Thread[countOfThread];
         found.set(false);
 
-        int cnt = primes.size() / countOfThread + (primes.size() % countOfThread == 0 ? 0 : 1);
+        int cnt = primes.length / countOfThread + (primes.length % countOfThread == 0 ? 0 : 1);
         int i = 0;
         for (; !found.get() && i < countOfThread; i++) {
             final int start = i * cnt;
-            final int end = Math.min(start + cnt, primes.size());
+            final int end = Math.min(start + cnt, primes.length);
 
             threads[i] = new Thread(() -> check(primes, start, end, countOfThread));
             threads[i].start();

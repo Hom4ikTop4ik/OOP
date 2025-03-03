@@ -10,9 +10,9 @@ class TestPrimes {
 
     @Test
     void hasCompositeNumber_1_10() {
-        ArrayList<Integer> list = new ArrayList<Integer>(10);
+        int[] list = new int[10];
         for (int i = 0; i < 10; i++) {
-            list.add(i);
+            list[i] = i;
         }
 
         OptimusPrime optimusPrime = new OptimusPrime();
@@ -28,9 +28,9 @@ class TestPrimes {
     @Test
     void hasCompositeNumber_onlyPrimes() {
         int[] brr = {1, 2, 3, 5, 7, 11, 13, 17, 19, 23};
-        ArrayList<Integer> list = new ArrayList<Integer>(brr.length);
+        int[] list = new int[brr.length];
         for (int i = 0; i < brr.length; i++) {
-            list.add(brr[i]);
+            list[i] = brr[i];
         }
 
         OptimusPrime optimusPrime = new OptimusPrime();
@@ -47,7 +47,7 @@ class TestPrimes {
     void hasCompositeNumber_bigArray() {
 
         int kk = 1000 * 1000;
-        double cnt = 1;
+        double cnt = 100;
         int len = (int)(cnt * kk);
 
         System.out.println("Array's length: " + cnt + "kk");
@@ -58,9 +58,9 @@ class TestPrimes {
                 6998009, 6998029, 6998039, 20165149, 6998051, 6998053
         };
 
-        ArrayList<Integer> list = new ArrayList<Integer>(len);
+        int[] list = new int[len];
         for (int i = 0; i < len; i++) {
-            list.add(brr[i % brr.length]);
+            list[i] = brr[i % brr.length];
         }
 
         System.out.println("Lets calc!");
@@ -86,7 +86,7 @@ class TestPrimes {
         System.out.println(estimatedTime);
         assertFalse(optimus);
 
-        for (int i = 1; i < 32; i++) {
+        for (int i = 1; i < 32; i*=2) {
             AlphaTron alphaTron = new AlphaTron(i);
             startTime = System.nanoTime();
             final boolean alpha = alphaTron.hasCompositeNumber(list);
