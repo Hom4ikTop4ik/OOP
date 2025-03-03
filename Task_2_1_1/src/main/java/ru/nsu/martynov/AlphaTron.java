@@ -18,7 +18,7 @@ public class AlphaTron implements Prime {
         countOfThread = cnt;
     }
 
-    volatile AtomicBoolean found = new AtomicBoolean(false);
+    volatile boolean found;
 
     /**
      * Helper function.
@@ -31,10 +31,10 @@ public class AlphaTron implements Prime {
     private void check/*стук-стук*/(ArrayList<Integer> primes, int start, int end, int coef) {
         for (int i = start; i < end; i++) {
             if (!isPrime(primes.get(i))) {
-                found.set(true);
+                found = true;
                 return;
             }
-            if (i % (100*coef) == 0 && !found.get()) {
+            if (i % (100*coef) == 0 && !found) {
                 return;
             }
         }
@@ -48,11 +48,11 @@ public class AlphaTron implements Prime {
      */
     public Boolean hasCompositeNumber(ArrayList<Integer> primes) {
         Thread[] threads = new Thread[countOfThread];
-        found.set(false);
+        found = false;
 
         int cnt = primes.size() / countOfThread + (primes.size() % countOfThread == 0 ? 0 : 1);
         int i = 0;
-        for (; !found.get() && i < countOfThread; i++) {
+        for (; !found && i < countOfThread; i++) {
             final int start = i * cnt;
             final int end = Math.min(start + cnt, primes.size());
 
@@ -70,6 +70,6 @@ public class AlphaTron implements Prime {
             }
         }
 
-        return found.get();
+        return found;
     }
 }
