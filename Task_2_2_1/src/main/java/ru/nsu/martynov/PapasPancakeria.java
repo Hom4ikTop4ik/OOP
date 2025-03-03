@@ -143,7 +143,11 @@ public class PapasPancakeria {
     }
 
     void wakeUpCooker(Cooker cooker) {
-        sleep(cooker.getTime());
+        try {
+            Thread.sleep(cooker.getTime());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void proccessOrder(int orderCount) {
