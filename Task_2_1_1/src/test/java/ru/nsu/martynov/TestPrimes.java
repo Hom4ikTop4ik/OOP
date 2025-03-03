@@ -47,12 +47,16 @@ class TestPrimes {
     void hasCompositeNumber_bigArray() {
 
         int kk = 1000 * 1000;
-        int cnt = 1;
-        int len = cnt * kk;
+        double cnt = 1;
+        int len = (int)(cnt * kk);
 
         System.out.println("Array's length: " + cnt + "kk");
 
-        int[] brr = {1, 2, 3, 5, 7, 11, 13, 17, 19, 23};
+        int[] brr = {
+//                1, 2, 3, 5, 7, 11, 13, 17, 19, 23
+                20319251, 6997901, 6997927, 6997937, 17858849, 6997967,
+                6998009, 6998029, 6998039, 20165149, 6998051, 6998053
+        };
 
         ArrayList<Integer> list = new ArrayList<Integer>(len);
         for (int i = 0; i < len; i++) {
