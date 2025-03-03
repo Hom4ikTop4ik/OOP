@@ -1,6 +1,7 @@
 package ru.nsu.martynov;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Thread prime checker.
@@ -17,7 +18,7 @@ public class AlphaTron implements Prime {
         countOfThread = cnt;
     }
 
-    volatile boolean found = false;
+    volatile AtomicBoolean found = new AtomicBoolean(false);
 
     /**
      * Helper function.
@@ -27,26 +28,17 @@ public class AlphaTron implements Prime {
      * @param end — end index (last index will be end-1)
      * @return true if subarray primes[start; end) has composite number
      */
-    private void check/*стук-стук*/(ArrayList<Integer> primes, int start, int end) {
-        for (int i = start; !found && i < end; i++) {
+    private void check/*стук-стук*/(ArrayList<Integer> primes, int start, int end, int coef) {
+        for (int i = start; i < end; i++) {
             if (!isPrime(primes.get(i))) {
-                found = true;
+                found.set(true);
+                return;
+            }
+            if (i % (100*coef) == 0 && !found.get()) {
+                return;
             }
         }
     }
-
-    /*
-    private void check(ArrayList<Integer> primes, int start, int end) {
-        int repeat = 10;
-        for (int r = 0; r < repeat; r++) {
-            for (int i = start; !found && i < end; i++) {
-                if (!isPrime(primes.get(i))) {
-                    found = true;
-                }
-            }
-        }
-    }
-    */
 
     /**
      * Function.
@@ -56,14 +48,15 @@ public class AlphaTron implements Prime {
      */
     public Boolean hasCompositeNumber(ArrayList<Integer> primes) {
         Thread[] threads = new Thread[countOfThread];
-        found = false;
+        found.set(false);
 
         int cnt = primes.size() / countOfThread + (primes.size() % countOfThread == 0 ? 0 : 1);
         int i = 0;
-        for (; !found && i < countOfThread; i++) {
+        for (; !found.get() && i < countOfThread; i++) {
             final int start = i * cnt;
             final int end = Math.min(start + cnt, primes.size());
-            threads[i] = new Thread(() -> check(primes, start, end));
+
+            threads[i] = new Thread(() -> check(primes, start, end, countOfThread));
             threads[i].start();
         }
 
@@ -77,6 +70,6 @@ public class AlphaTron implements Prime {
             }
         }
 
-        return found;
+        return found.get();
     }
 }

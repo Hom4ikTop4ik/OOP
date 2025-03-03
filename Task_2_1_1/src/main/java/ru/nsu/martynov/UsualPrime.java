@@ -21,19 +21,4 @@ public class UsualPrime implements Prime {
         }
         return false;
     }
-
-    /*
-    public Boolean hasCompositeNumber(ArrayList<Integer> primes) {
-        boolean answer = false;
-        int repeat = 10;
-        for (int r = 0; r < repeat; r++) {
-            for (int i = 0; i < primes.size() - 1; i++) {
-                if (!isPrime(primes.get(i))) {
-                    answer = true;
-                }
-            }
-        }
-        return answer;
-    }
-    */
 }

@@ -47,7 +47,7 @@ class TestPrimes {
     void hasCompositeNumber_bigArray() {
 
         int kk = 1000 * 1000;
-        int cnt = 10;
+        int cnt = 100;
         int len = cnt * kk;
 
         System.out.println("Array's length: " + cnt + "kk");
