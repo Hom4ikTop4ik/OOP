@@ -1,7 +1,6 @@
 package ru.nsu.martynov;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Thread prime checker.
@@ -18,7 +17,7 @@ public class AlphaTron implements Prime {
         countOfThread = cnt;
     }
 
-    volatile AtomicBoolean found = new AtomicBoolean(false);
+    static boolean found = false;
 
     /**
      * Helper function.
@@ -31,10 +30,13 @@ public class AlphaTron implements Prime {
     private void check/*стук-стук*/(int[] primes, int start, int end, int coef) {
         for (int i = start; i < end; i++) {
             if (!isPrime(primes[i])) {
-                found.set(true);
+                found = true;
                 return;
             }
-            if (i % (100*coef) == 0 && found.get()) {
+//            if (i % (100*coef) == 0 && found) {
+//                return;
+//            }
+            if (found) {
                 return;
             }
         }
@@ -48,11 +50,11 @@ public class AlphaTron implements Prime {
      */
     public Boolean hasCompositeNumber(int[] primes) {
         Thread[] threads = new Thread[countOfThread];
-        found.set(false);
+        found = false;
 
         int cnt = primes.length / countOfThread + (primes.length % countOfThread == 0 ? 0 : 1);
         int i = 0;
-        for (; !found.get() && i < countOfThread; i++) {
+        for (; !found && i < countOfThread; i++) {
             final int start = i * cnt;
             final int end = Math.min(start + cnt, primes.length);
 
@@ -70,6 +72,6 @@ public class AlphaTron implements Prime {
             }
         }
 
-        return found.get();
+        return found;
     }
 }

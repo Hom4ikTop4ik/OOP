@@ -1,6 +1,5 @@
 package ru.nsu.martynov;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -15,6 +14,6 @@ public class OptimusPrime implements Prime {
      * @return boolean value: true if array has composite number
      */
     public Boolean hasCompositeNumber(int[] primes) {
-        return Arrays.stream(primes).anyMatch(x -> !isPrime(x));
+        return Arrays.stream(primes).parallel().anyMatch(x -> !isPrime(x));
     }
 }

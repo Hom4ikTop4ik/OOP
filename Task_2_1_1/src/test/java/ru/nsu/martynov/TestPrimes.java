@@ -3,7 +3,6 @@ package ru.nsu.martynov;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 class TestPrimes {
@@ -47,7 +46,7 @@ class TestPrimes {
     void hasCompositeNumber_bigArray() {
 
         int kk = 1000 * 1000;
-        double cnt = 100;
+        double cnt = 10;
         int len = (int)(cnt * kk);
 
         System.out.println("Array's length: " + cnt + "kk");
@@ -73,6 +72,7 @@ class TestPrimes {
         if (!cutePrint) {
             System.out.println("Usual: ");
         }
+        System.out.print("   ");
         System.out.println(estimatedTime);
         assertFalse(usual);
 
@@ -86,7 +86,7 @@ class TestPrimes {
         System.out.println(estimatedTime);
         assertFalse(optimus);
 
-        for (int i = 1; i < 32; i*=2) {
+        for (int i = 1; i < 32; i++) {
             AlphaTron alphaTron = new AlphaTron(i);
             startTime = System.nanoTime();
             final boolean alpha = alphaTron.hasCompositeNumber(list);
