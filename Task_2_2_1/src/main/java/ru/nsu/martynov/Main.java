@@ -33,8 +33,8 @@ public class Main {
         }
         System.out.println("+-------+------------+------------+");
 
-        // Вывод склада
         System.out.println("\nStorage capacity: " + pp.storage.getCount());
+        System.out.println("\ntimeDay: " + pp.timeDay);
 
 
         pp.start();

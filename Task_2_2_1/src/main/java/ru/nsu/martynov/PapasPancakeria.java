@@ -154,6 +154,8 @@ public class PapasPancakeria {
 
     boolean pancakeriaIsOpen = true;
 
+    long timeDay;
+
     private void sillyCookerRevSort(Cooker[] arr) {
         for (int i = 0; i < arr.length; i++) {
             for (int j = i + 1; j < arr.length; j++) {
@@ -229,7 +231,7 @@ public class PapasPancakeria {
     }
 
     private void processDelivers() {
-        while (pancakeriaIsOpen) {
+        while (pancakeriaIsOpen || storage.getCount() > 0) {
             if (storage.getCount() <= 0) {
                 try {
                     Thread.sleep(100);
@@ -283,6 +285,7 @@ public class PapasPancakeria {
             // Загружаем склад
             int storageCap = root.getInt("storageCapacity");
             storage = new Storage(storageCap);
+            this.timeDay = root.getInt("timeDay");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -389,7 +392,7 @@ public class PapasPancakeria {
             logger(2500);
         }).start();
 
-        newDay(30L);
+        newDay(timeDay);
     }
 
     /**
