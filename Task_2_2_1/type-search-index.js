@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.martynov","l":"PapasPancakeria.Cooker"},{"p":"ru.nsu.martynov","l":"PapasPancakeria.Deliver"},{"p":"ru.nsu.martynov","l":"Main"},{"p":"ru.nsu.martynov","l":"PapasPancakeria"},{"p":"ru.nsu.martynov","l":"PapasPancakeria.Storage"}];updateSearchResults();
