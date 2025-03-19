@@ -34,6 +34,6 @@ public class Main {
         System.out.println("\nStorage capacity: " + pp.storage.getCount());
 
 
-        pp.newDay();
+        pp.start();
     }
 }

@@ -1,16 +1,17 @@
 package ru.nsu.martynov;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import static java.lang.Thread.sleep;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-
+/**
+ * Main class.
+ */
 public class PapasPancakeria {
 
     private void ttt() {
@@ -18,13 +19,16 @@ public class PapasPancakeria {
     }
 
     private int rand(int st, int fr) {
-        return st + (int)(Math.random() * (fr - st + 1));
+        return st + (int) (Math.random() * (fr - st + 1));
     }
 
     private long randL(long st, long fr) {
-        return st + (long)(Math.random() * (fr - st + 1));
+        return st + (long) (Math.random() * (fr - st + 1));
     }
 
+    /**
+     * Cooker class.
+     */
     public class Cooker {
         private int time;
         private int level = 1; // for future updates, now is constant
@@ -36,17 +40,13 @@ public class PapasPancakeria {
             ready = new AtomicBoolean(true);
         }
 
-        void setTime(int speed) {
-            this.time = speed;
+        void setTime(int time) {
+            this.time = time;
         }
 
         int getTime() {
             return time;
         }
-
-//        void setLevel(int level) {
-//            this.level = level;
-//        }
 
         int getLevel() {
             return level;
@@ -61,6 +61,9 @@ public class PapasPancakeria {
         }
     }
 
+    /**
+     * Deliver class.
+     */
     public class Deliver {
         private int time;
         private int count;
@@ -97,6 +100,9 @@ public class PapasPancakeria {
         }
     }
 
+    /**
+     * Storage class.
+     */
     public class Storage {
         private int count;
         private final int capacity;
@@ -174,8 +180,8 @@ public class PapasPancakeria {
     void workCooker(Cooker cooker, int i) {
         new Thread(() -> {
             try {
-                int t = cooker.getTime();
-                int l = cooker.getLevel();
+                final int t = cooker.getTime();
+                final int l = cooker.getLevel();
 
                 ttt();
                 System.out.printf("Cooker %d will free after %d secs%n", i, t);
@@ -193,8 +199,8 @@ public class PapasPancakeria {
     void workDeliver(Deliver deliver, int i) {
         new Thread(() -> {
             try {
-                int t = deliver.getTime();
-                int c = deliver.getCount();
+                final int t = deliver.getTime();
+                final int c = deliver.getCount();
 
                 ttt();
                 System.out.printf("Deliver %d stole %d pizzas, return after %d secs%n", i, c, t);
@@ -215,7 +221,7 @@ public class PapasPancakeria {
                     orderCount--;
                     cookers[i].setReady(false);
                     loggerHelper();
-                    workCooker(cookers[i], i+1);
+                    workCooker(cookers[i], i + 1);
                 }
             }
         }
@@ -237,12 +243,17 @@ public class PapasPancakeria {
                     delivers[i].setCount(cnt);
                     delivers[i].setReady(false);
                     loggerHelper();
-                    workDeliver(delivers[i], i+1);
+                    workDeliver(delivers[i], i + 1);
                 }
             }
         }
     }
 
+    /**
+     * Config loader.
+     *
+     * @param jsonPath — path to json config
+     */
     public void loadConfig(String jsonPath) {
         try (FileReader reader = new FileReader(jsonPath)) {
             JSONTokener tokener = new JSONTokener(reader);
@@ -278,7 +289,7 @@ public class PapasPancakeria {
         }
     }
 
-    int por(int num) {
+    static int por(int num) {
         if (num <= 0) {
             return 1;
         }
@@ -348,9 +359,7 @@ public class PapasPancakeria {
     }
 
     void loggerHelper() {
-//            System.out.println("Cookers");
         printCookers(cookers);
-//            System.out.println("Delivers");
         printDelivers(delivers);
     }
 
@@ -370,15 +379,23 @@ public class PapasPancakeria {
         loadConfig(jsonPath);
     }
 
-    public void newDay() {
+    /**
+     * Start logger + new day.
+     */
+    public void start() {
         new Thread(() -> {
             logger(2500);
         }).start();
 
-        start(30L);
+        newDay(30L);
     }
 
-    private void start(long workTimeSeconds) {
+    /**
+     * Start new day.
+     *
+     * @param workTimeSeconds — secs.
+     */
+    private void newDay(long workTimeSeconds) {
         long startTime = System.currentTimeMillis() / 1000L;
         long curTime = System.currentTimeMillis() / 1000L;
         System.out.printf("Let's start a new working day! (%d seconds)%n", workTimeSeconds);
@@ -408,13 +425,11 @@ public class PapasPancakeria {
                 processCookers(orderCount);
             }
             // smth else
-            else if (type == 1) {
-
-            }
+            else if (type == 1) {}
             // another else
-            else if (type == 2) {
-
-            } else {
+            else if (type == 2) {}
+            // else
+            else {
                 System.out.println("ABOBA");
             }
 
