@@ -1,5 +1,8 @@
 package ru.nsu.martynov;
 
+/**
+ * Visual test PapasPancakeria class.
+ */
 public class Main {
     public static void main(String[] args) {
         PapasPancakeria pp = new PapasPancakeria("config.txt");

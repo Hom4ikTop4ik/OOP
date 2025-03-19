@@ -87,6 +87,7 @@ public class PapasPancakeria {
         void setCount(int count) {
             this.count = count;
         }
+
         int getCount() {
             return count;
         }
@@ -307,7 +308,8 @@ public class PapasPancakeria {
         int ll = cs[cs.length - 1].getTime();
         if (ll < cs.length) {
             ll = cs.length;
-        }int digits = por(length);
+        }
+        int digits = por(length);
 
         System.out.print("| Cooker N |");
         for (int i = 1; i <= length; i++) {
@@ -415,23 +417,9 @@ public class PapasPancakeria {
                 e.printStackTrace();
             }
 
-            final int typesCount = 1;
-            int type = rand(0, typesCount - 1);
-
-            // take new order
-            if (type == 0) {
-                int orderCount = rand(1, 10);
-                System.out.printf("Got %d orders%n", orderCount);
-                processCookers(orderCount);
-            }
-            // smth else
-            else if (type == 1) {}
-            // another else
-            else if (type == 2) {}
-            // else
-            else {
-                System.out.println("ABOBA");
-            }
+            int orderCount = rand(1, 10);
+            System.out.printf("Got %d orders%n", orderCount);
+            processCookers(orderCount);
 
             curTime = System.currentTimeMillis() / 1000L;
         }
