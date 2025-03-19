@@ -4,73 +4,105 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.lang.Thread.sleep;
 
+import java.io.FileReader;
+import java.io.IOException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+
 public class PapasPancakeria {
 
-    // start, from
+    private void ttt() {
+        System.out.printf("Time: %d%n", System.currentTimeMillis() / 1000L % 1000);
+    }
+
     private int rand(int st, int fr) {
         return st + (int)(Math.random() * (fr - st + 1));
     }
 
-    class Cooker {
-        private int speed;
+    private long randL(long st, long fr) {
+        return st + (long)(Math.random() * (fr - st + 1));
+    }
+
+    public class Cooker {
+        private int time;
+        private int level = 1; // for future updates, now is constant
         private AtomicBoolean ready;
 
-        Cooker(int speed) {
-            this.speed = speed;
+        Cooker(int time) {
+            this.time = time;
+            this.level = 1;
             ready = new AtomicBoolean(true);
         }
 
-        int getTime() {
-            return speed;
-        }
-
         void setTime(int speed) {
-            this.speed = speed;
+            this.time = speed;
         }
 
-        boolean isReady() {
-            return ready.get();
+        int getTime() {
+            return time;
+        }
+
+//        void setLevel(int level) {
+//            this.level = level;
+//        }
+
+        int getLevel() {
+            return level;
         }
 
         void setReady(boolean ready) {
             this.ready.set(ready);
         }
+
+        boolean isReady() {
+            return ready.get();
+        }
     }
 
-    class Deliver {
-        private int speed;
+    public class Deliver {
+        private int time;
+        private int count;
         private int capacity;
         private AtomicBoolean ready;
 
-        Deliver(int speed, int capacity) {
-            this.speed = speed;
+        Deliver(int time, int capacity) {
+            this.time = time;
             this.capacity = capacity;
             this.ready = new AtomicBoolean(true);
         }
 
         int getTime() {
-            return speed;
+            return time;
         }
 
         int getCapacity() {
             return capacity;
         }
 
-        boolean isReady() {
-            return ready.get();
+        void setCount(int count) {
+            this.count = count;
+        }
+        int getCount() {
+            return count;
         }
 
         void setReady(boolean ready) {
             this.ready.set(ready);
         }
+
+        boolean isReady() {
+            return ready.get();
+        }
     }
 
-    class Storage {
-        private int current;
-        private int capacity;
+    public class Storage {
+        private int count;
+        private final int capacity;
 
         Storage(int capacity) {
-            this.current = 0;
+            this.count = 0;
             this.capacity = capacity;
         }
 
@@ -78,45 +110,42 @@ public class PapasPancakeria {
             return this.capacity;
         }
 
+        void setCount(int count) {
+            this.count = count;
+        }
+
+        int getCount() {
+            return this.count;
+        }
+
         int push(int count) {
-            if (this.current + count <= this.capacity) {
-                this.current += count;
+            if (this.count + count <= this.capacity) {
+                this.count += count;
                 return count;
             } else {
-                int tmp = this.capacity - this.current;
-                this.current = this.capacity;
+                int tmp = this.capacity - this.count;
+                this.count = this.capacity;
                 return tmp;
             }
         }
 
         int pop(int count) {
-            if (count <= this.current) {
-                this.current -= count;
+            if (count <= this.count) {
+                this.count -= count;
                 return count;
             } else {
-                int tmp = this.current;
-                this.current = 0;
+                int tmp = this.count;
+                this.count = 0;
                 return tmp;
             }
         }
     }
 
-    Storage storage;
-    Cooker[] cookers;
-    Deliver[] delivers;
+    public Storage storage;
+    public Cooker[] cookers;
+    public Deliver[] delivers;
 
-    private int getCookerTime() {
-        final int maxTime = 5;
-        return rand(0, maxTime);
-    }
-    private int getDeliverTime() {
-        final int maxTime = 20;
-        return rand(0, maxTime);
-    }
-    private int getDeliverCapacity() {
-        final int maxCapacity = 10;
-        return rand(1, maxCapacity);
-    }
+    boolean pancakeriaIsOpen = true;
 
     private void sillyCookerRevSort(Cooker[] arr) {
         for (int i = 0; i < arr.length; i++) {
@@ -142,69 +171,264 @@ public class PapasPancakeria {
         }
     }
 
-    void wakeUpCooker(Cooker cooker) {
-        try {
-            Thread.sleep(cooker.getTime());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    void workCooker(Cooker cooker, int i) {
+        new Thread(() -> {
+            try {
+                int t = cooker.getTime();
+                int l = cooker.getLevel();
+
+                ttt();
+                System.out.printf("Cooker %d will free after %d secs%n", i, t);
+                Thread.sleep(t * 1000L);
+                storage.push(l);
+                System.out.printf("Cooker %d is free%n", i);
+
+                cooker.setReady(true);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
-    private void proccessOrder(int orderCount) {
+    void workDeliver(Deliver deliver, int i) {
+        new Thread(() -> {
+            try {
+                int t = deliver.getTime();
+                int c = deliver.getCount();
+
+                ttt();
+                System.out.printf("Deliver %d stole %d pizzas, return after %d secs%n", i, c, t);
+                Thread.sleep(t * 1000L);
+                System.out.printf("Deliver %d returned%n", i);
+
+                deliver.setReady(true);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private void processCookers(int orderCount) {
         while (orderCount > 0) {
             for (int i = 0; (orderCount > 0) && (i < cookers.length); i++) {
                 if (cookers[i].isReady()) {
+                    orderCount--;
                     cookers[i].setReady(false);
-
-                    wakeUpCooker(cookers[i]);
+                    loggerHelper();
+                    workCooker(cookers[i], i+1);
                 }
             }
         }
     }
 
-    PapasPancakeria() {
-        cookers = new Cooker[10];
-        delivers = new Deliver[10];
-
-        for (int i = 0; i < cookers.length; i++) {
-            int sp = getCookerTime();
-            cookers[i] = new Cooker(sp);
+    private void processDelivers() {
+        while (pancakeriaIsOpen) {
+            if (storage.getCount() <= 0) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            for (int i = 0; (storage.getCount() > 0) && (i < delivers.length); i++) {
+                if (delivers[i].isReady()) {
+                    int cap = delivers[i].getCapacity();
+                    int cnt = storage.pop(cap);
+                    delivers[i].setCount(cnt);
+                    delivers[i].setReady(false);
+                    loggerHelper();
+                    workDeliver(delivers[i], i+1);
+                }
+            }
         }
-        sillyCookerRevSort(cookers); // cookers[0] is the fastest cooker
-
-        int sum = 0;
-        for (int i = 0; i < delivers.length; i++) {
-            int sp = getDeliverTime();
-            int cap = getDeliverCapacity();
-            delivers[i] = new Deliver(sp, cap);
-
-            sum += cap;
-        }
-        sillyDeliverRevSort(delivers); // del[0] is the fastest deliver
-
-        // чтоб хранилище физически МОГЛО остаться ненулёвым,
-        // даже если все курьеры разом возьмут
-        storage = new Storage((int)(sum * 1.2) + 1);
     }
 
-    public void start() {
-        final int typesCount = 3;
-        int type = rand(0, typesCount - 1);
+    public void loadConfig(String jsonPath) {
+        try (FileReader reader = new FileReader(jsonPath)) {
+            JSONTokener tokener = new JSONTokener(reader);
+            JSONObject root = new JSONObject(tokener);
 
-        // take new order
-        if (type == 0) {
-            int orderCount = rand(1, 10);
-            proccessOrder(orderCount);
-        }
-        // smth else
-        else if (type == 1) {
+            // Загружаем поваров
+            JSONArray cookersArray = root.getJSONArray("cookers");
+            cookers = new Cooker[cookersArray.length()];
+            for (int i = 0; i < cookersArray.length(); i++) {
+                int time = cookersArray.getInt(i);
+                cookers[i] = new Cooker(time);
+            }
+            sillyCookerRevSort(cookers);
 
-        }
-        // another else
-        else if (type == 2) {
+            // Загружаем доставщиков
+            JSONArray deliversArray = root.getJSONArray("delivers");
+            delivers = new Deliver[deliversArray.length()];
+            for (int i = 0; i < deliversArray.length(); i++) {
+                JSONObject d = deliversArray.getJSONObject(i);
+                int time = d.getInt("time");
+                int capacity = d.getInt("capacity");
+                delivers[i] = new Deliver(time, capacity);
+            }
+            sillyDeliverRevSort(delivers);
 
-        } else {
-            System.out.println("SOSAT");
+            // Загружаем склад
+            int storageCap = root.getInt("storageCapacity");
+            storage = new Storage(storageCap);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Ошибка чтения конфигурации: " + e.getMessage());
         }
+    }
+
+    int por(int num) {
+        if (num <= 0) {
+            return 1;
+        }
+
+        int ret = 0;
+        while (num > 0) {
+            ret++;
+            num /= 10;
+        }
+        return ret;
+    }
+
+    void printCookers(Cooker[] cs) {
+        int length = cs.length;
+        int ll = cs[cs.length - 1].getTime();
+        if (ll < cs.length) {
+            ll = cs.length;
+        }int digits = por(length);
+
+        System.out.print("| Cooker N |");
+        for (int i = 1; i <= length; i++) {
+            int p = por(i);
+
+            for (int j = 0; j < digits - p + 1; j++) {
+                System.out.print(" ");
+            }
+            System.out.printf("%d |", i);
+        }
+        System.out.println();
+        System.out.print("|  isReady |");
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < digits; j++) {
+                System.out.print(" ");
+            }
+            System.out.printf("%s |", cs[i].isReady() ? "+" : "-");
+        }
+        System.out.println();
+    }
+
+    void printDelivers(Deliver[] ds) {
+        int length = ds.length;
+        int ll = ds[ds.length - 1].getCapacity();
+        if (ll < ds.length) {
+            ll = ds.length;
+        }
+        int digits = por(ll);
+
+        System.out.print("| Deliver N |");
+        for (int i = 1; i <= length; i++) {
+            int p = por(i);
+
+            for (int j = 0; j < digits - p + 1; j++) {
+                System.out.print(" ");
+            }
+            System.out.printf("%d |", i);
+        }
+        System.out.println();
+        System.out.print("|  curCount |");
+        for (int i = 0; i < length; i++) {
+            int p = por(ds[i].getCount());
+            for (int j = 0; j < digits - p + 1; j++) {
+                System.out.print(" ");
+            }
+            System.out.printf("%d |", ds[i].getCount());
+        }
+        System.out.println();
+    }
+
+    void loggerHelper() {
+//            System.out.println("Cookers");
+        printCookers(cookers);
+//            System.out.println("Delivers");
+        printDelivers(delivers);
+    }
+
+    void logger(long updateTimeMillis) {
+        while (pancakeriaIsOpen) {
+            try {
+                Thread.sleep(updateTimeMillis);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            loggerHelper();
+        }
+    }
+
+    PapasPancakeria(String jsonPath) {
+        loadConfig(jsonPath);
+    }
+
+    public void newDay() {
+        new Thread(() -> {
+            logger(2500);
+        }).start();
+
+        start(30L);
+    }
+
+    private void start(long workTimeSeconds) {
+        long startTime = System.currentTimeMillis() / 1000L;
+        long curTime = System.currentTimeMillis() / 1000L;
+        System.out.printf("Let's start a new working day! (%d seconds)%n", workTimeSeconds);
+
+        Thread dels = new Thread(() -> {
+            processDelivers();
+        });
+        dels.start();
+
+        while (curTime - startTime < workTimeSeconds) {
+            final long minWait = 100;
+            final long maxWait = 10000;
+            long wait = randL(minWait, maxWait);
+            try {
+                Thread.sleep(wait);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            final int typesCount = 1;
+            int type = rand(0, typesCount - 1);
+
+            // take new order
+            if (type == 0) {
+                int orderCount = rand(1, 10);
+                System.out.printf("Got %d orders%n", orderCount);
+                processCookers(orderCount);
+            }
+            // smth else
+            else if (type == 1) {
+
+            }
+            // another else
+            else if (type == 2) {
+
+            } else {
+                System.out.println("ABOBA");
+            }
+
+            curTime = System.currentTimeMillis() / 1000L;
+        }
+
+        System.out.println("Cookers are free)");
+        System.out.println("Wait delivers...");
+        pancakeriaIsOpen = false;
+        try {
+            dels.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("The working day is over!");
     }
 }

@@ -1,0 +1,8 @@
+{
+  "cookers": [5, 3, 4],
+  "delivers": [
+    { "time": 6, "capacity": 5 },
+    { "time": 4, "capacity": 3 }
+  ],
+  "storageCapacity": 20
+}

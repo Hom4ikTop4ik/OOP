@@ -1,17 +1,39 @@
 package ru.nsu.martynov;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        PapasPancakeria pp = new PapasPancakeria("config.txt");
+        pp.loadConfig("config.txt");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        // Вывод таблички пекарей
+        System.out.println("+------------------------+");
+        System.out.println("|         Cookers        |");
+        System.out.println("+-------+----------------+");
+        System.out.println("|  #    | Cook time      |");
+        System.out.println("+-------+----------------+");
+        PapasPancakeria.Cooker[] cookers = pp.cookers;
+        for (int i = 0; i < cookers.length; i++) {
+            System.out.printf("|  %-4d | %-14d |\n", i + 1, cookers[i].getTime());
         }
+        System.out.println("+-------+----------------+");
+
+        // Вывод таблички доставщиков
+        System.out.println("\n+---------------------------------+");
+        System.out.println("|            Delivers             |");
+        System.out.println("+-------+------------+------------+");
+        System.out.println("|  #    | Time, secs |  Capacity  |");
+        System.out.println("+-------+------------+------------+");
+        PapasPancakeria.Deliver[] delivers = pp.delivers;
+        for (int i = 0; i < delivers.length; i++) {
+            PapasPancakeria.Deliver d = delivers[i];
+            System.out.printf("|  %-4d | %-10d | %-10d |\n", i + 1, d.getTime(), d.getCapacity());
+        }
+        System.out.println("+-------+------------+------------+");
+
+        // Вывод склада
+        System.out.println("\nStorage capacity: " + pp.storage.getCount());
+
+
+        pp.newDay();
     }
 }
