@@ -1,10 +1,9 @@
 package ru.nsu.martynov;
 
-import static java.lang.Thread.sleep;
+import java.lang.Thread;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -24,128 +23,6 @@ public class PapasPancakeria {
 
     private long randL(long st, long fr) {
         return st + (long) (Math.random() * (fr - st + 1));
-    }
-
-    /**
-     * Cooker class.
-     */
-    public class Cooker {
-        private int time;
-        private int level = 1; // for future updates, now is constant
-        private AtomicBoolean ready;
-
-        Cooker(int time) {
-            this.time = time;
-            this.level = 1;
-            ready = new AtomicBoolean(true);
-        }
-
-        void setTime(int time) {
-            this.time = time;
-        }
-
-        int getTime() {
-            return time;
-        }
-
-        int getLevel() {
-            return level;
-        }
-
-        void setReady(boolean ready) {
-            this.ready.set(ready);
-        }
-
-        boolean isReady() {
-            return ready.get();
-        }
-    }
-
-    /**
-     * Deliver class.
-     */
-    public class Deliver {
-        private int time;
-        private int count;
-        private int capacity;
-        private AtomicBoolean ready;
-
-        Deliver(int time, int capacity) {
-            this.time = time;
-            this.capacity = capacity;
-            this.ready = new AtomicBoolean(true);
-        }
-
-        int getTime() {
-            return time;
-        }
-
-        int getCapacity() {
-            return capacity;
-        }
-
-        void setCount(int count) {
-            this.count = count;
-        }
-
-        int getCount() {
-            return count;
-        }
-
-        void setReady(boolean ready) {
-            this.ready.set(ready);
-        }
-
-        boolean isReady() {
-            return ready.get();
-        }
-    }
-
-    /**
-     * Storage class.
-     */
-    public class Storage {
-        private int count;
-        private final int capacity;
-
-        Storage(int capacity) {
-            this.count = 0;
-            this.capacity = capacity;
-        }
-
-        int getCapacity() {
-            return this.capacity;
-        }
-
-        void setCount(int count) {
-            this.count = count;
-        }
-
-        int getCount() {
-            return this.count;
-        }
-
-        int push(int count) {
-            if (this.count + count <= this.capacity) {
-                this.count += count;
-                return count;
-            } else {
-                int tmp = this.capacity - this.count;
-                this.count = this.capacity;
-                return tmp;
-            }
-        }
-
-        int pop(int count) {
-            if (count <= this.count) {
-                this.count -= count;
-                return count;
-            } else {
-                int tmp = this.count;
-                this.count = 0;
-                return tmp;
-            }
-        }
     }
 
     public Storage storage;
