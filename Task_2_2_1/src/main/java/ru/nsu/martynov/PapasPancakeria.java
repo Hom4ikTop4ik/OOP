@@ -155,7 +155,7 @@ public class PapasPancakeria {
     }
 
     private void processCookers(int orderCount) {
-        while (orderCount > 0 && pancakeriaIsOpen) {
+        while (orderCount > 0) {
             for (int i = 0; (orderCount > 0) && (i < cookers.length); i++) {
                 if (cookers[i].isReady()) {
                     orderCount--;
@@ -236,8 +236,7 @@ public class PapasPancakeria {
         orderGenerator.start();
 
         // Основной цикл обработки заказов
-        while (System.currentTimeMillis() / 1000L - startTime < workTimeSeconds
-                && pancakeriaIsOpen) {
+        while (System.currentTimeMillis() / 1000L - startTime < workTimeSeconds && pancakeriaIsOpen) {
             synchronized (ordersMonitor) {
                 try {
                     // Ждем новых заказов или окончания рабочего дня
