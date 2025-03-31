@@ -24,6 +24,11 @@ public class Storage {
         return this.count;
     }
 
+    /**
+     *
+     * @param count — сколько нужно положить на склад
+     * @return сколько смогли положить на склад
+     */
     int push(int count) {
         if (this.count + count <= this.capacity) {
             this.count += count;

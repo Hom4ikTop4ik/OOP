@@ -8,12 +8,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Cooker {
     private int time;
     private int level = 1; // for future updates, now is constant
-    private AtomicBoolean ready;
+    private volatile boolean ready;
 
     Cooker(int time) {
         this.time = time;
         this.level = 1;
-        ready = new AtomicBoolean(true);
+        ready = true;
     }
 
     void setTime(int time) {
@@ -29,10 +29,10 @@ public class Cooker {
     }
 
     void setReady(boolean ready) {
-        this.ready.set(ready);
+        this.ready= ready;
     }
 
     boolean isReady() {
-        return ready.get();
+        return ready;
     }
 }
