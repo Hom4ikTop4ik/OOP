@@ -6,15 +6,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Deliver class.
  */
 public class Deliver {
-    private int time;
+    private final int time;
     private int count;
-    private int capacity;
-    private AtomicBoolean ready;
+    private final int capacity;
+    private volatile boolean ready;
 
     Deliver(int time, int capacity) {
         this.time = time;
         this.capacity = capacity;
-        this.ready = new AtomicBoolean(true);
+        this.ready = true;
     }
 
     int getTime() {
@@ -34,10 +34,10 @@ public class Deliver {
     }
 
     void setReady(boolean ready) {
-        this.ready.set(ready);
+        this.ready = ready;
     }
 
     boolean isReady() {
-        return ready.get();
+        return ready;
     }
 }

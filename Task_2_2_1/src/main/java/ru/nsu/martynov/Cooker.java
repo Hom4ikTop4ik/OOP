@@ -6,18 +6,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Cooker class.
  */
 public class Cooker {
-    private int time;
-    private int level = 1; // for future updates, now is constant
+    private final int time;
     private volatile boolean ready;
 
     Cooker(int time) {
         this.time = time;
-        this.level = 1;
         ready = true;
-    }
-
-    void setTime(int time) {
-        this.time = time;
     }
 
     int getTime() {
@@ -25,7 +19,7 @@ public class Cooker {
     }
 
     int getLevel() {
-        return level;
+        return 1;
     }
 
     void setReady(boolean ready) {

@@ -11,15 +11,6 @@ public class Storage {
         this.count = 0;
         this.capacity = capacity;
     }
-
-    int getCapacity() {
-        return this.capacity;
-    }
-
-    void setCount(int count) {
-        this.count = count;
-    }
-
     int getCount() {
         return this.count;
     }
