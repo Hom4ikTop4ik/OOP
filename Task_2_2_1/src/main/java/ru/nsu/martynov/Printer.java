@@ -1,10 +1,12 @@
 package ru.nsu.martynov;
 
 public class Printer {
+
     public synchronized static void loggerHelper(Cooker[] cs, Deliver[] ds) {
         printCookers(cs);
         printDelivers(ds);
     }
+
     private static void printCookers(Cooker[] cs) {
         int length = cs.length;
         int ll = cs[cs.length - 1].getTime();
@@ -20,10 +22,11 @@ public class Printer {
             for (int j = 0; j < digits; j++) {
                 System.out.print(" ");
             }
-            System.out.printf("%s |", c.isReady() ? "+" : "-");
+            System.out.printf("%s |", c.getReady() ? "+" : "-");
         }
         System.out.println();
     }
+
     private static void printDelivers(Deliver[] ds) {
         int length = ds.length;
         int ll = ds[ds.length - 1].getCapacity();
@@ -58,7 +61,7 @@ public class Printer {
         System.out.println();
     }
 
-    static int por(int num) {
+    private static int por(int num) {
         if (num <= 0) {
             return 1;
         }

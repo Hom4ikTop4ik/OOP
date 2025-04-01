@@ -11,16 +11,26 @@ public class Storage {
         this.count = 0;
         this.capacity = capacity;
     }
+
+    int getCapacity() {
+        return this.capacity;
+    }
+
     int getCount() {
         return this.count;
     }
 
+    void setCount(int count) {
+        this.count = count;
+    }
+
     /**
+     * Пытаемся положить на склад.
      *
-     * @param count — сколько нужно положить на склад
-     * @return сколько смогли положить на склад
+     * @param count — сколько нужно положить на склад.
+     * @return сколько смогли положить на склад.
      */
-    int push(int count) {
+    public int push(int count) {
         if (this.count + count <= this.capacity) {
             this.count += count;
             return count;
@@ -31,7 +41,13 @@ public class Storage {
         }
     }
 
-    int pop(int count) {
+    /**
+     * Пытаемся взять со склада.
+     *
+     * @param count — сколько хотим забрать со склада.
+     * @return сколько смогли забрать со склада.
+     */
+    public int pop(int count) {
         if (count <= this.count) {
             this.count -= count;
             return count;

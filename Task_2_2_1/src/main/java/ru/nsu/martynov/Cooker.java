@@ -1,32 +1,40 @@
 package ru.nsu.martynov;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 /**
  * Cooker class.
  */
 public class Cooker {
-    private final int time;
+    private int time;
+    private int level = 1; // for future updates, now is constant
     private volatile boolean ready;
 
     Cooker(int time) {
         this.time = time;
+        this.level = 1;
         ready = true;
     }
 
-    int getTime() {
+    public int getTime() {
         return time;
     }
 
-    int getLevel() {
-        return 1;
+    public void setTime(int time) {
+        this.time = time;
     }
 
-    void setReady(boolean ready) {
-        this.ready= ready;
+    public int getLevel() {
+        return level;
     }
 
-    boolean isReady() {
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public boolean getReady() {
         return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready= ready;
     }
 }

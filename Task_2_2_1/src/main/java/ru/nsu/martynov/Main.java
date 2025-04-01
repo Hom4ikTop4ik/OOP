@@ -34,8 +34,7 @@ public class Main {
         System.out.println("+-------+------------+------------+");
 
         System.out.println("\nStorage capacity: " + pp.getStorage().getCount());
-        System.out.println("\ntimeDay: " + pp.timeDay);
-
+        System.out.println("\ntimeDay: " + pp.getTimeDay());
 
         pp.start();
     }

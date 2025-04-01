@@ -24,7 +24,16 @@ public class PapasPancakeria {
     private Storage storage;
     private Cooker[] cookers;
     private Deliver[] delivers;
+    private long timeDay;
 
+    private boolean pancakeriaIsOpen = true;
+    private volatile Integer pendingOrders = 0;
+
+    /**
+     * Getters and setters
+     *
+     * @return storage, cookers, delivers, timeDay
+     */
     public Storage getStorage() {
         return storage;
     }
@@ -49,10 +58,17 @@ public class PapasPancakeria {
         this.delivers = delivers;
     }
 
-    boolean pancakeriaIsOpen = true;
+    public long getTimeDay() {
+        return timeDay;
+    }
 
-    long timeDay;
+    public void setTimeDay(long timeDay) {
+        this.timeDay = timeDay;
+    }
 
+    public PapasPancakeria(String jsonPath) {
+        loadConfig(jsonPath);
+    }
 
     /**
      * Config loader.
@@ -73,22 +89,6 @@ public class PapasPancakeria {
         }
     }
 
-    void logger(long updateTimeMillis) {
-        while (pancakeriaIsOpen) {
-            try {
-                Thread.sleep(updateTimeMillis);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            Printer.loggerHelper(cookers, delivers);
-        }
-    }
-
-    PapasPancakeria(String jsonPath) {
-        loadConfig(jsonPath);
-    }
-
     /**
      * Start logger + new day.
      */
@@ -100,7 +100,20 @@ public class PapasPancakeria {
         newDay(timeDay);
     }
 
-    void workCooker(Cooker cooker, int i) {
+    private void logger(long updateTimeMillis) {
+        while (pancakeriaIsOpen) {
+            try {
+                Thread.sleep(updateTimeMillis);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Printer.loggerHelper(cookers, delivers);
+        }
+    }
+
+
+    private void workCooker(Cooker cooker, int i) {
         new Thread(() -> {
             try {
                 final int t = cooker.getTime();
@@ -131,7 +144,7 @@ public class PapasPancakeria {
         }).start();
     }
 
-    void workDeliver(Deliver deliver, int i) {
+    private void workDeliver(Deliver deliver, int i) {
         new Thread(() -> {
             try {
                 final int t = deliver.getTime();
@@ -157,7 +170,7 @@ public class PapasPancakeria {
     private void processCookers(int orderCount) {
         while (orderCount > 0) {
             for (int i = 0; (orderCount > 0) && (i < cookers.length); i++) {
-                if (cookers[i].isReady()) {
+                if (cookers[i].getReady()) {
                     orderCount--;
                     cookers[i].setReady(false);
                     Printer.loggerHelper(cookers, delivers);
@@ -168,7 +181,7 @@ public class PapasPancakeria {
     }
 
     private void processDelivers() {
-        while (pancakeriaIsOpen || storage.getCount() > 0) {
+        while (storage.getCount() > 0) {
             if (storage.getCount() <= 0) {
                 try {
                     Thread.sleep(100);
@@ -178,7 +191,7 @@ public class PapasPancakeria {
                 continue;
             }
             for (int i = 0; (storage.getCount() > 0) && (i < delivers.length); i++) {
-                if (delivers[i].isReady()) {
+                if (delivers[i].getReady()) {
                     int cap = delivers[i].getCapacity();
                     synchronized (storage) {
                         int cnt = storage.pop(cap);
@@ -193,7 +206,6 @@ public class PapasPancakeria {
         }
     }
 
-    volatile Integer pendingOrders = 0;
     /**
      * Start new day.
      *
@@ -206,13 +218,18 @@ public class PapasPancakeria {
         // Объект для синхронизации заказов
         final Object ordersMonitor = new Object();
 
-        Thread dels = new Thread(() -> {
-            processDelivers();
-        });
+        Thread dels = new Thread(this::processDelivers);
         dels.start();
 
         // Поток генерации заказов
         Thread orderGenerator = new Thread(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+
             while (pancakeriaIsOpen) {
                 final long minWait = 100;
                 final long maxWait = 10000;
@@ -242,9 +259,7 @@ public class PapasPancakeria {
                     // Ждем новых заказов или окончания рабочего дня
                     if (pendingOrders == 0) {
                         ordersMonitor.wait(1000); // Таймаут для проверки времени
-                    }
-
-                    if (pendingOrders > 0) {
+                    } else if (pendingOrders > 0) {
                         int ordersToProcess = pendingOrders;
                         pendingOrders = 0;
                         processCookers(ordersToProcess);

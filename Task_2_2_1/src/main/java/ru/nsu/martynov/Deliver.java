@@ -1,14 +1,12 @@
 package ru.nsu.martynov;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 /**
  * Deliver class.
  */
 public class Deliver {
-    private final int time;
+    private int time;
     private int count;
-    private final int capacity;
+    private int capacity;
     private volatile boolean ready;
 
     Deliver(int time, int capacity) {
@@ -17,27 +15,35 @@ public class Deliver {
         this.ready = true;
     }
 
-    int getTime() {
+    public int getTime() {
         return time;
     }
 
-    int getCapacity() {
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getCapacity() {
         return capacity;
     }
 
-    void setCount(int count) {
-        this.count = count;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
-    int getCount() {
+    public int getCount() {
         return count;
     }
 
-    void setReady(boolean ready) {
-        this.ready = ready;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    boolean isReady() {
+    public boolean getReady() {
         return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
     }
 }
