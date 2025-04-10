@@ -92,7 +92,7 @@ public class PapasPancakeria {
     /**
      * Start logger + new day.
      */
-    public void start() {
+    public void start() throws InterruptedException {
         new Thread(() -> {
             logger(2500);
         }).start();
@@ -152,15 +152,16 @@ public class PapasPancakeria {
 
                 ttt();
                 System.out.printf("Deliver %d stole %d pizzas, return after %d secs%n", i, c, t);
-                Thread.sleep(t * 1000L);
-                System.out.printf("Deliver %d returned%n", i);
-
-                deliver.setReady(true);
 
                 // Notify waiting cooks when pizzas are taken
                 synchronized (storage) {
                     storage.notifyAll();
                 }
+
+                Thread.sleep(t * 1000L);
+                System.out.printf("Deliver %d returned%n", i);
+
+                deliver.setReady(true);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -180,17 +181,14 @@ public class PapasPancakeria {
         }
     }
 
-    private void processDelivers() {
-        while (storage.getCount() > 0) {
-            if (storage.getCount() <= 0) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                continue;
-            }
+    private void processDelivers() throws InterruptedException {
+        while (pancakeriaIsOpen || storage.getCount() > 0) {
+            // add notify
+            System.out.println("aa");
             for (int i = 0; (storage.getCount() > 0) && (i < delivers.length); i++) {
+                if (i == 0) {
+                    System.out.println("\tbb");
+                }
                 if (delivers[i].getReady()) {
                     int cap = delivers[i].getCapacity();
                     synchronized (storage) {
@@ -211,14 +209,20 @@ public class PapasPancakeria {
      *
      * @param workTimeSeconds — secs.
      */
-    private void newDay(long workTimeSeconds) {
+    private void newDay(long workTimeSeconds) throws InterruptedException {
         long startTime = System.currentTimeMillis() / 1000L;
         System.out.printf("Let's start a new working day! (%d seconds)%n", workTimeSeconds);
 
         // Объект для синхронизации заказов
         final Object ordersMonitor = new Object();
 
-        Thread dels = new Thread(this::processDelivers);
+        Thread dels = new Thread(() -> {
+            try {
+                processDelivers();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
         dels.start();
 
         // Поток генерации заказов
@@ -275,6 +279,8 @@ public class PapasPancakeria {
         System.out.println("Cookers are free)");
         System.out.println("Wait delivers...");
         pancakeriaIsOpen = false;
+
+//        processDelivers(); // вечерняя доработка
 
         // Разбудить все ожидающие потоки
         synchronized (ordersMonitor) {

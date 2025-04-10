@@ -1,14 +1,13 @@
 package ru.nsu.martynov;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 class TestPapasPancakeria {
 
     @Test
-    void ppTest() {
+    void ppTest() throws InterruptedException {
         PapasPancakeria pp = new PapasPancakeria("config.txt");
         pp.start();
 

@@ -4,7 +4,7 @@ package ru.nsu.martynov;
  * Visual test PapasPancakeria class.
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         PapasPancakeria pp = new PapasPancakeria("config.txt");
         pp.loadConfig("config.txt");
 

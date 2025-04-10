@@ -3,8 +3,8 @@ package ru.nsu.martynov;
 public class Printer {
 
     public synchronized static void loggerHelper(Cooker[] cs, Deliver[] ds) {
-        printCookers(cs);
-        printDelivers(ds);
+//        printCookers(cs);
+//        printDelivers(ds);
     }
 
     private static void printCookers(Cooker[] cs) {
