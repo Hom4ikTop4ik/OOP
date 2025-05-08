@@ -24,6 +24,11 @@ public class GameView {
         this.gameMap = gameEngine.getGameMap();
         drawGame();
     }
+    public void initialize(Settings settings, GameMap gameMap) {
+        this.settings = settings;
+        this.gameMap = gameMap;
+        drawGame();
+    }
 
     public void drawGame() {
         GraphicsContext gc = gameCanvas.getGraphicsContext2D();
@@ -96,6 +101,73 @@ public class GameView {
             gc.fillRect(food.getX() * settings.getCellSize(),
                     food.getY() * settings.getCellSize(),
                     settings.getCellSize(), settings.getCellSize());
+        }
+    }
+
+    public void drawNetworkGame(GameStateDTO gameStateDTO) {
+        GraphicsContext gc = gameCanvas.getGraphicsContext2D();
+        int cellSize = settings.getCellSize();
+
+        gc.clearRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
+
+        // Рисуем сетку
+        gc.setStroke(Color.LIGHTGRAY);
+        for (int i = 0; i < settings.getWidth(); i++) {
+            for (int j = 0; j < settings.getHeight(); j++) {
+                gc.strokeRect(i * cellSize, j * cellSize, cellSize, cellSize);
+            }
+        }
+
+        // Рисуем стены
+        gc.setFill(Color.DIMGRAY);
+        for (Point wall : gameStateDTO.walls) {
+            gc.fillRect(wall.getX() * cellSize, wall.getY() * cellSize, cellSize, cellSize);
+        }
+
+        // Рисуем змей игроков
+        for (int i = 0; i < gameStateDTO.playerSnakes.size(); i++) {
+            List<Point> snake = gameStateDTO.playerSnakes.get(i);
+            if (snake.isEmpty()) continue;
+
+            Color color = Color.RED;  // Можно сделать цвета по игроку, если надо
+            if (i == 0) {
+                // our snake
+                color = Color.GREEN;
+            }
+            Color headColor = color.darker();
+
+            gc.setFill(color);
+            for (Point p : snake) {
+                gc.fillRect(p.getX() * cellSize, p.getY() * cellSize, cellSize, cellSize);
+            }
+
+            gc.setFill(headColor);
+            Point head = snake.get(0);
+            gc.fillRect(head.getX() * cellSize, head.getY() * cellSize, cellSize, cellSize);
+        }
+
+        // Рисуем ботов
+        for (int i = 0; i < gameStateDTO.botSnakes.size(); i++) {
+            List<Point> bot = gameStateDTO.botSnakes.get(i);
+            if (bot.isEmpty()) continue;
+
+            Color color = Color.BLUE;
+            Color headColor = color.darker();
+
+            gc.setFill(color);
+            for (Point p : bot) {
+                gc.fillRect(p.getX() * cellSize, p.getY() * cellSize, cellSize, cellSize);
+            }
+
+            gc.setFill(headColor);
+            Point head = bot.get(0);
+            gc.fillRect(head.getX() * cellSize, head.getY() * cellSize, cellSize, cellSize);
+        }
+
+        // Рисуем еду
+        gc.setFill(Color.RED);
+        for (Point food : gameStateDTO.food) {
+            gc.fillRect(food.getX() * cellSize, food.getY() * cellSize, cellSize, cellSize);
         }
     }
 }

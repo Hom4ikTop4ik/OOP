@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 public class SettingsController {
     @FXML
@@ -32,6 +34,8 @@ public class SettingsController {
     private TextField cellSizeField;
     @FXML
     private TextField configPathField;
+    @FXML
+    private TextField ipField;
 
     @FXML
     private Button loadDefaultButton;
@@ -126,11 +130,45 @@ public class SettingsController {
         primaryStage.show();
     }
 
+    @FXML
+    private void onServerConnect() throws Exception {
+        saveSettingsFromUI();
+
+        String ip = ipField.getText();
+        Socket socket = new Socket(ip, 1620);
+
+        sendSettings(ip);
+        getSettings(ip);
+
+        // Загрузка игрового интерфейса
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/onlineView.fxml"));
+        Parent root = loader.load();
+
+        OnlineController onlineController = loader.getController();
+        onlineController.initialize(settings, socket);
+
+        Scene gameScene = new Scene(root,
+                settings.getWidth() * settings.getCellSize(),
+                settings.getHeight() * settings.getCellSize());
+
+        primaryStage.setScene(gameScene);
+        primaryStage.setTitle("Змейка");
+        primaryStage.show();
+    }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void sendSettings(String ip) {
+
+    }
+
+    private void getSettings(String ip) {
+
     }
 }
