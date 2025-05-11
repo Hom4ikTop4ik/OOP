@@ -1,20 +1,27 @@
 package ru.nsu.martynov;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
-
 import java.util.*;
 
 public class GameEngine {
 
     private final Settings settings;
-    private Timeline timeline;
+    private boolean running = false;
+    private Thread gameLoopThread = null;
     private final Random random = new Random();
 
     private GameMap gameMap;
 
-    private GameStatusListener statusListener;
+    private GameUpdateListener updateListener;
+
+    private boolean noPlayerYet = true;
+
+    public boolean getNoPlayerYet() {
+        return noPlayerYet;
+    }
+
+    public void setUpdateListener(GameUpdateListener listener) {
+        this.updateListener = listener;
+    }
 
     public GameEngine(Settings settings) {
         this.settings = settings;
@@ -23,23 +30,48 @@ public class GameEngine {
         this.gameMap = new GameMap(settings);
     }
 
-    public void setStatusListener(GameStatusListener statusListener) {
-        this.statusListener = statusListener;
+    public void start() {
+        running = true;
+        gameLoopThread = new Thread(() -> {
+            long interval = settings.getMoveInterval(); // миллисекунды
+            while (running) {
+                long startTime = System.currentTimeMillis();
+
+                update();
+
+                if (updateListener != null) {
+                    updateListener.onGameMapUpdated(gameMap);
+                }
+                // Возможно: notify clients или обновить состояние в логике
+
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                long sleepTime = interval - elapsedTime;
+
+                if (sleepTime > 0) {
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            }
+        });
+        gameLoopThread.start();
     }
 
-    public void start(GameView gameView) {
-        timeline = new Timeline(new KeyFrame(Duration.millis(settings.getMoveInterval()), event -> {
-            update();
-            gameView.drawGame();
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
 
-    public void stop() {
-        if (timeline != null) {
-            timeline.stop();
+    public void stop(boolean inside) {
+        running = false;
+        if (inside || gameLoopThread == null) {
+            return;
         }
+
+        try {
+            gameLoopThread.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("joined");
     }
 
     private List<Point> getShuffledNeighbors(Point p) {
@@ -64,7 +96,7 @@ public class GameEngine {
         Point next = snake.getNextHead(snake.getDirection());
 
         if (gameMap.isOccupied(next) || (!settings.getTorus() && !isInsideMap(next, settings))) {
-            gameMap.removeSnake(snake);
+            killSnake(snake, false);
         }
 
         if (gameMap.getFood().contains(next)) {
@@ -78,7 +110,7 @@ public class GameEngine {
         }
 
         if (snake.getBody().size() >= settings.getWinLength()) {
-            onSnakeWin();
+            killSnake(snake, true);
         }
     }
 
@@ -110,35 +142,37 @@ public class GameEngine {
         for (Snake snake : new ArrayList<>(gameMap.getSnakes())) {
             tryMoveSnake(snake);
         }
+
         for (SnakeBot bot : new ArrayList<>(gameMap.getBots())) {
             tryMoveBot(bot);
         }
 
-        if (gameMap.getSnakes().isEmpty()) {
-            onSnakeDeath();
-        }
+//        if (gameMap.getSnakes().isEmpty()) {
+////            onCloseGame();
+//            updateListener.onGameMapUpdated(gameMap);
+//        }
     }
 
     public GameMap getGameMap() {
         return gameMap;
     }
 
-    private void onSnakeDeath() {
-        stop();
-        if (statusListener != null) {
-            statusListener.onGameOver();
+    private void killSnake(Snake snake, boolean win) {
+        if (win) {
+            updateListener.onSnakeWin(snake, gameMap);
+        } else {
+            updateListener.onSnakeDeath(snake, gameMap);
         }
+        gameMap.removeSnake(snake);
     }
 
-    private void onSnakeWin() {
-        stop();
-        if (statusListener != null) {
-            statusListener.onVictory();
+    public int getNextClientID() {
+        int nextID = -1;
+        for (Snake snake : getGameMap().getSnakes()) {
+            if (snake.getID() > nextID) {
+                nextID = snake.getID();
+            }
         }
-    }
-
-    public interface GameStatusListener {
-        void onGameOver();
-        void onVictory();
+        return nextID + 1;
     }
 }

@@ -3,6 +3,8 @@ package ru.nsu.martynov;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 public class SnakeController {
@@ -25,7 +27,7 @@ public class SnakeController {
         }
     }
 
-    public void handleKeyPressedOnline(KeyEvent event, int type) {
+    public void handleKeyPressedOnline(KeyEvent event, int type, ObjectOutputStream objectOutputStream) {
         if (snakes.isEmpty() || type < 0 || type >= SnakeControlKeys.values().length) {
             return;
         }
@@ -35,6 +37,16 @@ public class SnakeController {
 
         Snake snake = snakes.get(0);
         tryChangeDirection(snake, code, keys);
+
+        if (snake.getDirection() != null) {
+            // отправка на сервер
+            try {
+                objectOutputStream.writeObject(snake.getDirection()); // или обёртку, если нужно больше данных
+                objectOutputStream.flush();
+            } catch (IOException e) {
+                System.out.println("Ошибка при отправке направления: " + e.getMessage());
+            }
+        }
     }
 
     private void tryChangeDirection(Snake snake, KeyCode code, KeyCode[] keys) {

@@ -135,7 +135,10 @@ public class SettingsController {
         saveSettingsFromUI();
 
         String ip = ipField.getText();
-        Socket socket = new Socket(ip, 1620);
+        if (ip.isEmpty()) {
+            ip = "localhost";
+        }
+        Socket socket = new Socket(ip, 12345);
 
         sendSettings(ip);
         getSettings(ip);

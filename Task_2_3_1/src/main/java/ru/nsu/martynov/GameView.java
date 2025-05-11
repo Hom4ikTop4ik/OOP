@@ -27,8 +27,10 @@ public class GameView {
     public void initialize(Settings settings, GameMap gameMap) {
         this.settings = settings;
         this.gameMap = gameMap;
+        drawNetworkGame(new GameStateDTO());
         drawGame();
     }
+
 
     public void drawGame() {
         GraphicsContext gc = gameCanvas.getGraphicsContext2D();
@@ -112,8 +114,8 @@ public class GameView {
 
         // Рисуем сетку
         gc.setStroke(Color.LIGHTGRAY);
-        for (int i = 0; i < settings.getWidth(); i++) {
-            for (int j = 0; j < settings.getHeight(); j++) {
+        for (int i = 0; i < gameStateDTO.width; i++) {
+            for (int j = 0; j < gameStateDTO.height; j++) {
                 gc.strokeRect(i * cellSize, j * cellSize, cellSize, cellSize);
             }
         }
@@ -129,7 +131,7 @@ public class GameView {
             List<Point> snake = gameStateDTO.playerSnakes.get(i);
             if (snake.isEmpty()) continue;
 
-            Color color = Color.RED;  // Можно сделать цвета по игроку, если надо
+            Color color = Color.PINK;  // Можно сделать цвета по игроку, если надо
             if (i == 0) {
                 // our snake
                 color = Color.GREEN;

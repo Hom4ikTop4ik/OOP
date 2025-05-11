@@ -1,6 +1,11 @@
 plugins {
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'application'
+}
+
+application {
+    mainClass = 'ru.nsu.martynov.App'
 }
 
 group = 'ru.nsu.martynov'

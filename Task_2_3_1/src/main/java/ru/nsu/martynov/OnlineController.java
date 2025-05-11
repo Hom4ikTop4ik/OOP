@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Optional;
 
@@ -24,6 +25,12 @@ public class OnlineController {
     private GameView gameView;
     private SnakeController snakeController;
     private Settings settings;
+
+    private Socket socket;
+
+    private boolean resize = true;
+
+    private ObjectOutputStream objectOutputStream;
 
     public void initialize(Settings settings, Socket socket) {
         this.settings = settings;
@@ -44,29 +51,93 @@ public class OnlineController {
         // Обработка клавиш
         gameCanvas.setOnKeyPressed(this::handleKeyPress);
 
+        this.socket = socket;
+
+        Platform.runLater(() -> {
+            // Проверяем, что сцена существует, прежде чем пытаться получить окно
+            if (gameCanvas.getScene() != null) {
+                Stage currentStage = (Stage) gameCanvas.getScene().getWindow();
+                // Настроим обработчик закрытия окна
+                currentStage.setOnCloseRequest(event -> {
+                    // Тут вы можете добавить логику для очистки ресурсов и закрытия соединений
+                    System.out.println("Закрытие окна...");
+
+                    // Например, закрытие сокета или завершение потока
+
+                    System.out.println(socket);
+                    if (socket != null)System.out.println(socket.isClosed());
+
+                    if (socket != null && !socket.isClosed()) {
+                        try {
+                            System.out.println("closed");
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    // Здесь можно добавить другие действия, такие как сохранение данных, закрытие соединений и т.д.
+                    Platform.exit(); // Закрыть приложение
+                });
+            } else {
+                // Если сцена еще не установлена, можно обработать это иначе
+                System.out.println("Сцена еще не установлена");
+            }
+        });
+
+
+        GameStateDTO dtoEmpty = new GameStateDTO();
+        gameView.drawNetworkGame(dtoEmpty);
+
+        // Закрытие сокета при закрытии окна
+//        Stage stage = (Stage) gameCanvas.getScene().getWindow();
+//        stage.setOnCloseRequest(event -> {
+//            try {
+//                if (socket != null && !socket.isClosed()) {
+//                    socket.close();
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+
         startNetworkGame(socket, gameView);
     }
 
     public void startNetworkGame(Socket socket, GameView gameView) {
         new Thread(() -> {
-            try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+            try {
+                objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+//                objectOutputStream.flush();
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 while (true) {
-                    GameStateDTO dto = (GameStateDTO) in.readObject(); // получаем сериализованное состояние
+                    Object object = in.readObject();
+                    System.out.println("aboba");
+                    if (object instanceof String) {
+                        System.out.println((String) object);
+                    } else {
+                        GameStateDTO dto = (GameStateDTO) object; // получаем сериализованное состояние
 
-                    if (dto.gameOver) {
-                        socket.close();
-                        if (dto.score >= settings.getWinLength()) {
-                            Platform.runLater(showVictory(dto.score));
+                        if (dto.gameOver) {
+                            socket.close();
+                            if (dto.gameWon) {
+                                Platform.runLater(showVictory(dto.score));
+                            } else {
+                                Platform.runLater(showGameOver(dto.score));
+                            }
+                            return;
                         }
-                        else {
-                            Platform.runLater(showGameOver(dto.score));
-                        }
-                        return;
+
+                        Platform.runLater(() -> {
+                            gameView.drawNetworkGame(dto); // рисуем, ты можешь адаптировать drawGame
+                        });
+
+//                        if (resize) {
+//                            gameCanvas.setWidth(dto.width * settings.getCellSize());
+//                            gameCanvas.setHeight(dto.height * settings.getCellSize());
+//                            resize = false;
+//                        }
                     }
-
-                    Platform.runLater(() -> {
-                        gameView.drawNetworkGame(dto); // рисуем, ты можешь адаптировать drawGame
-                    });
                 }
             } catch (Exception e) {
                 System.out.println("Соединение потеряно: " + e.getMessage());
@@ -78,7 +149,7 @@ public class OnlineController {
 
     @FXML
     private void handleKeyPress(KeyEvent event) {
-        snakeController.handleKeyPressedOnline(event, 0);
+        snakeController.handleKeyPressedOnline(event, 0, objectOutputStream);
     }
 
 
