@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.martynov.SettingsController" vgap="10" hgap="10" alignment="center">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20" />
+    </padding>
+
+    <Label text="Размер поля ширина:" GridPane.rowIndex="0" />
+    <TextField fx:id="widthField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+    <Label text="Размер поля высота:" GridPane.rowIndex="1" />
+    <TextField fx:id="heightField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+    <Label text="Количество еды:" GridPane.rowIndex="2" />
+    <TextField fx:id="foodCountField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+    <Label text="Кол-во локальных игроков:" GridPane.rowIndex="3" />
+    <TextField fx:id="snakeCountField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+    <Label text="Цель игры (длина змейки):" GridPane.rowIndex="4" />
+    <TextField fx:id="winLengthField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+    <Label text="Размер клетки:" GridPane.rowIndex="5" />
+    <TextField fx:id="cellSizeField" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+    <Label text="Длительность движения (tick interval):" GridPane.rowIndex="6" />
+    <TextField fx:id="speedField" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+    <Label text="Кол-во ботов:" GridPane.rowIndex="7" />
+    <TextField fx:id="botCountField" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+    <Label text="Макс. длина ботов:" GridPane.rowIndex="8" />
+    <TextField fx:id="botLengthField" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+
+    <Label text="Путь к конфигу:" GridPane.rowIndex="9" />
+    <TextField fx:id="configPathField" GridPane.rowIndex="9" GridPane.columnIndex="1" />
+
+    <!-- Кнопки -->
+    <HBox spacing="10" GridPane.rowIndex="10" GridPane.columnSpan="2" alignment="center">
+        <Button text="Конфиг по умолчанию" onAction="#onLoadDefaultConfig" />
+        <Button text="Конфиг из файла" onAction="#onLoadConfigFromFile" />
+    </HBox>
+
+    <HBox spacing="10" GridPane.rowIndex="11" GridPane.columnSpan="2" alignment="center">
+        <Button text="Начать игру" onAction="#onStartGame" />
+    </HBox>
+
+
+    <Label text="IP сервера:" GridPane.rowIndex="12" />
+    <TextField fx:id="ipField" GridPane.rowIndex="12" GridPane.columnIndex="1" />
+
+    <HBox spacing="10" GridPane.rowIndex="13" GridPane.columnSpan="2" alignment="center">
+        <Button text="Подключиться" onAction="#onServerConnect" />
+    </HBox>
+</GridPane>
