@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class SnakeBot extends Snake {
     private final Random random = new Random();
-    private GameMap gameMap;
+    private final GameMap gameMap;
 
     public SnakeBot(Point startPosition, int id, GameMap gameMap) {
         super(startPosition, id);

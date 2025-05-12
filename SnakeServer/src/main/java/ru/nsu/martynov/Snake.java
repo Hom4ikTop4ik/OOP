@@ -3,16 +3,11 @@ package ru.nsu.martynov;
 import java.util.LinkedList;
 import java.util.List;
 
-import java.util.Random;
-
 public class Snake {
     private final LinkedList<Point> body = new LinkedList<>();
-    private Direction direction = null;
-    private DirectionHorVer lastDirection = null;
-    private int id;
-
-
-    Random rand = new Random();
+    private volatile Direction direction = null;
+    private volatile DirectionHorVer lastDirection = null;
+    private volatile int id;
 
     public Snake(Point startPosition, int id) {
         body.add(startPosition);

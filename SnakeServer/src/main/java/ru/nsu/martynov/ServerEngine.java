@@ -7,15 +7,17 @@ import java.util.concurrent.*;
 public class ServerEngine implements GameUpdateListener {
 
     private final Settings settings;
-    private final Map<Integer, ClientConnection> clients = new ConcurrentHashMap<>();
-    private GameEngine gameEngine = null;
+    private final Map<Integer, ClientConnection> clients = new ConcurrentHashMap<Integer, ClientConnection>();
+    private volatile GameEngine gameEngine = null;
 
     public ServerEngine(Settings settings) {
         this.settings = settings;
     }
 
     public synchronized void addClient(Socket socket) {
+        System.out.println(gameEngine);
         if (gameEngine == null) {
+            System.out.println("Server starting up");
             startGameEngine();
         }
 
@@ -26,14 +28,22 @@ public class ServerEngine implements GameUpdateListener {
 
         if (gameEngine.getGameMap().spawnSnake(clientID)) {
             connection.sendMessage("Вы подключились к игре!");
+            if (gameEngine.getGameMap().getSnakes().size() <= 0) {
+                System.out.println("Blya");
+            }
+            gameEngine.setServerAlreadyWorked(true);
         } else {
             connection.sendMessage("gameEngine.getGameMap().spawnSnake(clientID) == false :(");
         }
     }
 
     public synchronized void removeClient(ClientConnection client) {
-
+        if (client == null) {
+            return;
+        }
         int clientID = client.getClientID();
+
+        client.close();
 
         clients.remove(clientID);
         if (gameEngine == null || gameEngine.getGameMap() == null) {
@@ -44,7 +54,8 @@ public class ServerEngine implements GameUpdateListener {
                 gameEngine.getGameMap().getSnakeById(clientID)
         );
 
-        if (!gameEngine.getNoPlayerYet()) {
+        if (gameEngine.getServerAlreadyWorked()) {
+            System.out.println(gameEngine.getGameMap().getSnakes().size());
             if (clients.isEmpty() || gameEngine.getGameMap().getSnakes().isEmpty()) {
                 stopGameEngine(false);
             }
@@ -72,9 +83,13 @@ public class ServerEngine implements GameUpdateListener {
 
     // Метод от GameUpdateListener: вызывается каждый тик
     @Override
-    public void onGameMapUpdated(GameMap gameMap) {
-        if (gameMap.getSnakes().isEmpty()) {
-            if (!gameEngine.getNoPlayerYet()) {
+    public void onGameMapUpdated() {
+        if (gameEngine == null) {
+            return;
+        }
+
+        if (gameEngine.getGameMap().getSnakes().isEmpty()) {
+            if (gameEngine.getServerAlreadyWorked()) {
                 stopGameEngine(true);
             }
 
@@ -86,8 +101,13 @@ public class ServerEngine implements GameUpdateListener {
         }
 
         for (ClientConnection client : clients.values()) {
-            int id = client.getClientID();
-            client.sendGameMap(gameMap, id, false, false);
+            if (client.getIsClosed()) {
+                gameEngine.getGameMap().removeSnake(
+                        gameEngine.getGameMap().getSnakeById(client.getClientID())
+                );
+                continue;
+            }
+            client.sendGameMap(gameEngine.getGameMap(), false, false);
         }
     }
 
@@ -102,7 +122,7 @@ public class ServerEngine implements GameUpdateListener {
         }
 
         client.sendMessage("Вы выиграли, ваша длина: " + score + "!");
-        client.sendGameMap(gameMap, clientID, true, true);
+        client.sendGameMap(gameMap, true, true);
 
         ClientConnection clientConnection = clients.get(clientID);
         removeClient(clientConnection);
@@ -119,7 +139,7 @@ public class ServerEngine implements GameUpdateListener {
         }
 
         client.sendMessage("Вы проиграли, ваша длина: " + score + "!");
-        client.sendGameMap(gameMap, clientID, true, false);
+        client.sendGameMap(gameMap, true, false);
 
         ClientConnection clientConnection = clients.get(clientID);
         removeClient(clientConnection);

@@ -8,16 +8,14 @@ public class GameMap {
     private final List<Point> food = new ArrayList<>();
     private final List<SnakeBot> bots = new ArrayList<>();
     private final List<Snake> snakes = new ArrayList<>();
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     private final Settings settings;
 
-    private int maxLength = 0;
+    private volatile int maxLength = 0;
 
     private final Random random = new Random();
-
-    private int maxRes = 0;
 
     public GameMap(Settings settings) {
         this.settings = settings;
@@ -26,11 +24,11 @@ public class GameMap {
         initMap();
     }
 
-    public int getMaxLength() {
+    public synchronized int getMaxLength() {
         return maxLength;
     }
 
-    public void setMaxLength(int maxLength) {
+    public synchronized void setMaxLength(int maxLength) {
         this.maxLength = maxLength;
     }
 
@@ -89,11 +87,11 @@ public class GameMap {
     }
 
 
-    public boolean isOccupied(Point p) {
+    public synchronized boolean isOccupied(Point p) {
         return isOccupiedByBot(p) || isOccupiedBySnake(p) || isOccupiedByWalls(p);
     }
 
-    public boolean isBusy(Point p) {
+    public synchronized boolean isBusy(Point p) {
         return isOccupiedByBot(p) || isOccupiedBySnake(p) || isOccupiedByWalls(p) || isOccupiedByFood(p);
     }
 
@@ -107,7 +105,7 @@ public class GameMap {
         // Не создаём змей, их ServerEngine добавит
 
         // Создаём ботов
-        spawnBots(settings.getBotCount());
+        spawnBots(settings.getBotCount(), 1);
     }
 
     private void generateWalls() {
@@ -236,22 +234,22 @@ public class GameMap {
     }
 
 
-    public void removeWall(Point p) {
+    public synchronized void removeWall(Point p) {
         walls.remove(p);
     }
 
-    public void spawnFood(int count) {
+    public synchronized void spawnFood(int count) {
         for (int i = 0; i < count; i++) {
             Point p = getRandomEmptyCell();
             food.add(p);
         }
     }
 
-    public void removeFood(Point p) {
+    public synchronized void removeFood(Point p) {
         food.remove(p);
     }
 
-    public boolean spawnSnake(int ID) {
+    public synchronized boolean spawnSnake(int ID) {
         if (getSnakeById(ID) != null) {
             return false;
         }
@@ -261,26 +259,30 @@ public class GameMap {
         return true;
     }
 
-    public void removeSnake(Snake curSnake) {
+    public synchronized void removeSnake(Snake curSnake) {
+        if (curSnake == null) {
+            return;
+        }
         List<Snake> snakesCopy = new ArrayList<>(snakes);
         for (Snake snake : snakesCopy) {
             if (snake.getID() == curSnake.getID()) {
                 snakes.remove(snake);
-                maxRes = Math.max(maxRes, snake.getBody().size());
+                setMaxLength(
+                        Math.max(this.getMaxLength(), snake.getBody().size())
+                );
             }
         }
     }
 
-    public void spawnBots(int count) {
-        int pluser = getBots().size();
+    public synchronized void spawnBots(int count, int minID) {
         for (int i = 0; i < count; i++) {
             Point p = getRandomEmptyCell();
-            SnakeBot bot = new SnakeBot(p, pluser + i + 1, this);
+            SnakeBot bot = new SnakeBot(p, minID + i, this);
             bots.add(bot);
         }
     }
 
-    public void removeBot(SnakeBot curBot) {
+    public synchronized void removeBot(SnakeBot curBot) {
         List<SnakeBot> botsCopy = new ArrayList<>(bots);
         for (SnakeBot bot : botsCopy) {
             if (bot.getID() == curBot.getID()) {
@@ -289,7 +291,7 @@ public class GameMap {
         }
     }
 
-    public Snake getSnakeById(int id) {
+    public synchronized Snake getSnakeById(int id) {
         for (Snake snake : snakes) {
             if (snake.getID() == id) {
                 return snake;
@@ -298,7 +300,7 @@ public class GameMap {
         return null;
     }
 
-    public SnakeBot getBotById(int id) {
+    public synchronized SnakeBot getBotById(int id) {
         for (SnakeBot bot : bots) {
             if (bot.getID() == id) {
                 return bot;
@@ -308,46 +310,46 @@ public class GameMap {
     }
 
     // === Стены ===
-    public List<Point> getWalls() {
+    public synchronized List<Point> getWalls() {
         return Collections.unmodifiableList(walls);
     }
 
     // === Еда ===
-    public List<Point> getFood() {
+    public synchronized List<Point> getFood() {
         return Collections.unmodifiableList(food);
     }
 
     // === Боты ===
-    public List<SnakeBot> getBots() {
+    public synchronized List<SnakeBot> getBots() {
         return Collections.unmodifiableList(bots);
     }
 
     // === Змейки ===
-    public List<Snake> getSnakes() {
+    public synchronized List<Snake> getSnakes() {
         return Collections.unmodifiableList(snakes);
     }
 
-    public void removeDeadSnakes(Predicate<Snake> shouldRemove) {
+    public synchronized void removeDeadSnakes(Predicate<Snake> shouldRemove) {
         snakes.removeIf(shouldRemove);
     }
 
-    public void removeDeadBots(Predicate<SnakeBot> shouldRemove) {
+    public synchronized void removeDeadBots(Predicate<SnakeBot> shouldRemove) {
         bots.removeIf(shouldRemove);
     }
 
     // Очистка карты
-    public void clear() {
+    public synchronized void clear() {
         walls.clear();
         food.clear();
         bots.clear();
         snakes.clear();
     }
 
-    public int getWidth() {
+    public synchronized int getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public synchronized int getHeight() {
         return height;
     }
 }

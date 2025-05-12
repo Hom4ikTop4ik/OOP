@@ -5,18 +5,22 @@ import java.util.*;
 public class GameEngine {
 
     private final Settings settings;
-    private boolean running = false;
-    private Thread gameLoopThread = null;
+    private volatile boolean running = false;
+    private volatile Thread gameLoopThread = null;
     private final Random random = new Random();
 
-    private GameMap gameMap;
+    private final GameMap gameMap;
 
-    private GameUpdateListener updateListener;
+    private volatile GameUpdateListener updateListener;
 
-    private boolean noPlayerYet = true;
+    private volatile boolean serverAlreadyWorked = false;
 
-    public boolean getNoPlayerYet() {
-        return noPlayerYet;
+    public synchronized boolean getServerAlreadyWorked() {
+        return serverAlreadyWorked;
+    }
+
+    public synchronized void setServerAlreadyWorked(boolean serverAlreadyWorked) {
+        this.serverAlreadyWorked = serverAlreadyWorked;
     }
 
     public void setUpdateListener(GameUpdateListener listener) {
@@ -38,9 +42,9 @@ public class GameEngine {
                 long startTime = System.currentTimeMillis();
 
                 update();
-
+                System.out.println(gameMap.getSnakes().size());
                 if (updateListener != null) {
-                    updateListener.onGameMapUpdated(gameMap);
+                    updateListener.onGameMapUpdated();
                 }
                 // Возможно: notify clients или обновить состояние в логике
 
@@ -66,12 +70,8 @@ public class GameEngine {
             return;
         }
 
-        try {
-            gameLoopThread.join();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        System.out.println("joined");
+        gameLoopThread.interrupt();
+        System.out.println("interrupted");
     }
 
     private List<Point> getShuffledNeighbors(Point p) {
@@ -93,48 +93,52 @@ public class GameEngine {
     public void tryMoveSnake(Snake snake) {
         if (snake.getDirection() == null) return;
 
-        Point next = snake.getNextHead(snake.getDirection());
+        synchronized (gameMap) {
+            Point next = snake.getNextHead(snake.getDirection());
 
-        if (gameMap.isOccupied(next) || (!settings.getTorus() && !isInsideMap(next, settings))) {
-            killSnake(snake, false);
-        }
+            if (gameMap.isOccupied(next) || (!settings.getTorus() && !isInsideMap(next, settings))) {
+                killSnake(snake, false);
+            }
 
-        if (gameMap.getFood().contains(next)) {
-            snake.grow();
-            gameMap.removeFood(next);
-            gameMap.spawnFood(1);
+            if (gameMap.getFood().contains(next)) {
+                snake.grow();
+                gameMap.removeFood(next);
+                gameMap.spawnFood(1);
 
-            gameMap.setMaxLength(Math.max(gameMap.getMaxLength(), snake.getBody().size()));
-        } else {
-            snake.move();
-        }
+                gameMap.setMaxLength(Math.max(gameMap.getMaxLength(), snake.getBody().size()));
+            } else {
+                snake.move();
+            }
 
-        if (snake.getBody().size() >= settings.getWinLength()) {
-            killSnake(snake, true);
+            if (snake.getBody().size() >= settings.getWinLength()) {
+                killSnake(snake, true);
+            }
         }
     }
 
     public void tryMoveBot(SnakeBot bot) {
         if (bot.getDirection() == null) return;
 
-        Point next = bot.getNextHead(bot.getDirection());
+        synchronized (gameMap) {
+            Point next = bot.getNextHead(bot.getDirection());
 
-        if (gameMap.isOccupied(next) || (!settings.getTorus() && !isInsideMap(next, settings))) {
-            gameMap.removeBot(bot);
-            gameMap.spawnBots(1);
-        }
+            if (gameMap.isOccupied(next) || (!settings.getTorus() && !isInsideMap(next, settings))) {
+                gameMap.spawnBots(1, getNextBotID());
+                gameMap.removeBot(bot);
+            }
 
-        if (gameMap.getFood().contains(next)) {
-            bot.grow();
-            gameMap.removeFood(next);
-            gameMap.spawnFood(1);
-        } else {
-            bot.move();
-        }
+            if (gameMap.getFood().contains(next)) {
+                bot.grow();
+                gameMap.removeFood(next);
+                gameMap.spawnFood(1);
+            } else {
+                bot.move();
+            }
 
-        if (bot.getBody().size() >= settings.getBotLength()) {
-            gameMap.removeBot(bot);
-            gameMap.spawnBots(1);
+            if (bot.getBody().size() >= settings.getBotLength()) {
+                gameMap.spawnBots(1, getNextBotID());
+                gameMap.removeBot(bot);
+            }
         }
     }
 
@@ -171,6 +175,16 @@ public class GameEngine {
         for (Snake snake : getGameMap().getSnakes()) {
             if (snake.getID() > nextID) {
                 nextID = snake.getID();
+            }
+        }
+        return nextID + 1;
+    }
+
+    public int getNextBotID() {
+        int nextID = -1;
+        for (SnakeBot bot : getGameMap().getBots()) {
+            if (bot.getID() > nextID) {
+                nextID = bot.getID();
             }
         }
         return nextID + 1;

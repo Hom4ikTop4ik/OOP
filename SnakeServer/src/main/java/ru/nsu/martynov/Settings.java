@@ -6,15 +6,15 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Settings {
-    private int width;
-    private int height;
-    private int foodCount;
-    private int snakeCount;
-    private int winLength;
-    private int cellSize;
-    private int moveInterval;
-    private int botCount;
-    private int botLen;
+    private volatile int width;
+    private volatile int height;
+    private volatile int foodCount;
+    private volatile int snakeCount;
+    private volatile int winLength;
+    private volatile int cellSize;
+    private volatile int moveInterval;
+    private volatile int botCount;
+    private volatile int botLen;
 
     private boolean torus = false;
 

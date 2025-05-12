@@ -7,15 +7,15 @@ import java.util.List;
 public class GameStateDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public List<List<Point>> playerSnakes = new ArrayList<>();
-    public List<List<Point>> botSnakes = new ArrayList<>();
-    public List<Point> food;
-    public List<Point> walls;
-    public int score;
-    public boolean gameOver;
-    public boolean gameWon;
-    public int width;
-    public int height;
+    public volatile List<List<Point>> playerSnakes = new ArrayList<>();
+    public volatile List<List<Point>> botSnakes = new ArrayList<>();
+    public volatile List<Point> food;
+    public volatile List<Point> walls;
+    public volatile int score;
+    public volatile boolean gameOver;
+    public volatile boolean gameWon;
+    public volatile int width;
+    public volatile int height;
 
     public GameStateDTO(GameMap gameMap, int id, boolean gameOver, boolean gameWon) {
         // Snakes

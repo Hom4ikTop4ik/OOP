@@ -31,6 +31,7 @@ public class OnlineController {
     private boolean resize = true;
 
     private ObjectOutputStream objectOutputStream;
+    private ObjectInputStream objectInputStream;
 
     public void initialize(Settings settings, Socket socket) {
         this.settings = settings;
@@ -63,17 +64,8 @@ public class OnlineController {
                     System.out.println("Закрытие окна...");
 
                     // Например, закрытие сокета или завершение потока
-
-                    System.out.println(socket);
-                    if (socket != null)System.out.println(socket.isClosed());
-
                     if (socket != null && !socket.isClosed()) {
-                        try {
-                            System.out.println("closed");
-                            socket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        disconnect();
                     }
 
                     // Здесь можно добавить другие действия, такие как сохранение данных, закрытие соединений и т.д.
@@ -108,11 +100,10 @@ public class OnlineController {
         new Thread(() -> {
             try {
                 objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-//                objectOutputStream.flush();
-                ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+                objectOutputStream.flush();
+                objectInputStream = new ObjectInputStream(socket.getInputStream());
                 while (true) {
-                    Object object = in.readObject();
-                    System.out.println("aboba");
+                    Object object = objectInputStream.readObject();
                     if (object instanceof String) {
                         System.out.println((String) object);
                     } else {
@@ -142,9 +133,33 @@ public class OnlineController {
             } catch (Exception e) {
                 System.out.println("Соединение потеряно: " + e.getMessage());
                 Platform.exit(); // вернуться в меню
+            } finally {
+                disconnect(); // корректное закрытие
+                Platform.exit(); // только после disconnect()
             }
         }).start();
     }
+
+    private void disconnect() {
+        try {
+            if (objectInputStream != null) {
+                objectInputStream.close();
+            }
+        } catch (Exception ignored) {}
+
+        try {
+            if (objectOutputStream != null) {
+                objectOutputStream.close();
+            }
+        } catch (Exception ignored) {}
+
+        try {
+            if (socket != null && !socket.isClosed()) socket.close();
+        } catch (Exception ignored) {}
+
+        System.out.println("Клиент отключился.");
+    }
+
 
 
     @FXML
