@@ -64,6 +64,11 @@ public abstract class ConfigBaseScript extends Script {
 
         closure.setResolveStrategy(Closure.DELEGATE_FIRST);
         closure.setDelegate(new Object() {
+
+            public void courseName(String name) {
+                courseConfig.setCourseName(name);
+            }
+
             public void latePenaltyPerDay(double penalty) {
                 settings.setLatePenaltyPerDay(penalty);
             }

@@ -10,6 +10,7 @@ public class CourseConfig {
     private List<Checkpoint> checkpoints = new ArrayList<>();
     private List<Assignment> assignments = new ArrayList<>();
     private Settings settings;
+    private String courseName;  // добавлено
 
     // --- Добавление элементов ---
     public void addTask(Task task) {
@@ -49,6 +50,10 @@ public class CourseConfig {
         return settings;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
     // --- Setters ---
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
@@ -68,6 +73,10 @@ public class CourseConfig {
 
     public void setSettings(Settings settings) {
         this.settings = settings;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     // --- equals & hashCode ---

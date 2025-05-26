@@ -1,6 +1,8 @@
 package ru.nsu.martynov.runner;
 
 import ru.nsu.martynov.model.*;
+import ru.nsu.martynov.report.ConsoleReportGenerator;
+import ru.nsu.martynov.report.HtmlReportGenerator;
 import ru.nsu.martynov.report.ReportGenerator;
 import ru.nsu.martynov.service.*;
 
@@ -52,42 +54,59 @@ public class Runner {
                 int activeWeeks = activityService.countActiveWeeks(commitDates);
                 System.out.println("  Активных недель: " + activeWeeks);
 
+                // Можно вычислить процент активности по неделям, например:
+                double activityPercent = Math.min(activeWeeks / 10.0, 1.0) * 100; // пример
+                student.setActivityPercent(activityPercent);
+
                 for (Task task : config.getTasks()) {
                     File taskDir = new File(studentRepo, task.getId());
 
                     if (!taskDir.exists()) {
                         System.err.println("    Задание не найдено: " + taskDir.getAbsolutePath());
+                        student.addBuildResult(task.getId(), false);
                         continue;
                     }
 
                     boolean built = buildService.build(taskDir);
+                    student.addBuildResult(task.getId(), built);
+
                     if (!built) {
                         System.err.println("    Сборка не удалась");
                         continue;
                     }
 
                     boolean styleOk = styleChecker.checkStyle(taskDir);
+                    student.addStyleResult(task.getId(), styleOk);
+
                     if (!styleOk) {
                         System.err.println("    Стиль не соответствует Google Java Style");
                         continue;
                     }
 
-                    // Передаём github студента во второй параметр
+                    // variant 1
+                    // TestResult result = testRunner.run(taskDir, student.getGithub());
+
+                    // variant 2
+                    // File studentReportDir = new File("student-test-reports/" + student.getGithub() + "/" + task.getId());
+                    // TestResult result = testRunner.run(taskDir, studentReportDir);
+
+                    // variant 3
                     TestResult result = testRunner.run(taskDir);
+                    student.addTestResult(task.getId(), result);
 
-//                    TestResult result = testRunner.run(taskDir, student.getGithub());
-
-//                    File studentReportDir = new File("student-test-reports/" + student.getGithub() + "/" + task.getId());
-//                    TestResult result = testRunner.run(taskDir, studentReportDir);
+                    // Допустим, документирование — отдельная проверка
+                    boolean docsOk = true; // нужно добавить проверку документации
+                    student.addDocumentationResult(task.getId(), docsOk);
 
                     int baseScore = scoreCalculator.calculate(task, result, config.getSettings());
 
-                    // Бонус за активность, максимум +5 баллов
                     int activityBonus = Math.min(activeWeeks, 5);
+                    student.addBonusScore(task.getId(), activityBonus);
 
                     int finalScore = baseScore + activityBonus;
 
                     student.addScore(task.getId(), finalScore);
+
                     System.out.println("    Балл: " + finalScore + " (базовый: " + baseScore + ", бонус за активность: " + activityBonus + ")");
                 }
 
@@ -95,8 +114,11 @@ public class Runner {
             }
         }
 
-        ReportGenerator generator = new ReportGenerator();
-        generator.generate(config);
+        ReportGenerator conGenerator = new ConsoleReportGenerator();
+        conGenerator.generate(config);
+
+        ReportGenerator htmlGenerator = new HtmlReportGenerator();
+        htmlGenerator.generate(config);
     }
 
     private boolean cloneRepo(String repoUrl, File dir) {

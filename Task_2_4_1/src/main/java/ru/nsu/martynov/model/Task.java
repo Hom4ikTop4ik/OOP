@@ -27,6 +27,10 @@ public class Task {
         return title;
     }
 
+    public String getName() {
+        return getTitle();
+    }
+
     public int getMaxScore() {
         return maxScore;
     }

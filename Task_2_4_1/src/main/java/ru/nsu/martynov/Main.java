@@ -17,7 +17,7 @@ public class Main {
         } else if (args.length == 1) {
             configPath = args[0];
         } else {
-            System.err.println("Program use only the first parameter. Usage: java -jar app.jar [path/to/config.groovy]");
+            System.err.println("Tip: program use only the first parameter. Usage: java -jar app.jar [path/to/config.groovy]");
             return;
         }
 

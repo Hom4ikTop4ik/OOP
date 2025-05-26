@@ -52,7 +52,8 @@ checkpoints {
 }
 
 settings {
-    latePenaltyPerDay  = 0.1
-    autoCheckEnabled   = true
-    reviewTimeoutDays  = 3
+    courseName          "Объектно-ориентированное программирование"
+    latePenaltyPerDay   0.1
+    autoCheckEnabled    true
+    reviewTimeoutDays   3
 }
