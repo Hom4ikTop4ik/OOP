@@ -1,0 +1,101 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+}
+
+def checkstyleVersion = '10.12.4'
+def libDir = file("$projectDir/lib")
+def googleXml = new File(libDir, "google_checks.xml")
+
+group = 'ru.nsu.martynov'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.codehaus.groovy:groovy-all:3.0.9'
+    implementation "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
+}
+
+application {
+    mainClass = 'ru.nsu.martynov.Main'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+// Вынесем флаг включения проверки своего кода в переменную
+ext {
+    useCheckStyleMySelf = false // true — проверять свой код, false — нет
+}
+
+// Логируем значение флага при конфигурации
+println "useCheckStyleMySelf = $useCheckStyleMySelf"
+
+tasks.register('downloadCheckstyleResources') {
+    doLast {
+        if (!libDir.exists()) {
+            println "Создаём директорию lib..."
+            libDir.mkdirs()
+        }
+        if (!googleXml.exists()) {
+            println "Скачиваем google_checks.xml..."
+            def googleXmlUrl = "https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-${checkstyleVersion}/src/main/resources/google_checks.xml"
+            new URL(googleXmlUrl).withInputStream { input ->
+                googleXml.withOutputStream { output -> output << input }
+            }
+        } else {
+            println "google_checks.xml уже скачан."
+        }
+    }
+}
+
+checkstyle {
+    toolVersion = checkstyleVersion
+
+    // Используем скачанный файл в lib/google_checks.xml
+    configFile = googleXml
+
+    def customConfigPath = project.findProperty("checkstyleConfigPath")
+    if (customConfigPath) {
+        configFile = file(customConfigPath)
+        println "Using custom Checkstyle config: ${customConfigPath}"
+    } else {
+        println "Using downloaded Google Java Style from lib/google_checks.xml"
+    }
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+    dependsOn tasks.named('downloadCheckstyleResources')
+}
+
+// Включаем или отключаем задачу checkstyleMain по флагу
+tasks.named('checkstyleMain') {
+    enabled = useCheckStyleMySelf
+}
+
+// Настраиваем сборку: если включен флаг, то build зависит от checkstyleMain,
+// иначе просто от check (или ничего лишнего)
+tasks.named('build') {
+    if (useCheckStyleMySelf) {
+        dependsOn tasks.named('checkstyleMain')
+    } else {
+        dependsOn tasks.named('check')
+    }
+}
